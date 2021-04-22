@@ -1,0 +1,5 @@
+<div class="mensaje">
+    <%request.getSession().setAttribute("mensaje", "Bienvenido");%>
+    <h1><%=session.getAttribute("mensaje")%></h1>
+    <%request.getSession().setAttribute("mensaje", "Bienvenido");%>
+</div>

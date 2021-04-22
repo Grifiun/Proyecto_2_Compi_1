@@ -1,0 +1,61 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+<form id="form-gcic">
+<div class="contenedor-principal">    
+    <div class="a-bloque-boton-analizar">
+      <button class="a-boton-analizar">Analizar</button>        
+      <input type="file" id="input" accept=".gcic">
+      <input type="button" class="a-boton-analizar" id="resetForm" value="Restablecer">
+      <input type="button" class="a-boton-analizar" onclick="download()" id="guardar" value="Guardar">
+      <div>
+        Posicion : <span id="position"></span>
+      </div>
+    </div>
+    
+      <div class="row a-bloque-general">
+        <div class="col-sm a-bloque-general-entrada">
+          <textarea class="a-area-texto a-numeros" rows="25" id="contador">1</textarea>
+          <div  class="col-sm a-entrada">
+            <textarea class="a-area-texto a-area-texto-usables" oninput="checkNum(this.value)" placeholder="Entrada" rows="25" id="texto"></textarea>
+          </div>
+        </div>        
+      </div>
+    <div class="row a-bloque-general">
+        <div class="col-sm a-bloque-general-entrada">    
+            <textarea class="a-area-texto a-area-texto-usables" placeholder="Salida" rows="15" id="salida"></textarea>      
+        </div>    
+    </div>
+</div>
+</form>
+    
+    
+<script src="../scrpits/script-ide.js" type="text/javascript"></script>
+<script>
+    $("#contador").scroll(function () { 
+    $("#texto").scrollTop($("#contador").scrollTop());
+    $("#texto").scrollLeft($("#contador").scrollLeft());
+  });
+  $("#texto").scroll(function () { 
+    $("#contador").scrollTop($("#texto").scrollTop());
+    $("#contador").scrollLeft($("#texto").scrollLeft());
+  });
+  $("#texto").on('keydown keyup mousedown mouseup',function(e){		   
+       p = $('#texto').val().substr(0, $('#texto')[0].selectionStart).split("\n");
+       // line is the number of lines
+       line = p.length;
+
+       // col is the length of the last line
+       col = p[p.length-1].length + 1;
+       //console.log("lin: "+line+" col: "+col);
+       
+       document.getElementById("position").innerHTML = "lin: "+line+" col: "+col;
+ });
+ $(document).ready(function() {
+    $('#input').click(function() {
+        document.getElementById("form-gcic").reset();
+    })
+});
+
+$('#resetForm').click(function() {
+    document.getElementById("form-gcic").reset();
+});
+</script>
