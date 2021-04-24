@@ -53,7 +53,30 @@ SEPARADORES = [ \r\t\b\f\n]
 
 //SIMBOLOS
 PERCENT     = "%"
+IGUAL       = "="
+MENOR       = "<"
+MAYOR       = ">"
+SLASH       = "/"
+CORCH_INI   = "["
+CORCH_FIN   = "]"
+PAREN_INI   = "("
+PAREN_FIN   = ")"
+LLAVE_INI   = "{"
+LLAVE_FIN   = "}"
+COMA        = ","
+PUNTO_COMA  = ";"
+DOS_PUNTOS  = ":"
 
+//OPERADORES LOGICOS
+SIMBOL_OR   = "|"
+SIMBOL_AND  = "&"
+SIMBOL_NOT  = "!"
+
+//OPERADORES MATEMATICOS
+SIGNO_MAS   = "+"
+SIGNO_MIN   = "-"
+SIGNO_POR   = "*"
+SIGNO_DIV   = "/"
 
 //ETIQUETAS HTML
 C_TITLE     = [cC] [_] [tT] [iI] [tT] [lL] [eE]
@@ -92,35 +115,107 @@ HEIGHT      = height
 ALT         = alt
 ONCLICK     = onclick
 
+//PARAMETROS SCRIPTING
+ON_LOAD     = ON_LOAD
+PROCESS_AUX = (PROCESS_)([a-zA-Z0-9])+ 
+
+//TIPO DATOS
+INTEGER     = integer
+DECIMAL     = decimal
+BOOLEAN     = boolean
+CHAR        = char
+STRING      = string
+
+//FUNCIONES ESPECIALES LENGUAJE CLC
+FUNCTION_ASC                = ASC
+FUNCTION_DESC               = DESC
+FUNCTION_LETPAR_NUM         = LETPAR_NUM
+FUNCTION_LETIMPAR_NUM       = LETIMPAR_NUM
+FUNCTION_REVERSE            = REVERSE
+FUNCTION_CARACTER_ALEATORIO = CARACTER_ALEATORIO
+FUNCTION_NUM_ALEATORIO      = NUM_ALEATORIO
+FUNCTION_ALERT_INFO         = ALERT_INFO
+FUNCTION_EXIT               = EXIT
+
+//ACCESO A IDENTIFICADORES
+GET_ELEMEN_BY_ID            = getElemenById
+
+//BLOQUE INSTRUCCIONES
+INIT        = INIT
+END         = END
+
+//SENTENCIAS
+IF          = IF
+ELSE        = ELSE
+THEN        = THEN
+
+//CICLOS
+REPEAT      = REPEAT 
+HUNTIL      = HUNTIL
+WHILE       = WHILE
+THENWHILE   = THENWHILE
+
+//INSERT
+INSERT      = INSERT
+
+//MODO DECLARACION
+MODO_GLOBAL = "@" global // no aceptamos @ global
+
+//COMENTARIOS, los ignoramos
+COMENT_BLOCK= ("<!--") [\0-\176]+ ("-->")  //acepta saltos de linea y todo si anda encapsulado
+COMENT_LINE = ("!!"  ) [\40-\176]+            //acepta espacios y caracteres imprimibles
+
+//LLAMADA A UN PROCESO
+PROCESS_VAL = \" [\0-\40]* (PROCESS_)([a-zA-Z0-9])+ [\0-\40]* "(" [\0-\40]* ")" [\0-\40]* \" 
+
+////////////////////////////////////VALUES C_HTML
 //COLOR VALUES
 COLOR_HEX   = \" [\0-\40]* ("#" | "0x") [a-zA-Z0-9]+ [\0-\40]* \"
 COLOR_VALUE = \" [\0-\40]* (black | olive | teal | red | blue | maroon | navy | gray | lime | fuchsia | green | white | green | purple | silver | yellow | aqua) [\0-\40]* \"
 
-//PIXELS
-PIXEL_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* px [\0-\40]* \" 
+//PIXELS VALUE
+PIXEL_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* px  [\0-\40]* \" 
+PERCE_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* "%" [\0-\40]* \" 
 
 //FONT VALUE
 FONT_VALUE  = \" [\0-\40]* (([cC] [oO] [uU] [rR] [iI] [eE] [rR]) | ([vV] [eE] [rR] [dD] [aA] [nN] [aA]) | ([aA] [rR] [iI] [aA] [lL]) | ([gG] [eE] [nN] [eE] [vV] [aA]) | ([sS] [aA] [nN] [sS] "-" [sS] [eE] [rR] [iI] [fF])) [\0-\40]* \"
 
-//TEXT ALIGN
+//TEXT ALIGN VALUE
 ALIGN_VALUE = \" [\0-\40]* (left | right | center | justify) [\0-\40]* \"
 
-//TYPE INPUT
+//TYPE INPUT VALUE
 TEXT        = \" [\0-\40]* text     [\0-\40]* \"
 NUMBER      = \" [\0-\40]* number   [\0-\40]* \"
 RADIO       = \" [\0-\40]* radio    [\0-\40]* \"
 CHECKBOX    = \" [\0-\40]* checkbox [\0-\40]* \"
 
-//NUMBERS
-DIGIT       = [0-9]+
+//NUMBERS VALUE
 DIGIT_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* \"
 
 //CLASS VALUE
-ROW         = row
-COLUMN      = column
+ROW         = \" [\0-\40]* row    [\0-\40]* \"
+COLUMN      = \" [\0-\40]* column [\0-\40]* \"
 
+//URL VALUE
+//URL_VALUE   = \" [\0-\40]* "https://www." [\41-\176]+    [\0-\40]* \" //excluimos el espacio
 
+//ID VALUE, inicia con "_" | "-" | "$", alfabeto y sigue con alfanum o los mismos simbolos
+ID_VALUE_STR  = \" [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* \"
+ID_VALUE_CHAR = \' [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* \'
 
+//TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
+TEXT_VALUE          = \"  ([\0-\41] | [\43-\176])+ \"
+INSERT_TOKEN_VALUE  = \'  ([\0-\41] | [\43-\176])+ \'
+
+//DATA VALUES
+INTEGER_VALUE   = (0 | ([1-9] [0-9]*) ) //aceptamos 0 o un numero valido, es decir no aceptamos 0 a la izquierda
+DECIMAL_VALUE   = (0 | ([1-9] [0-9]*) ) (\. ([0-9]{1,3} [1-9]?)) //? Numero decimal, no aceptamos 0 como ultimo digito
+BOOLEAN_VALUE   = true | false
+CHARACT_VALUE   = \' ([\40-\53] | [\55-\176]) \' //excluimos la 54, que es la misma comilla simple
+//DECIMAL_VALUE = (0 | ([1-9] [0-9]*) ) (\. (0 [1-9] | [1-9])+) //? Numero decimal, no aceptamos 0 como ultimo digito
+
+//////////////////////////////////IDS
+ID          = ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
 
 %%
 
@@ -131,7 +226,7 @@ COLUMN      = column
     {SEPARADORES}   {/*  */}
 }
 
-[^] { addErrorLexico ("LEXICO", yytext(), "Token no valido",yyline + 1, yycolumn + 1);}
+[^]+ { addErrorLexico ("LEXICO", yytext(), "Token no valido",yyline + 1, yycolumn + 1);}
 
 
 
