@@ -58,9 +58,9 @@ function download() {
   var name = prompt("Nombre del archivo","nombre_de_ejemplo");
   var filename = name+".gcic";
   
-  if(name == null){
-     alert("Se ha cancelado la descarga");
-      
+  if(name == null){    
+    alert("Se ha cancelado la descarga");
+    
   }else{
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
