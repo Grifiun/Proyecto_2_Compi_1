@@ -87,6 +87,12 @@ button:hover{
     transition: scale(1.05,1.05) .2s ease-in-out;
 }
 
+input:hover{
+    /*background-color: yellow;*/
+    transform: scale(1.05,1.05);
+    transition: scale(1.05,1.05) .2s ease-in-out;
+}
+
 .contenedor-principal{
     width: 60vw; 
     text-align: center;
