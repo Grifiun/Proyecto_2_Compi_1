@@ -210,15 +210,79 @@ terminal Token CHARACT_VALUE   ;
 //DECIMAL_VALUE ;
 
 //////////////////////////////////IDS
-terminal Token ID              ;
-terminal Toekn ALL_CHARACTERS  ;
+terminal Token ID_VALUE        ;
+terminal Token ALL_CHARACTERS  ;
 
 ////////////////////////////////////////////////////////////////NO TERMINALES
 non terminal s;
 
+//////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
+/////////////////////////CONTENIDO
+non terminal etiqueta_gcic;
+non terminal etiqueta_head;
+non terminal etiqueta_title;
+non terminal etiqueta_link;
+non terminal etiqueta_body;
+non terminal etiqueta_spam;
+non terminal etiqueta_input;
+non terminal etiqueta_textarea;
+non terminal etiqueta_select;
+non terminal etiqueta_option;
+non terminal etiqueta_div;
+non terminal etiqueta_img;
+non terminal etiqueta_br;
+non terminal etiqueta_button;
+non terminal etiqueta_h1;
+non terminal etiqueta_p;
+non terminal etiqueta_scripting;
+
+non terminal String contenido_texto;
+non terminal bloque_elements_gcic;
+non terminal bloque_options;
+non terminal bloque_elements_head;
+non terminal elements_head;
+non terminal bloque_elements_body;
+non terminal elements_body;
+/////////////////////////APERTURA
+non terminal etiqueta_apertura_gcic;
+non terminal etiqueta_apertura_head;
+non terminal etiqueta_apertura_title;
+non terminal etiqueta_apertura_link;
+non terminal etiqueta_apertura_body;
+non terminal etiqueta_apertura_spam;
+non terminal etiqueta_apertura_input;
+non terminal etiqueta_apertura_textarea;
+non terminal etiqueta_apertura_select;
+non terminal etiqueta_apertura_option;
+non terminal etiqueta_apertura_div;
+non terminal etiqueta_apertura_img;
+non terminal etiqueta_apertura_br;
+non terminal etiqueta_apertura_button;
+non terminal etiqueta_apertura_h1;
+non terminal etiqueta_apertura_p;
+non terminal etiqueta_apertura_sripting;
+/////////////////////////CIERRE
+non terminal etiqueta_cierre_gcic;
+non terminal etiqueta_cierre_head;
+non terminal etiqueta_cierre_title;
+non terminal etiqueta_cierre_link;
+non terminal etiqueta_cierre_body;
+non terminal etiqueta_cierre_spam;
+non terminal etiqueta_cierre_input;
+non terminal etiqueta_cierre_textarea;
+non terminal etiqueta_cierre_select;
+non terminal etiqueta_cierre_option;
+non terminal etiqueta_cierre_div;
+non terminal etiqueta_cierre_img;
+non terminal etiqueta_cierre_button;
+non terminal etiqueta_cierre_h1;
+non terminal etiqueta_cierre_p;
+non terminal etiqueta_cierre_sripting;
+
 //////////////////////////////////////////////////BLOQUE PARAMETROS
 non terminal bloque_parametros_gcic;
 non terminal bloque_parametros_link;
+non terminal bloque_parametros_body;
 non terminal bloque_parametros_input;
 non terminal bloque_parametros_textarea;
 non terminal bloque_parametros_div;
@@ -270,16 +334,133 @@ non terminal parametro_valor_reservado;
 ////////////////////////////////////////////////////////////////PRODUCCIONES
 start with s;
 
-s ::= 
-    ;
+s ::= etiqueta_gcic
+	| /* empty */;
 
+//////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
+/////////////////////////CONTENIDO
+etiqueta_gcic     ::= etiqueta_apertura_gcic bloque_elements_gcic etiqueta_cierre_gcic;
+etiqueta_head     ::= etiqueta_apertura_head bloque_elements_head etiqueta_cierre_head;
+etiqueta_body     ::= etiqueta_apertura_body bloque_elements_body etiqueta_cierre_body;
+etiqueta_div      ::= etiqueta_apertura_div  bloque_elements_body etiqueta_cierre_div ;
+
+bloque_elements_gcic ::= etiqueta_head etiqueta_body; //Head y el Body, obligatorio la declaracion de estos 2 terminos
+
+bloque_elements_head ::= bloque_elements_head elements_head
+	| /* empty */
+	;
+
+elements_head ::= 
+	  etiqueta_title
+	| etiqueta_link
+	;
+
+bloque_elements_body ::= bloque_elements_body elements_body
+	| /* empty */
+	;
+
+elements_body ::= 
+	  etiqueta_spam
+	| etiqueta_input
+	| etiqueta_textarea
+	| etiqueta_select
+	| etiqueta_div
+	| etiqueta_img
+	| etiqueta_br
+	| etiqueta_button
+	| etiqueta_h1
+	| etiqueta_p
+	| etiqueta_scripting 
+	;
+
+/////////////////////////SELECT
+etiqueta_select   ::= etiqueta_apertura_select 
+					  	bloque_options
+					  etiqueta_cierre_select;
+
+bloque_options    ::= bloque_options etiqueta_option
+	| /* empty */
+	;
+
+/////////////////////////NADA
+etiqueta_br       ::= etiqueta_apertura_br;
+etiqueta_img      ::= etiqueta_apertura_img etiqueta_cierre_img;
+
+/////////////////////////TEXTOS
+etiqueta_title    ::= etiqueta_apertura_title    contenido_texto etiqueta_cierre_title   ;
+etiqueta_link     ::= etiqueta_apertura_link     contenido_texto etiqueta_cierre_link    ;
+etiqueta_spam     ::= etiqueta_apertura_spam     contenido_texto etiqueta_cierre_spam    ;
+etiqueta_input    ::= etiqueta_apertura_input    contenido_texto etiqueta_cierre_input   ;
+etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto etiqueta_cierre_textarea;
+etiqueta_option   ::= etiqueta_apertura_option   contenido_texto etiqueta_cierre_option  ;
+etiqueta_button   ::= etiqueta_apertura_button   contenido_texto etiqueta_cierre_button  ;
+etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto etiqueta_cierre_h1      ;
+etiqueta_p        ::= etiqueta_apertura_p        contenido_texto etiqueta_cierre_p       ;
+
+
+contenido_texto   ::= contenido_texto ALL_CHARACTERS
+		{:
+			//RESULT = texto_aux + "\n";//agregamos salto de linea
+		:}
+	| contenido_texto:texto_aux etiqueta_br //salto de linea
+		{:
+			RESULT = texto_aux + "\n";//agregamos salto de linea
+		:}
+	| /* empty */ 
+		{:
+			RESULT = "";
+		:}
+	;
+
+/////////////////////////SCRIPTING
+etiqueta_scripting ::= etiqueta_apertura_sripting etiqueta_cierre_sripting;
+ /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
+etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic     MAYOR;
+etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        MAYOR; 
+etiqueta_apertura_title    ::= MENOR C_TITLE    /* NO PARAMETROS */        MAYOR;
+etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link     MAYOR;
+etiqueta_apertura_body     ::= MENOR C_BODY     bloque_parametros_body     MAYOR;
+etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label    MAYOR;
+etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input    MAYOR;
+etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea MAYOR;
+etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label    MAYOR;
+etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        MAYOR;
+etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div      MAYOR;
+etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img      MAYOR;
+etiqueta_apertura_br       ::= MENOR C_BR       /* NO PARAMETROS */        MAYOR;
+etiqueta_apertura_button   ::= MENOR C_BUTTON   bloque_parametros_button   MAYOR;
+etiqueta_apertura_h1       ::= MENOR C_H1       bloque_parametros_label    MAYOR;
+etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label    MAYOR;
+etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       MAYOR;
+
+/////////////////////////CIERRE, DE LA FORMA </C_NOMBRE_ETIQUETA>
+etiqueta_cierre_gcic     ::= MENOR SLASH C_GCIC      MAYOR;
+etiqueta_cierre_head     ::= MENOR SLASH C_HEAD      MAYOR;
+etiqueta_cierre_title    ::= MENOR SLASH C_TITLE     MAYOR;
+etiqueta_cierre_link     ::= MENOR SLASH C_LINK      MAYOR;
+etiqueta_cierre_body     ::= MENOR SLASH C_BODY      MAYOR;
+etiqueta_cierre_spam     ::= MENOR SLASH C_SPAM      MAYOR;
+etiqueta_cierre_input    ::= MENOR SLASH C_INPUT     MAYOR;
+etiqueta_cierre_textarea ::= MENOR SLASH C_TEXTAREA  MAYOR;
+etiqueta_cierre_select   ::= MENOR SLASH C_SELECT    MAYOR;
+etiqueta_cierre_option   ::= MENOR SLASH C_OPTION    MAYOR;
+etiqueta_cierre_div      ::= MENOR SLASH C_DIV       MAYOR;
+etiqueta_cierre_img      ::= MENOR SLASH C_IMG       MAYOR;
+etiqueta_cierre_button   ::= MENOR SLASH C_BUTTON    MAYOR;
+etiqueta_cierre_h1       ::= MENOR SLASH C_H1        MAYOR;
+etiqueta_cierre_p        ::= MENOR SLASH C_P         MAYOR;
+etiqueta_cierre_sripting ::= MENOR SLASH C_SCRIPTING MAYOR;
 
 //////////////////////////////////////////////////BLOQUE PARAMETROS
 bloque_parametros_gcic ::= bloque_parametros_gcic parametros_gcic
 	| /* empty */
 	;
-	
+
 bloque_parametros_link ::= bloque_parametros_link parametros_link
+	| /* empty */
+	;
+
+bloque_parametros_body ::= bloque_parametros_body parametros_background
 	| /* empty */
 	;
 
