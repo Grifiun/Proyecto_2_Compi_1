@@ -217,7 +217,7 @@ CHARACT_VALUE   = \' ([\40-\53] | [\55-\176]) \' //excluimos la 54, que es la mi
 //DECIMAL_VALUE = (0 | ([1-9] [0-9]*) ) (\. (0 [1-9] | [1-9])+) //? Numero decimal, no aceptamos 0 como ultimo digito
 
 //////////////////////////////////IDS
-ID              = ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
+ID_VALUE        = ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
 ALL_CHARACTERS  = ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer cadena de caracter, sin espacios y que nunca termine en < (74 OCTAL)
 
 %%
@@ -390,7 +390,7 @@ ALL_CHARACTERS  = ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer ca
     {CHARACT_VALUE }           { return retornarSimbolo(CHARACT_VALUE   , "CHARACT_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
 
     //////////////////////////////////IDS
-    {ID            }           { return retornarSimbolo(ID              , "ID"            , yytext(), yyline + 1, yycolumn + 1); }
+    {ID_VALUE      }           { return retornarSimbolo(ID_VALUE        , "ID_VALUE"      , yytext(), yyline + 1, yycolumn + 1); }
     {ALL_CHARACTERS}           { return retornarSimbolo(ALL_CHARACTERS  , "ALL_CHARACTERS", yytext(), yyline + 1, yycolumn + 1); }
 
 
