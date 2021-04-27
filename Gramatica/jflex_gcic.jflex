@@ -1,9 +1,9 @@
 /*Primera seccion, librerias */
-package gramatica;
+package gramatica_gcic;
 import java_cup.runtime.*;
-import static gramatica.sym.*;
-import DAO.Token;
-import DAO.TokenError;
+import static gramatica_gcic.sym.*;
+import clasesDAO.Token;
+import clasesDAO.TokenError;
 import java.util.ArrayList;
 
 /*Segunda seccion, config*/
@@ -56,7 +56,6 @@ PERCENT     = "%"
 IGUAL       = "="
 MENOR       = "<"
 MAYOR       = ">"
-SLASH       = "/"
 CORCH_INI   = "["
 CORCH_FIN   = "]"
 PAREN_INI   = "("
@@ -168,68 +167,71 @@ COMENT_BLOCK= ("<!--") [\0-\176]+ ("-->")  //acepta saltos de linea y todo si an
 COMENT_LINE = ("!!"  ) [\40-\176]+            //acepta espacios y caracteres imprimibles
 
 //LLAMADA A UN PROCESO
-PROCESS_VAL = \" [\0-\40]* (PROCESS_)([a-zA-Z0-9])+ [\0-\40]* "(" [\0-\40]* ")" [\0-\40]* \" 
+PROCESS_VAL = (\" | \“ |  \”)  [\0-\40]* (PROCESS_)([a-zA-Z0-9])+ [\0-\40]* "(" [\0-\40]* ")" [\0-\40]* (\" | \“ |  \”)  
 
 ////////////////////////////////////VALUES C_HTML
 //COLOR VALUES
-COLOR_HEX   = \" [\0-\40]* ("#" | "0x") [a-zA-Z0-9]+ [\0-\40]* \"
-COLOR_VALUE = \" [\0-\40]* (black | olive | teal | red | blue | maroon | navy | gray | lime | fuchsia | green | white | purple | silver | yellow | aqua) [\0-\40]* \"
+COLOR_HEX   = (\" | \“ |  \”)  [\0-\40]* ("#" | "0x") [a-zA-Z0-9]+ [\0-\40]* (\" | \“ |  \”) 
+COLOR_VALUE = (\" | \“ |  \”)  [\0-\40]* (black | olive | teal | red | blue | maroon | navy | gray | lime | fuchsia | green | white | purple | silver | yellow | aqua) [\0-\40]* (\" | \“ |  \”) 
 
 //PIXELS VALUE
-PIXEL_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* px  [\0-\40]* \" 
-PERCE_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* "%" [\0-\40]* \" 
+PIXEL_VALUE = (\" | \“ |  \”)  [\0-\40]* [0-9]+ [\0-\40]* px  [\0-\40]* (\" | \“ |  \”)  
+PERCE_VALUE = (\" | \“ |  \”)  [\0-\40]* [0-9]+ [\0-\40]* "%" [\0-\40]* (\" | \“ |  \”)  
 
 //FONT VALUE
-FONT_VALUE  = \" [\0-\40]* (([cC] [oO] [uU] [rR] [iI] [eE] [rR]) | ([vV] [eE] [rR] [dD] [aA] [nN] [aA]) | ([aA] [rR] [iI] [aA] [lL]) | ([gG] [eE] [nN] [eE] [vV] [aA]) | ([sS] [aA] [nN] [sS] "-" [sS] [eE] [rR] [iI] [fF])) [\0-\40]* \"
+FONT_VALUE  = (\" | \“ |  \”)  [\0-\40]* (([cC] [oO] [uU] [rR] [iI] [eE] [rR]) | ([vV] [eE] [rR] [dD] [aA] [nN] [aA]) | ([aA] [rR] [iI] [aA] [lL]) | ([gG] [eE] [nN] [eE] [vV] [aA]) | ([sS] [aA] [nN] [sS] "-" [sS] [eE] [rR] [iI] [fF])) [\0-\40]* (\" | \“ |  \”) 
 
 //TEXT ALIGN VALUE
-ALIGN_VALUE = \" [\0-\40]* (left | right | center | justify) [\0-\40]* \"
+ALIGN_VALUE = (\" | \“ |  \”)  [\0-\40]* (left | right | center | justify) [\0-\40]* (\" | \“ |  \”) 
 
 //TYPE INPUT VALUE
-TEXT        = \" [\0-\40]* text     [\0-\40]* \"
-NUMBER      = \" [\0-\40]* number   [\0-\40]* \"
-RADIO       = \" [\0-\40]* radio    [\0-\40]* \"
-CHECKBOX    = \" [\0-\40]* checkbox [\0-\40]* \"
+TEXT        = (\" | \“ |  \”)  [\0-\40]* text     [\0-\40]* (\" | \“ |  \”) 
+NUMBER      = (\" | \“ |  \”)  [\0-\40]* number   [\0-\40]* (\" | \“ |  \”) 
+RADIO       = (\" | \“ |  \”)  [\0-\40]* radio    [\0-\40]* (\" | \“ |  \”) 
+CHECKBOX    = (\" | \“ |  \”)  [\0-\40]* checkbox [\0-\40]* (\" | \“ |  \”) 
 
 //NUMBERS VALUE
-DIGIT_VALUE = \" [\0-\40]* [0-9]+ [\0-\40]* \"
+DIGIT_VALUE = (\" | \“ |  \”)  [\0-\40]* [0-9]+ [\0-\40]* (\" | \“ |  \”) 
 
 //CLASS VALUE
-ROW         = \" [\0-\40]* row    [\0-\40]* \"
-COLUMN      = \" [\0-\40]* column [\0-\40]* \"
+ROW         = (\" | \“ |  \”)  [\0-\40]* row    [\0-\40]* (\" | \“ |  \”) 
+COLUMN      = (\" | \“ |  \”)  [\0-\40]* column [\0-\40]* (\" | \“ |  \”) 
 
 //URL VALUE
-//URL_VALUE   = \" [\0-\40]* "https://www." [\41-\176]+    [\0-\40]* \" //excluimos el espacio
+//URL_VALUE   = (\" | \“ |  \”)  [\0-\40]* "https://www." [\41-\176]+    [\0-\40]* (\" | \“ |  \”)  //excluimos el espacio
 
 //ID VALUE, inicia con "_" | "-" | "$", alfabeto y sigue con alfanum o los mismos simbolos
-ID_VALUE_STR  = \" [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* \"
-ID_VALUE_CHAR = \' [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* \'
+ID_VALUE_STR  = (\" | \“ |  \”)  [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* (\" | \“ |  \”) 
+ID_VALUE_CHAR = (\' | \‘ |  \’)  [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* (\' | \‘ |  \’) 
 
 //TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
-TEXT_VALUE          = \"  ([\0-\41] | [\43-\176])+ \"
-INSERT_TOKEN_VALUE  = \'  ([\0-\41] | [\43-\176])+ \'
+TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\176])+ (\" | \“ |  \”) 
+INSERT_TOKEN_VALUE  = (\' | \‘ |  \’)   ([\0-\41] | [\43-\176])+ (\' | \‘ |  \’) 
 
 //DATA VALUES
 INTEGER_VALUE   = (0 | ([1-9] [0-9]*) ) //aceptamos 0 o un numero valido, es decir no aceptamos 0 a la izquierda
 DECIMAL_VALUE   = (0 | ([1-9] [0-9]*) ) (\. ([0-9]{1,3} [1-9]?)) //? Numero decimal, no aceptamos 0 como ultimo digito
 BOOLEAN_VALUE   = true | false
-CHARACT_VALUE   = \' ([\40-\53] | [\55-\176]) \' //excluimos la 54, que es la misma comilla simple
+CHARACT_VALUE   = (\' | \‘ |  \’)  ([\40-\53] | [\55-\176]) (\' | \‘ |  \’)  //excluimos la 54, que es la misma comilla simple
 //DECIMAL_VALUE = (0 | ([1-9] [0-9]*) ) (\. (0 [1-9] | [1-9])+) //? Numero decimal, no aceptamos 0 como ultimo digito
 
 //////////////////////////////////IDS
 ID_VALUE        = ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
-ALL_CHARACTERS  = ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer cadena de caracter, sin espacios y que nunca termine en < (74 OCTAL)
-
+ALL_CHARACTERS  = ([\43-\44] | [\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\172] | [\176])+ //ACEPTAMOS cualquer cadena de caracter, sin espacios y que no contenga los simbolos especiales
+//ALL_CHARACTERS  = ([a-zA-Z0-9])+ ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer cadena de caracter, sin espacios y que nunca termine en < (74 OCTAL)
 %%
 
 /*Tercera accion, expresiones*/
 <YYINITIAL>{
+    //COMENTARIOS, los ignoramos
+    {COMENT_BLOCK}           { System.out.println("Fila: "+ (yyline + 1) +" Columa: "+ (yycolumn + 1) +" Token: "+"COMENTARIO DE BLOQUE"+ " Lexema: "+yytext()); }
+    {COMENT_LINE }           { System.out.println("Fila: "+ (yyline + 1) +" Columa: "+ (yycolumn + 1) +" Token: "+"COMENTARIO DE LINEA"+ " Lexema: "+yytext()); }
+
     //SIMBOLOS
     {PERCENT     }           { return retornarSimbolo(PERCENT     , "PERCENT"     , yytext(), yyline + 1, yycolumn + 1); }
     {IGUAL       }           { return retornarSimbolo(IGUAL       , "IGUAL"       , yytext(), yyline + 1, yycolumn + 1); }
     {MENOR       }           { return retornarSimbolo(MENOR       , "MENOR"       , yytext(), yyline + 1, yycolumn + 1); }
     {MAYOR       }           { return retornarSimbolo(MAYOR       , "MAYOR"       , yytext(), yyline + 1, yycolumn + 1); }
-    {SLASH       }           { return retornarSimbolo(SLASH       , "SLASH"       , yytext(), yyline + 1, yycolumn + 1); }
     {CORCH_INI   }           { return retornarSimbolo(CORCH_INI   , "CORCH_INI"   , yytext(), yyline + 1, yycolumn + 1); }
     {CORCH_FIN   }           { return retornarSimbolo(CORCH_FIN   , "CORCH_FIN"   , yytext(), yyline + 1, yycolumn + 1); }
     {PAREN_INI   }           { return retornarSimbolo(PAREN_INI   , "PAREN_INI"   , yytext(), yyline + 1, yycolumn + 1); }
@@ -337,10 +339,6 @@ ALL_CHARACTERS  = ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer ca
     //MODO DECLARACION
     {MODO_GLOBAL }           { return retornarSimbolo(MODO_GLOBAL , "MODO_GLOBAL" , yytext(), yyline + 1, yycolumn + 1); }
 
-    //COMENTARIOS, los ignoramos
-    {COMENT_BLOCK}           { return retornarSimbolo(COMENT_BLOCK, "COMENT_BLOCK", yytext(), yyline + 1, yycolumn + 1); }
-    {COMENT_LINE }           { return retornarSimbolo(COMENT_LINE , "COMENT_LINE" , yytext(), yyline + 1, yycolumn + 1); }
-
     //LLAMADA A UN PROCESO
     {PROCESS_VAL }           { return retornarSimbolo(PROCESS_VAL , "PROCESS_VAL" , yytext(), yyline + 1, yycolumn + 1); }
 
@@ -400,7 +398,7 @@ ALL_CHARACTERS  = ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer ca
     {SEPARADORES }           { /*                                                                                     */ }
 }
 
-[^]+ { addErrorLexico ("LEXICO", yytext(), "Token no valido",yyline + 1, yycolumn + 1);}
+[^] { addErrorLexico ("LEXICO", yytext(), "Token no valido",yyline + 1, yycolumn + 1);}
 
 
 

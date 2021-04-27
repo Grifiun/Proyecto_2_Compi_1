@@ -1858,7 +1858,7 @@ public class LexerGCIC implements java_cup.runtime.Scanner {
             // fall through
           case 137: break;
           case 28: 
-            { return retornarSimbolo(COMENT_LINE , "COMENT_LINE" , yytext(), yyline + 1, yycolumn + 1);
+            { System.out.println("Fila: "+ (yyline + 1) +" Columa: "+ (yycolumn + 1) +" Token: "+"COMENTARIO DE LINEA"+ " Lexema: "+yytext());
             } 
             // fall through
           case 138: break;
@@ -2163,7 +2163,7 @@ public class LexerGCIC implements java_cup.runtime.Scanner {
             // fall through
           case 198: break;
           case 89: 
-            { return retornarSimbolo(COMENT_BLOCK, "COMENT_BLOCK", yytext(), yyline + 1, yycolumn + 1);
+            { System.out.println("Fila: "+ (yyline + 1) +" Columa: "+ (yycolumn + 1) +" Token: "+"COMENTARIO DE BLOQUE"+ " Lexema: "+yytext());
             } 
             // fall through
           case 199: break;

@@ -231,4 +231,3 @@ public class sym {
   "ALL_CHARACTERS"
   };
 }
-

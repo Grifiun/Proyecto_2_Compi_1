@@ -1,8 +1,8 @@
-package gramatica;
+package gramatica_gcic;
 
 import java_cup.runtime.*;
-import gramatica.sym;
-import gramatica.LexerGCIC;
+import gramatica_gcic.sym;
+import gramatica_gcic.LexerGCIC;
 import java_cup.runtime.XMLElement;
 import clasesDAO.Token;
 import clasesDAO.TokenError;
@@ -34,6 +34,18 @@ parser code{:
         TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", tokenError.getLexema(), msgError, linea, columna);
         listadoErroresSintacticos.add(tokenErrorAux);
 	}
+	
+	public void report_error(String message, Object info) {
+        System.out.println("Reportar Error");
+    }
+    
+	public void report_fatal_error(String message, Object info) {
+        System.out.println("Error Fatal: " + info);
+    }
+
+    protected int error_sync_size() {
+        return 1;
+    }
 
 	public ArrayList<TokenError> getListadoErroresParser(){
 		return listadoErroresSintacticos;
@@ -49,7 +61,6 @@ terminal Token PERCENT     ;
 terminal Token IGUAL       ;
 terminal Token MENOR       ;
 terminal Token MAYOR       ;
-terminal Token SLASH       ;
 terminal Token CORCH_INI   ;
 terminal Token CORCH_FIN   ;
 terminal Token PAREN_INI   ;
@@ -237,6 +248,7 @@ non terminal etiqueta_p;
 non terminal etiqueta_scripting;
 
 non terminal String contenido_texto;
+non terminal String contenido_texto_unidad;
 non terminal bloque_elements_gcic;
 non terminal bloque_options;
 non terminal bloque_elements_head;
@@ -331,11 +343,31 @@ non terminal parametro_valor_name;
 non terminal parametro_valor_class;
 non terminal parametro_valor_reservado;
 
+//////////////////////////////////////////////////SCRIPTING
+non terminal bloque_instrucciones;
+non terminal instruccion;
+//DECLARACION Y ASIGNACION
+non terminal declaracion;
+non terminal asignacion;
+//IF, ELSE IF, ELSE
+non terminal bloque_if;
+non terminal comparacion_if;
+non terminal comparacion_else_if;
+non terminal comparacion_else;
+//REPEAT AND WHILE
+non terminal ciclo_repeat;
+non terminal ciclo_while;
+//INSERT
+non terminal instruccion_insert;
+//CONDICION
+non terminal condicion;
+
 ////////////////////////////////////////////////////////////////PRODUCCIONES
 start with s;
 
-s ::= etiqueta_gcic
-	| /* empty */;
+s ::= etiqueta_gcic {: System.out.println("Se registro una etiqueta GCIC"); :}
+	| /* empty */   {: System.out.println("Se registro una etiqueta vacia"); :}
+	;
 
 //////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
 /////////////////////////CONTENIDO
@@ -398,7 +430,7 @@ etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto etiqueta_cierre
 etiqueta_p        ::= etiqueta_apertura_p        contenido_texto etiqueta_cierre_p       ;
 
 
-contenido_texto   ::= contenido_texto ALL_CHARACTERS
+contenido_texto   ::= contenido_texto contenido_texto_unidad
 		{:
 			//RESULT = texto_aux + "\n";//agregamos salto de linea
 		:}
@@ -410,6 +442,113 @@ contenido_texto   ::= contenido_texto ALL_CHARACTERS
 		{:
 			RESULT = "";
 		:}
+	;
+
+contenido_texto_unidad ::= ALL_CHARACTERS
+	| ID_VALUE
+	//SIMBOLOS
+	| PERCENT
+	| IGUAL
+	| CORCH_INI
+	| CORCH_FIN
+	| PAREN_INI
+	| PAREN_FIN
+	| LLAVE_INI
+	| LLAVE_FIN
+	| COMA
+	| PUNTO_COMA
+	| DOS_PUNTOS
+	//OPERADORES LOGICOS
+	| SIMBOL_OR
+	| SIMBOL_AND
+	| SIMBOL_NOT
+	//OPERADORES MATEMATICOS
+	| SIGNO_MAS
+	| SIGNO_MIN
+	| SIGNO_POR 
+	| SIGNO_DIV	
+	//ETIQUETAS HTML
+	| C_GCIC
+	| C_HEAD
+	| C_TITLE
+	| C_LINK
+	| C_BODY
+	| C_SPAM
+	| C_INPUT
+	| C_TEXTAREA
+	| C_SELECT
+	| C_OPTION
+	| C_DIV
+	| C_IMG
+	| C_BR
+	| C_BUTTON
+	| C_H1
+	| C_P
+	//SCRIPTING
+	| C_SCRIPTING 
+	//PARAMETROS
+	| HREF
+	| BACKGROUND
+	| COLOR
+	| FONT_SIZE
+	| FONT_FAMILY
+	| TEXT_ALIGN
+	| TYPE
+	| ID
+	| NAME
+	| COLS
+	| ROWS
+	| CLASS
+	| SRC
+	| WIDTH
+	| HEIGHT
+	| ALT
+	| ONCLICK
+	//PARAMETROS SCRIPTING
+	| ON_LOAD
+	| PROCESS_ABC
+	//TIPO DATOS
+	| INTEGER
+	| DECIMAL
+	| BOOLEAN
+	| CHAR
+	| STRING
+	//FUNCIONES ESPECIALES LENGUAJE CLC
+	| FUNCTION_ASC
+	| FUNCTION_DESC
+	| FUNCTION_LETPAR_NUM
+	| FUNCTION_LETIMPAR_NUM
+	| FUNCTION_REVERSE
+	| FUNCTION_CARACTER_ALEATORIO
+	| FUNCTION_NUM_ALEATORIO
+	| FUNCTION_ALERT_INFO
+	| FUNCTION_EXIT
+	//ACCESO A IDENTIFICADORES
+	| GET_ELEMEN_BY_ID
+	//BLOQUE INSTRUCCIONES
+	| INIT
+	| END
+	//SENTENCIAS
+	| IF
+	| ELSE
+	| THEN
+	//CICLOS
+	| REPEAT
+	| HUNTIL 
+	| WHILE
+	| THENWHILE
+	//INSERT
+	| INSERT
+	//MODO DECLARACION
+	| MODO_GLOBAL
+	//DATA VALUES
+	| INTEGER_VALUE
+	| DECIMAL_VALUE
+	| BOOLEAN_VALUE
+	//VALORES CON COMILLAS
+	| TEXT_VALUE
+	| ID_VALUE_STR
+	| DIGIT_VALUE
 	;
 
 /////////////////////////SCRIPTING
@@ -434,22 +573,22 @@ etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label    MAYOR
 etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       MAYOR;
 
 /////////////////////////CIERRE, DE LA FORMA </C_NOMBRE_ETIQUETA>
-etiqueta_cierre_gcic     ::= MENOR SLASH C_GCIC      MAYOR;
-etiqueta_cierre_head     ::= MENOR SLASH C_HEAD      MAYOR;
-etiqueta_cierre_title    ::= MENOR SLASH C_TITLE     MAYOR;
-etiqueta_cierre_link     ::= MENOR SLASH C_LINK      MAYOR;
-etiqueta_cierre_body     ::= MENOR SLASH C_BODY      MAYOR;
-etiqueta_cierre_spam     ::= MENOR SLASH C_SPAM      MAYOR;
-etiqueta_cierre_input    ::= MENOR SLASH C_INPUT     MAYOR;
-etiqueta_cierre_textarea ::= MENOR SLASH C_TEXTAREA  MAYOR;
-etiqueta_cierre_select   ::= MENOR SLASH C_SELECT    MAYOR;
-etiqueta_cierre_option   ::= MENOR SLASH C_OPTION    MAYOR;
-etiqueta_cierre_div      ::= MENOR SLASH C_DIV       MAYOR;
-etiqueta_cierre_img      ::= MENOR SLASH C_IMG       MAYOR;
-etiqueta_cierre_button   ::= MENOR SLASH C_BUTTON    MAYOR;
-etiqueta_cierre_h1       ::= MENOR SLASH C_H1        MAYOR;
-etiqueta_cierre_p        ::= MENOR SLASH C_P         MAYOR;
-etiqueta_cierre_sripting ::= MENOR SLASH C_SCRIPTING MAYOR;
+etiqueta_cierre_gcic     ::= MENOR SIGNO_DIV C_GCIC      MAYOR;
+etiqueta_cierre_head     ::= MENOR SIGNO_DIV C_HEAD      MAYOR;
+etiqueta_cierre_title    ::= MENOR SIGNO_DIV C_TITLE     MAYOR;
+etiqueta_cierre_link     ::= MENOR SIGNO_DIV C_LINK      MAYOR;
+etiqueta_cierre_body     ::= MENOR SIGNO_DIV C_BODY      MAYOR;
+etiqueta_cierre_spam     ::= MENOR SIGNO_DIV C_SPAM      MAYOR;
+etiqueta_cierre_input    ::= MENOR SIGNO_DIV C_INPUT     MAYOR;
+etiqueta_cierre_textarea ::= MENOR SIGNO_DIV C_TEXTAREA  MAYOR;
+etiqueta_cierre_select   ::= MENOR SIGNO_DIV C_SELECT    MAYOR;
+etiqueta_cierre_option   ::= MENOR SIGNO_DIV C_OPTION    MAYOR;
+etiqueta_cierre_div      ::= MENOR SIGNO_DIV C_DIV       MAYOR;
+etiqueta_cierre_img      ::= MENOR SIGNO_DIV C_IMG       MAYOR;
+etiqueta_cierre_button   ::= MENOR SIGNO_DIV C_BUTTON    MAYOR;
+etiqueta_cierre_h1       ::= MENOR SIGNO_DIV C_H1        MAYOR;
+etiqueta_cierre_p        ::= MENOR SIGNO_DIV C_P         MAYOR;
+etiqueta_cierre_sripting ::= MENOR SIGNO_DIV C_SCRIPTING MAYOR;
 
 //////////////////////////////////////////////////BLOQUE PARAMETROS
 bloque_parametros_gcic ::= bloque_parametros_gcic parametros_gcic
@@ -662,4 +801,6 @@ parametro_valor_reservado ::= COLOR_HEX
     | PROCESS_VAL
     | parametro_valor_id
     ;
+
+//////////////////////////////////////////////////SCRIPTING
 

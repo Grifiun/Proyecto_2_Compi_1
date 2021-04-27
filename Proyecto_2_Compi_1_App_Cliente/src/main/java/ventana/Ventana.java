@@ -5,6 +5,8 @@
  */
 package ventana;
 
+import gramatica_gcic.LexerGCIC;
+import gramatica_gcic.parser;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
 import java.awt.event.KeyEvent;
@@ -14,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
+import java.text.Normalizer;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -74,6 +78,7 @@ public class Ventana extends javax.swing.JFrame {
         btnGuardarComo = new java.awt.Button();
         btnCargar = new java.awt.Button();
         btnGuardar = new java.awt.Button();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -207,6 +212,13 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("compilar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -224,7 +236,9 @@ public class Ventana extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnGuardarComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnGuardarComo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(panelEditorTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -238,12 +252,13 @@ public class Ventana extends javax.swing.JFrame {
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardarComo, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCargar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panelEditorTexto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(11, Short.MAX_VALUE))
         );
 
         pack();
@@ -320,6 +335,35 @@ public class Ventana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        //Ejecutamos el parser
+        String entrada = txtEntrada.getText();
+        
+        try{                    
+                //Palabra descorrompida
+                String palabraOriginal = new String(entrada.getBytes("ISO-8859-1"), "UTF-8");
+                //Entrada sin marcas diacriticas
+                String normalized_string = Normalizer.normalize(entrada, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+
+                System.out.println("TEXTO A ANALIZAR: \n"+normalized_string);
+                
+                StringReader sr = new StringReader(normalized_string);
+                LexerGCIC lexer = new LexerGCIC(sr);
+                parser pars = new parser(lexer);
+                try{                        
+                    pars.parse();     
+                }catch(Exception ex){
+                    System.out.println("Error en el lenguajes de etqiuetas: "+ex.getMessage());
+                    ex.printStackTrace();
+                }
+
+                System.out.println(" Parser Ejecutado");
+                
+            }catch(Exception ex){
+                System.out.println("Error al ejecutar el parser: "+ex.getLocalizedMessage());
+            }  
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * Seleccionamos un archivo
      * @return 
@@ -327,8 +371,8 @@ public class Ventana extends javax.swing.JFrame {
     private String elegirArchivo(){
         JFileChooser buscador = new JFileChooser();    
         //Agregamos un filtro al file Choser
-        FileNameExtensionFilter filtro = new FileNameExtensionFilter("TEXT FILES", "txt");
-        buscador.setFileFilter(filtro);
+        //FileNameExtensionFilter filtro = new FileNameExtensionFilter("TEXT FILES", "txt");
+       // buscador.setFileFilter(filtro);
         buscador.showOpenDialog(this);
         File file;
         String archivo;
@@ -508,6 +552,7 @@ public class Ventana extends javax.swing.JFrame {
     private java.awt.Button btnGuardar;
     private java.awt.Button btnGuardarComo;
     private java.awt.Button btnNuevo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
