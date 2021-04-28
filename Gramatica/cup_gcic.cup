@@ -398,6 +398,12 @@ non terminal condicion;
 non terminal operacion_logica;
 non terminal operacion_relacional;
 non terminal operacion_aritmetica;
+non terminal operacion_aritmetica_con_parentesis;
+//FUNCIONES ESPECIALES
+non terminal funciones_con_valor;
+non terminal funciones_con_valor_tipo;
+non terminal funciones_con_valor_parametros;
+non terminal funciones_instruccion;
 
 ////////////////////////////////////////////////////////////////PRECEDENCIA
 precedence left ELSE;
@@ -893,6 +899,7 @@ instruccion_general ::= instruccion PUNTO_COMA //INSTRUCCION QUE TERMINA EN PUNT
 instruccion ::= intruccion_declaracion {: System.out.println ("Se ejecuto declaracion  "); :}
 	| intruccion_asignacion {: System.out.println ("Se ejecuto asignacion  "); :}
 	| instruccion_insert {: System.out.println ("Se ejecuto insert  "); :}
+	| funciones_instruccion //instrucciones especiales
 	;
 //DECLARACION Y ASIGNACION
 intruccion_declaracion ::= tipo_datos modo_variable nombres_variables //declaracion del tipo << string @global a, b, c >>
@@ -902,7 +909,7 @@ intruccion_asignacion ::= nombres_variables IGUAL asignacion //pueden asignarse 
 	;
 asignacion ::= 
 	  //VALORES
-      operacion_aritmetica //operacion aritmetica, entre variables, o valores primitivos
+      operacion_aritmetica_con_parentesis //operacion aritmetica, entre variables, o valores primitivos
 	;
 	
 valores_datos_primarios ::= INTEGER_VALUE
@@ -912,6 +919,7 @@ valores_datos_primarios ::= INTEGER_VALUE
 	| parametro_valor_name // Cualquier cadena de carateres encerradas entre << " " >>
 	| get_element_value //para strings solamente
 	| nombres_variables_unidad //variable << string a = b; >> donde b es un string
+	| funciones_con_valor //funciones especiales que retornan un dato
 	;
 
 tipo_datos ::= STRING
@@ -997,13 +1005,13 @@ bloque_if_elses ::= bloque_if_elses comparacion_else_if //bloques de else if
 	| /* empty */
 	;
 comparacion_if ::= IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
-		{: System.out.println ("Se ejecuto IF  "); :}
+		{: System.out.println ("-------------------Se ejecuto IF  "); :}
 	;
 comparacion_else_if ::= ELSE_IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
-		{: System.out.println ("Se ejecuto ELSE IF  "); :}
+		{: System.out.println ("-------------------Se ejecuto ELSE IF  "); :}
 	;
 comparacion_else ::= ELSE bloque_instrucciones_sentencias // ELSE ...
-		{: System.out.println ("Se ejecuto ELSE  "); :}
+		{: System.out.println ("-------------------Se ejecuto ELSE  "); :}
 	| /* empty */
 	;
 
@@ -1024,7 +1032,7 @@ condicion_repeat_inicio ::= intruccion_asignacion {: System.out.println ("Se eje
 	;
 condicion_repeat_fin ::= //INTEGER_VALUE
 	//| nombres_variables_unidad
-	/*|*/ operacion_aritmetica
+	/*|*/ operacion_aritmetica_con_parentesis
 	;
 //INSERT
 instruccion_insert ::= INSERT PAREN_INI valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
@@ -1095,5 +1103,56 @@ operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:
 	:}
     | SIGNO_MIN operacion_aritmetica:n1
     {: 
-		System.out.println(" Entero negativo "); :}	
+		System.out.println(" Entero negativo "); 
+	:}	
+    ;  
+
+operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:n1 SIGNO_MAS operacion_aritmetica_con_parentesis:n2 
+	{: 
+		System.out.println(" + "); 	
+	:}	
+    | operacion_aritmetica_con_parentesis:n1 SIGNO_MIN operacion_aritmetica_con_parentesis:n2
+    {: 
+		System.out.println(" - "); 	
+	:}
+    | operacion_aritmetica_con_parentesis:n1 SIGNO_POR operacion_aritmetica_con_parentesis:n2 
+    {: 
+		System.out.println(" * "); 	
+	:}
+    | operacion_aritmetica_con_parentesis:n1 SIGNO_DIV operacion_aritmetica_con_parentesis:n2
+    {: 
+		System.out.println(" / "); 	
+	:}
+    | valores_datos_primarios:e
+    {: 
+		System.out.println ("Valor/variable");	
+	:}
+    | SIGNO_MIN operacion_aritmetica_con_parentesis:n1
+    {: 
+		System.out.println(" Entero negativo "); 
+	:}	
+	| PAREN_INI operacion_aritmetica_con_parentesis:p 
+    {: 
+		System.out.println(" ( )"); 	
+	:}
+	PAREN_FIN
     ;    
+
+//FUNCIONES ESPECIALES
+//aceptamos variables, y operaciones aritmeticas, semanticamente los resultados deben ser del tipo correcto
+funciones_con_valor ::= funciones_con_valor_tipo funciones_con_valor_parametros
+	| FUNCTION_CARACTER_ALEATORIO PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto CHAR ALEATORIO "); :}
+	| FUNCTION_NUM_ALEATORIO PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto NUM ALEATORIO "); :}
+	;
+funciones_con_valor_tipo ::= FUNCTION_ASC {: System.out.println ("Se ejecuto FUN ASC "); :}
+	| FUNCTION_DESC {: System.out.println ("Se ejecuto FUN DESC "); :}
+	| FUNCTION_LETPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM PAR "); :}
+	| FUNCTION_LETIMPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM IMPAR "); :}
+	| FUNCTION_REVERSE	 {: System.out.println ("Se ejecuto FUN REVERSE "); :}
+	;
+funciones_con_valor_parametros ::= PAREN_INI operacion_aritmetica_con_parentesis PAREN_FIN
+	;
+
+funciones_instruccion ::= FUNCTION_ALERT_INFO funciones_con_valor_parametros {: System.out.println ("Se ejecuto FUN ALERT "); :}
+	| FUNCTION_EXIT PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto FUN EXIT "); :} 
+	;
