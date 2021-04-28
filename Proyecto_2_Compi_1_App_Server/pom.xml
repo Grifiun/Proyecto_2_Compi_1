@@ -21,6 +21,12 @@
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.github.vbmacher/java-cup -->
+        <dependency>
+            <groupId>com.github.vbmacher</groupId>
+            <artifactId>java-cup</artifactId>
+            <version>11b</version>
+        </dependency>
     </dependencies>
 
     <build>
