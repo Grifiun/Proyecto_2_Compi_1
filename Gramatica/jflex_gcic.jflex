@@ -65,10 +65,14 @@ LLAVE_FIN   = "}"
 COMA        = ","
 PUNTO_COMA  = ";"
 DOS_PUNTOS  = ":"
+IGUAL_IGUAL = "=" [\0-\40]* "=" 
+NO_IGUAL    = "!" [\0-\40]* "="
+MENOR_IGUAL = "<" [\0-\40]* "="
+MAYOR_IGUAL = ">" [\0-\40]* "="
 
 //OPERADORES LOGICOS
-SIMBOL_OR   = "|"
-SIMBOL_AND  = "&"
+SIMBOL_OR   = "|" [\0-\40]* "|"
+SIMBOL_AND  = "&" [\0-\40]* "&"
 SIMBOL_NOT  = "!"
 
 //OPERADORES MATEMATICOS
@@ -148,6 +152,7 @@ END         = END
 //SENTENCIAS
 IF          = IF
 ELSE        = ELSE
+ELSE_IF     = ELSE [\0-\40]* IF
 THEN        = THEN
 
 //CICLOS
@@ -204,19 +209,18 @@ COLUMN      = (\" | \“ |  \”)  [\0-\40]* column [\0-\40]* (\" | \“ |  \”
 ID_VALUE_STR  = (\" | \“ |  \”)  [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* (\" | \“ |  \”) 
 ID_VALUE_CHAR = (\' | \‘ |  \’)  [\0-\40]* ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* [\0-\40]* (\' | \‘ |  \’) 
 
-//TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
-TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\176])+ (\" | \“ |  \”) 
-INSERT_TOKEN_VALUE  = (\' | \‘ |  \’)   ([\0-\41] | [\43-\176])+ (\' | \‘ |  \’) 
-
 //DATA VALUES
 INTEGER_VALUE   = (0 | ([1-9] [0-9]*) ) //aceptamos 0 o un numero valido, es decir no aceptamos 0 a la izquierda
 DECIMAL_VALUE   = (0 | ([1-9] [0-9]*) ) (\. ([0-9]{1,3} [1-9]?)) //? Numero decimal, no aceptamos 0 como ultimo digito
 BOOLEAN_VALUE   = true | false
 CHARACT_VALUE   = (\' | \‘ |  \’)  ([\40-\53] | [\55-\176]) (\' | \‘ |  \’)  //excluimos la 54, que es la misma comilla simple
-//DECIMAL_VALUE = (0 | ([1-9] [0-9]*) ) (\. (0 [1-9] | [1-9])+) //? Numero decimal, no aceptamos 0 como ultimo digito
 
-//////////////////////////////////IDS
-ID_VALUE        = ([a-zA-Z] | "_" | "-" | "$") ([a-zA-Z0-9] | "_" | "-" | "$")* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
+//TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
+TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\176])+ (\" | \“ |  \”) 
+INSERT_TOKEN_VALUE  = (\' | \‘ |  \’)   ([\0-\46] | [\50-\176])+ (\' | \‘ |  \’) 
+
+//////////////////////////////////IDS , ignoramos los 
+ID_VALUE        = ([a-zA-Z] | "_"  ) ([a-zA-Z0-9] | "_" )* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
 ALL_CHARACTERS  = ([\43-\44] | [\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\172] | [\176])+ //ACEPTAMOS cualquer cadena de caracter, sin espacios y que no contenga los simbolos especiales
 //ALL_CHARACTERS  = ([a-zA-Z0-9])+ ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer cadena de caracter, sin espacios y que nunca termine en < (74 OCTAL)
 %%
@@ -241,6 +245,10 @@ ALL_CHARACTERS  = ([\43-\44] | [\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\
     {COMA        }           { return retornarSimbolo(COMA        , "COMA"        , yytext(), yyline + 1, yycolumn + 1); }
     {PUNTO_COMA  }           { return retornarSimbolo(PUNTO_COMA  , "PUNTO_COMA"  , yytext(), yyline + 1, yycolumn + 1); }
     {DOS_PUNTOS  }           { return retornarSimbolo(DOS_PUNTOS  , "DOS_PUNTOS"  , yytext(), yyline + 1, yycolumn + 1); }
+    {IGUAL_IGUAL}            { return retornarSimbolo(IGUAL_IGUAL , "IGUAL_IGUAL" , yytext(), yyline + 1, yycolumn + 1); }
+    {NO_IGUAL   }            { return retornarSimbolo(NO_IGUAL    , "NO_IGUAL"    , yytext(), yyline + 1, yycolumn + 1); }
+    {MENOR_IGUAL}            { return retornarSimbolo(MENOR_IGUAL , "MENOR_IGUAL" , yytext(), yyline + 1, yycolumn + 1); }
+    {MAYOR_IGUAL}            { return retornarSimbolo(MAYOR_IGUAL , "MAYOR_IGUAL" , yytext(), yyline + 1, yycolumn + 1); }
 
     //OPERADORES LOGICOS
     {SIMBOL_OR   }           { return retornarSimbolo(SIMBOL_OR   , "SIMBOL_OR"   , yytext(), yyline + 1, yycolumn + 1); }
@@ -325,6 +333,7 @@ ALL_CHARACTERS  = ([\43-\44] | [\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\
     //SENTENCIAS
     {IF          }           { return retornarSimbolo(IF          , "IF"          , yytext(), yyline + 1, yycolumn + 1); }
     {ELSE        }           { return retornarSimbolo(ELSE        , "ELSE"        , yytext(), yyline + 1, yycolumn + 1); }
+    {ELSE_IF     }           { return retornarSimbolo(ELSE_IF     , "ELSE_IF"     , yytext(), yyline + 1, yycolumn + 1); }
     {THEN        }           { return retornarSimbolo(THEN        , "THEN"        , yytext(), yyline + 1, yycolumn + 1); }
 
     //CICLOS
@@ -377,15 +386,15 @@ ALL_CHARACTERS  = ([\43-\44] | [\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\
     {ID_VALUE_STR  }           { return retornarSimbolo(ID_VALUE_STR  , "ID_VALUE_STR"    , yytext(), yyline + 1, yycolumn + 1); }
     {ID_VALUE_CHAR }           { return retornarSimbolo(ID_VALUE_CHAR , "ID_VALUE_CHAR"   , yytext(), yyline + 1, yycolumn + 1); }
 
-    //TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
-    {TEXT_VALUE         }           { return retornarSimbolo(TEXT_VALUE          , "TEXT_VALUE"         , yytext(), yyline + 1, yycolumn + 1); }
-    {INSERT_TOKEN_VALUE }           { return retornarSimbolo(INSERT_TOKEN_VALUE  , "INSERT_TOKEN_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
-
     //DATA VALUES
     {INTEGER_VALUE }           { return retornarSimbolo(INTEGER_VALUE   , "INTEGER_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
     {DECIMAL_VALUE }           { return retornarSimbolo(DECIMAL_VALUE   , "DECIMAL_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
     {BOOLEAN_VALUE }           { return retornarSimbolo(BOOLEAN_VALUE   , "BOOLEAN_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
     {CHARACT_VALUE }           { return retornarSimbolo(CHARACT_VALUE   , "CHARACT_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
+
+    //TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
+    {TEXT_VALUE         }           { return retornarSimbolo(TEXT_VALUE          , "TEXT_VALUE"         , yytext(), yyline + 1, yycolumn + 1); }
+    {INSERT_TOKEN_VALUE }           { return retornarSimbolo(INSERT_TOKEN_VALUE  , "INSERT_TOKEN_VALUE" , yytext(), yyline + 1, yycolumn + 1); }
 
     //////////////////////////////////IDS
     {ID_VALUE      }           { return retornarSimbolo(ID_VALUE        , "ID_VALUE"      , yytext(), yyline + 1, yycolumn + 1); }

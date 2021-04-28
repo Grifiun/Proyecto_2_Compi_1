@@ -18,7 +18,7 @@ parser code{:
 	public void syntax_error(Symbol a){
 		Token tokenError = (Token) a.value;//lo transformamos en token para obtener su lexema, fila y columna		
 		String msgError = "Se esperaba: ";	
-		System.out.println("error de sintaxis: linea: "+tokenError.getLexema()+" "+tokenError.getLinea()+" columna: "+tokenError.getColumna());
+
 		
 		int linea = tokenError.getLinea();
 		int columna = tokenError.getColumna();
@@ -30,7 +30,8 @@ parser code{:
 			if(i < expected_token_ids().size() - 1)
 				msgError = msgError + ", ";			
 		}
-        	
+        		System.out.println("error de sintaxis: linea: "+tokenError.getLexema()+" "+tokenError.getLinea()+" columna: "+tokenError.getColumna()+" MENSAJE: "+msgError);
+
         TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", tokenError.getLexema(), msgError, linea, columna);
         listadoErroresSintacticos.add(tokenErrorAux);
 	}
@@ -70,6 +71,10 @@ terminal Token LLAVE_FIN   ;
 terminal Token COMA        ;
 terminal Token PUNTO_COMA  ;
 terminal Token DOS_PUNTOS  ;
+terminal Token IGUAL_IGUAL ;
+terminal Token NO_IGUAL    ;
+terminal Token MENOR_IGUAL ;
+terminal Token MAYOR_IGUAL ;
 
 //OPERADORES LOGICOS
 terminal Token SIMBOL_OR   ;
@@ -153,6 +158,7 @@ terminal Token END         ;
 //SENTENCIAS
 terminal Token IF          ;
 terminal Token ELSE        ;
+terminal Token ELSE_IF     ;
 terminal Token THEN        ;
 
 //CICLOS
@@ -332,8 +338,7 @@ non terminal parametro_unidad_height;
 non terminal parametro_unidad_alt;
 non terminal parametro_unidad_onclick;
 
-non terminal parametro_unidad_option;
-
+//non terminal parametro_unidad_option;
 //////////////////////////////////////////////////VALORES
 non terminal parametro_valor_color;
 non terminal parametro_valor_size;
@@ -344,29 +349,76 @@ non terminal parametro_valor_class;
 non terminal parametro_valor_reservado;
 
 //////////////////////////////////////////////////SCRIPTING
+//FUNCION
+non terminal bloque_funciones;
+non terminal funcion_unitaria;
+non terminal nombre_funciones;
+//BLOQUE INSTRUCCIONES
+non terminal bloque_instrucciones_sentencias;
+non terminal bloque_instrucciones_sentencias_inicio;
+non terminal bloque_instrucciones_sentencias_fin;
 non terminal bloque_instrucciones;
+non terminal instruccion_general;
 non terminal instruccion;
 //DECLARACION Y ASIGNACION
-non terminal declaracion;
+non terminal intruccion_declaracion;
+non terminal intruccion_asignacion;
 non terminal asignacion;
+non terminal valores_datos_primarios;
+non terminal tipo_datos;
+non terminal nombres_variables;
+non terminal nombres_variables_unidad;
+//MODO
+non terminal modo_variable;
 //IF, ELSE IF, ELSE
+non terminal bloque_sentencia_if;
 non terminal bloque_if;
+non terminal bloque_if_elses;
 non terminal comparacion_if;
 non terminal comparacion_else_if;
 non terminal comparacion_else;
 //REPEAT AND WHILE
+non terminal instruccion_ciclos;
 non terminal ciclo_repeat;
 non terminal ciclo_while;
+non terminal ciclo_while_declaracion;
+non terminal ciclo_repeat_declaracion;
+non terminal condicion_repeat_inicio;
+non terminal condicion_repeat_fin;
 //INSERT
 non terminal instruccion_insert;
-//CONDICION
+non terminal valores_insert_token;
+non terminal valores_insert_token_unidad;
+//GET ELEMENT
+non terminal get_element_value;
+non terminal get_element_value_id;
+//CONDICION Retorna true or false
 non terminal condicion;
+//OPERACIONES
+non terminal operacion_logica;
+non terminal operacion_relacional;
+non terminal operacion_aritmetica;
+
+////////////////////////////////////////////////////////////////PRECEDENCIA
+precedence left ELSE;
+precedence left ELSE_IF;
+//precedencia aritmetica
+precedence left SIGNO_MAS, SIGNO_MIN;
+precedence left SIGNO_POR, SIGNO_DIV;
+//precedencia relacional
+precedence nonassoc MAYOR_IGUAL, MENOR_IGUAL, MENOR, MAYOR;
+precedence nonassoc IGUAL_IGUAL, NO_IGUAL;
+//precedencia logica
+precedence right SIMBOL_NOT;
+precedence left SIMBOL_AND;
+precedence left SIMBOL_OR;
 
 ////////////////////////////////////////////////////////////////PRODUCCIONES
 start with s;
 
 s ::= etiqueta_gcic {: System.out.println("Se registro una etiqueta GCIC"); :}
 	| /* empty */   {: System.out.println("Se registro una etiqueta vacia"); :}
+	| etiqueta_scripting {: System.out.println("Se registro una etiqueta sripting"); :}
 	;
 
 //////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
@@ -458,6 +510,9 @@ contenido_texto_unidad ::= ALL_CHARACTERS
 	| COMA
 	| PUNTO_COMA
 	| DOS_PUNTOS
+	| NO_IGUAL
+	| MAYOR_IGUAL
+	| MENOR_IGUAL
 	//OPERADORES LOGICOS
 	| SIMBOL_OR
 	| SIMBOL_AND
@@ -552,7 +607,7 @@ contenido_texto_unidad ::= ALL_CHARACTERS
 	;
 
 /////////////////////////SCRIPTING
-etiqueta_scripting ::= etiqueta_apertura_sripting etiqueta_cierre_sripting;
+etiqueta_scripting ::= etiqueta_apertura_sripting bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
 etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic     MAYOR;
 etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        MAYOR; 
@@ -803,4 +858,242 @@ parametro_valor_reservado ::= COLOR_HEX
     ;
 
 //////////////////////////////////////////////////SCRIPTING
+//FUNCION
+bloque_funciones ::= bloque_funciones funcion_unitaria
+		{: System.out.println ("Se ejecuto BLOQUE DE FUNCIONES  "); :}
+	| /* empty */
+	;
+funcion_unitaria ::= nombre_funciones PAREN_INI PAREN_FIN CORCH_INI //PROCESS_hola()[
+						bloque_instrucciones
+					CORCH_FIN // ]
+					{: System.out.println ("Se ejecuto FUNCION  "); :}
+	;
+nombre_funciones ::= PROCESS_ABC
+	| ON_LOAD
+	;
 
+//BLOQUE INSTRUCCIONES
+bloque_instrucciones_sentencias ::= bloque_instrucciones_sentencias_inicio //INIT {::
+										bloque_instrucciones 					//BLOQUE DE INSTRUCCIONES
+									bloque_instrucciones_sentencias_fin    //::} END
+									{: System.out.println ("Se ejecuto BLOQUE DE SENTENCIAS INIT END  "); :}
+	| instruccion_general //INSTRUCCION SOLITARIA
+	;
+bloque_instrucciones_sentencias_inicio ::= INIT LLAVE_INI DOS_PUNTOS
+	;
+bloque_instrucciones_sentencias_fin ::= DOS_PUNTOS LLAVE_FIN END
+	;
+bloque_instrucciones ::= bloque_instrucciones instruccion_general
+	| /* empty */ 
+	;
+instruccion_general ::= instruccion PUNTO_COMA //INSTRUCCION QUE TERMINA EN PUNTO Y COMA
+	| bloque_sentencia_if //IF, ELSE IF, ELSE
+	| instruccion_ciclos //REPEAT Y WHILE
+	;
+instruccion ::= intruccion_declaracion {: System.out.println ("Se ejecuto declaracion  "); :}
+	| intruccion_asignacion {: System.out.println ("Se ejecuto asignacion  "); :}
+	| instruccion_insert {: System.out.println ("Se ejecuto insert  "); :}
+	;
+//DECLARACION Y ASIGNACION
+intruccion_declaracion ::= tipo_datos modo_variable nombres_variables //declaracion del tipo << string @global a, b, c >>
+	;
+intruccion_asignacion ::= nombres_variables IGUAL asignacion //pueden asignarse    << a, b, c = "hola"; >>
+	| intruccion_declaracion IGUAL asignacion //pueden asignarse con declaraciones << string a, b, c = "hola"; >>
+	;
+asignacion ::= 
+	  //VALORES
+      operacion_aritmetica //operacion aritmetica, entre variables, o valores primitivos
+	;
+	
+valores_datos_primarios ::= INTEGER_VALUE
+	| DECIMAL_VALUE 
+	| BOOLEAN_VALUE
+	| CHARACT_VALUE 
+	| parametro_valor_name // Cualquier cadena de carateres encerradas entre << " " >>
+	| get_element_value //para strings solamente
+	| nombres_variables_unidad //variable << string a = b; >> donde b es un string
+	;
+
+tipo_datos ::= STRING
+	| INTEGER
+	| DECIMAL
+	| CHAR
+	| BOOLEAN
+	;	
+nombres_variables ::= nombres_variables COMA nombres_variables_unidad
+	| nombres_variables_unidad
+	;
+nombres_variables_unidad ::= ID_VALUE
+	//ETIQUETAS HTML
+	| C_GCIC
+	| C_HEAD
+	| C_TITLE
+	| C_LINK
+	| C_BODY
+	| C_SPAM
+	| C_INPUT
+	| C_TEXTAREA
+	| C_SELECT
+	| C_OPTION
+	| C_DIV
+	| C_IMG
+	| C_BR
+	| C_BUTTON
+	| C_H1
+	| C_P
+	//SCRIPTING
+	| C_SCRIPTING
+	//PARAMETROS
+	| HREF
+	| BACKGROUND
+	| COLOR
+	| FONT_SIZE
+	| FONT_FAMILY
+	| TEXT_ALIGN
+	| TYPE
+	| ID
+	| NAME
+	| COLS
+	| ROWS
+	| CLASS
+	| SRC
+	| WIDTH
+	| HEIGHT
+	| ALT
+	| ONCLICK
+	;
+
+//MODO
+modo_variable ::= MODO_GLOBAL //@global
+	| /* empty */
+	;
+//IF, ELSE IF, ELSE
+bloque_sentencia_if ::= bloque_if //comparacion_else //bloque con else
+		{: System.out.println ("Se ejecuto BLOQUE IF CON ELSE/sin  "); :}
+		/*
+			IF
+				...
+			ELSE IF
+				...
+			ELSE IF
+				...
+			ELSE
+		*/
+	/*| bloque_if  //bloque sin else
+		{: System.out.println ("Se ejecuto BLOQUE IF SIN ELSE  "); :}
+		/*
+			IF
+				...
+			ELSE IF
+				...
+			ELSE IF
+				...
+		*/
+	;
+bloque_if ::= comparacion_if bloque_if_elses comparacion_else//bloque sin else
+		{: System.out.println ("Se ejecuto BLOQUE IF ELSES  "); :}
+	;
+bloque_if_elses ::= bloque_if_elses comparacion_else_if //bloques de else if
+	| /* empty */
+	;
+comparacion_if ::= IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
+		{: System.out.println ("Se ejecuto IF  "); :}
+	;
+comparacion_else_if ::= ELSE_IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
+		{: System.out.println ("Se ejecuto ELSE IF  "); :}
+	;
+comparacion_else ::= ELSE bloque_instrucciones_sentencias // ELSE ...
+		{: System.out.println ("Se ejecuto ELSE  "); :}
+	| /* empty */
+	;
+
+//REPEAT AND WHILE
+instruccion_ciclos ::= ciclo_repeat
+	| ciclo_while
+	;
+ciclo_repeat ::= ciclo_repeat_declaracion bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo repeat  "); :}
+	;
+ciclo_while ::= ciclo_while_declaracion bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo while  "); :}
+	;
+
+ciclo_while_declaracion ::= WHILE PAREN_INI condicion PAREN_FIN THENWHILE
+	;
+ciclo_repeat_declaracion ::= REPEAT PAREN_INI condicion_repeat_inicio PAREN_FIN HUNTIL PAREN_INI condicion_repeat_fin PAREN_FIN
+	;
+condicion_repeat_inicio ::= intruccion_asignacion {: System.out.println ("Se ejecuto condicion inicio repeat  "); :}
+	;
+condicion_repeat_fin ::= //INTEGER_VALUE
+	//| nombres_variables_unidad
+	/*|*/ operacion_aritmetica
+	;
+//INSERT
+instruccion_insert ::= INSERT PAREN_INI valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
+	;
+
+valores_insert_token ::= valores_insert_token COMA valores_insert_token_unidad
+	//| /* empty, generamos un '' */
+	| valores_insert_token_unidad
+	;
+
+valores_insert_token_unidad ::= INSERT_TOKEN_VALUE //cualquier otra cadena encerrada entre ''
+	| ID_VALUE_CHAR	//id encerrado entre ''
+	| CHARACT_VALUE	//caracter
+	| nombres_variables_unidad //variables aceptadas
+	;
+
+//GET ELEMENT
+get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id PAREN_FIN {: System.out.println ("Se ejecuto get element byId  "); :}
+	;
+get_element_value_id ::= ID_VALUE_CHAR
+	| CHARACT_VALUE
+	;
+
+//CONDICION Retorna true or false
+condicion ::= operacion_logica;
+
+//OPERACIONES
+operacion_logica ::= operacion_logica SIMBOL_AND operacion_logica {: System.out.println ("Se ejecuto AND"); 	:}
+    | operacion_logica SIMBOL_OR operacion_logica {: System.out.println ("Se ejecuto OR"); :}
+    | SIMBOL_NOT operacion_logica {: System.out.println ("Se ejecuto NOT");	:}
+	| operacion_relacional {: System.out.println ("Valor"); :}
+    | PAREN_INI operacion_logica:p 
+    {: 
+		System.out.println(" ( )"); 	
+	:}
+	PAREN_FIN
+    ;
+//El valor que envian las operaciones racionales deben ser verdadero/falso
+operacion_relacional::= 
+	  operacion_aritmetica MAYOR       operacion_aritmetica {: System.out.println ("Se ejecuto >  "); :}
+    | operacion_aritmetica MENOR       operacion_aritmetica {: System.out.println ("Se ejecuto <  "); :}
+    | operacion_aritmetica MAYOR_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto >= "); :}
+    | operacion_aritmetica MENOR_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto <= "); :}
+    | operacion_aritmetica NO_IGUAL    operacion_aritmetica {: System.out.println ("Se ejecuto != "); :} 
+    | operacion_aritmetica IGUAL_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto =  "); :} 
+	| operacion_aritmetica                                  {: System.out.println ("Valor/variable"); :} 
+    | error                                                 {: System.out.println ("Error op. rel."); :}
+    ;
+operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:n2 
+	{: 
+		System.out.println(" + "); 	
+	:}	
+    | operacion_aritmetica:n1 SIGNO_MIN operacion_aritmetica:n2
+    {: 
+		System.out.println(" - "); 	
+	:}
+    | operacion_aritmetica:n1 SIGNO_POR operacion_aritmetica:n2 
+    {: 
+		System.out.println(" * "); 	
+	:}
+    | operacion_aritmetica:n1 SIGNO_DIV operacion_aritmetica:n2
+    {: 
+		System.out.println(" / "); 	
+	:}
+    | valores_datos_primarios:e
+    {: 
+		System.out.println ("Valor/variable");	
+	:}
+    | SIGNO_MIN operacion_aritmetica:n1
+    {: 
+		System.out.println(" Entero negativo "); :}	
+    ;    
