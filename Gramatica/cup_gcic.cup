@@ -486,139 +486,149 @@ etiqueta_br       ::= etiqueta_apertura_br;
 etiqueta_img      ::= etiqueta_apertura_img etiqueta_cierre_img;
 
 /////////////////////////TEXTOS
-etiqueta_title    ::= etiqueta_apertura_title    contenido_texto etiqueta_cierre_title   ;
-etiqueta_link     ::= etiqueta_apertura_link     contenido_texto etiqueta_cierre_link    ;
-etiqueta_spam     ::= etiqueta_apertura_spam     contenido_texto etiqueta_cierre_spam    ;
-etiqueta_input    ::= etiqueta_apertura_input    contenido_texto etiqueta_cierre_input   ;
-etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto etiqueta_cierre_textarea;
-etiqueta_option   ::= etiqueta_apertura_option   contenido_texto etiqueta_cierre_option  ;
-etiqueta_button   ::= etiqueta_apertura_button   contenido_texto etiqueta_cierre_button  ;
-etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto etiqueta_cierre_h1      ;
-etiqueta_p        ::= etiqueta_apertura_p        contenido_texto etiqueta_cierre_p       ;
+etiqueta_title    ::= etiqueta_apertura_title    contenido_texto:a etiqueta_cierre_title   {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_link     ::= etiqueta_apertura_link     contenido_texto:a etiqueta_cierre_link    {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_spam     ::= etiqueta_apertura_spam     contenido_texto:a etiqueta_cierre_spam    {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_input    ::= etiqueta_apertura_input    contenido_texto:a etiqueta_cierre_input   {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto:a etiqueta_cierre_textarea{: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_option   ::= etiqueta_apertura_option   contenido_texto:a etiqueta_cierre_option  {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_button   ::= etiqueta_apertura_button   contenido_texto:a etiqueta_cierre_button  {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto:a etiqueta_cierre_h1      {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_p        ::= etiqueta_apertura_p        contenido_texto:a etiqueta_cierre_p       {: System.out.println(" ---> TEXTO --->: "+a); :};
 
 
-contenido_texto   ::= contenido_texto contenido_texto_unidad
+contenido_texto   ::= contenido_texto:bloqueTexto contenido_texto_unidad:textoAux
 		{:
-			//RESULT = texto_aux + "\n";//agregamos salto de linea
+			RESULT = bloqueTexto + " " + textoAux;//agregamos texto
 		:}
-	| contenido_texto:texto_aux etiqueta_br //salto de linea
+	| contenido_texto:bloqueTexto etiqueta_br //salto de linea
 		{:
-			RESULT = texto_aux + "\n";//agregamos salto de linea
+			RESULT = bloqueTexto + " " + "<br>";//agregamos salto de linea
 		:}
 	| /* empty */ 
 		{:
 			RESULT = "";
 		:}
+	//| contenido_texto error
 	;
 
-contenido_texto_unidad ::= ALL_CHARACTERS
-	| ID_VALUE
+contenido_texto_unidad ::= 
+	  ALL_CHARACTERS:a 		    	{: RESULT = a.getLexema(); :}
+	| ID_VALUE:a                	{: RESULT = a.getLexema(); :}
 	//SIMBOLOS
-	| PERCENT
-	| IGUAL
-	| CORCH_INI
-	| CORCH_FIN
-	| PAREN_INI
-	| PAREN_FIN
-	| LLAVE_INI
-	| LLAVE_FIN
-	| COMA
-	| PUNTO_COMA
-	| DOS_PUNTOS
-	| NO_IGUAL
-	| MAYOR_IGUAL
-	| MENOR_IGUAL
+	| PERCENT:a                 	{: RESULT = a.getLexema(); :}
+	| IGUAL:a                   	{: RESULT = a.getLexema(); :}
+	| CORCH_INI:a               	{: RESULT = a.getLexema(); :}
+	| CORCH_FIN:a                   {: RESULT = a.getLexema(); :}
+	| PAREN_INI:a                   {: RESULT = a.getLexema(); :}
+	| PAREN_FIN:a                   {: RESULT = a.getLexema(); :}
+	| LLAVE_INI:a                   {: RESULT = a.getLexema(); :}
+	| LLAVE_FIN:a 			        {: RESULT = a.getLexema(); :}
+	| COMA:a                        {: RESULT = a.getLexema(); :}
+	| PUNTO_COMA:a                  {: RESULT = a.getLexema(); :}
+	| DOS_PUNTOS:a                  {: RESULT = a.getLexema(); :}
+	| NO_IGUAL:a 		     	    {: RESULT = a.getLexema(); :}
+	| MAYOR_IGUAL:a 	     	    {: RESULT = a.getLexema(); :}
+	| MENOR_IGUAL:a 	            {: RESULT = a.getLexema(); :}
+	| MAYOR:a ALL_CHARACTERS:b      {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MENOR:a ALL_CHARACTERS:b      {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MAYOR:a INTEGER_VALUE:b       {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MAYOR:a DECIMAL_VALUE:b       {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MAYOR:a BOOLEAN_VALUE:b       {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MENOR:a INTEGER_VALUE:b       {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MENOR:a DECIMAL_VALUE:b       {: RESULT = a.getLexema() + " " + b.getLexema(); :}
+	| MENOR:a BOOLEAN_VALUE:b       {: RESULT = a.getLexema() + " " + b.getLexema(); :}
 	//OPERADORES LOGICOS
-	| SIMBOL_OR
-	| SIMBOL_AND
-	| SIMBOL_NOT
+	| SIMBOL_OR:a                   {: RESULT = a.getLexema(); :}
+	| SIMBOL_AND:a                  {: RESULT = a.getLexema(); :}
+	| SIMBOL_NOT:a                  {: RESULT = a.getLexema(); :}
 	//OPERADORES MATEMATICOS
-	| SIGNO_MAS
-	| SIGNO_MIN
-	| SIGNO_POR 
-	| SIGNO_DIV	
+	| SIGNO_MAS:a                   {: RESULT = a.getLexema(); :}
+	| SIGNO_MIN:a                   {: RESULT = a.getLexema(); :}
+	| SIGNO_POR:a                   {: RESULT = a.getLexema(); :}
+	| SIGNO_DIV:a                   {: RESULT = a.getLexema(); :}
 	//ETIQUETAS HTML
-	| C_GCIC
-	| C_HEAD
-	| C_TITLE
-	| C_LINK
-	| C_BODY
-	| C_SPAM
-	| C_INPUT
-	| C_TEXTAREA
-	| C_SELECT
-	| C_OPTION
-	| C_DIV
-	| C_IMG
-	| C_BR
-	| C_BUTTON
-	| C_H1
-	| C_P
+	| C_GCIC:a                      {: RESULT = a.getLexema(); :}
+	| C_HEAD:a                      {: RESULT = a.getLexema(); :}
+	| C_TITLE:a                     {: RESULT = a.getLexema(); :}
+	| C_LINK:a                      {: RESULT = a.getLexema(); :}
+	| C_BODY:a                      {: RESULT = a.getLexema(); :}
+	| C_SPAM:a                      {: RESULT = a.getLexema(); :}
+	| C_INPUT:a                     {: RESULT = a.getLexema(); :}
+	| C_TEXTAREA:a                  {: RESULT = a.getLexema(); :}
+	| C_SELECT:a                    {: RESULT = a.getLexema(); :}
+	| C_OPTION:a                    {: RESULT = a.getLexema(); :}
+	| C_DIV:a                       {: RESULT = a.getLexema(); :}
+	| C_IMG:a                       {: RESULT = a.getLexema(); :}
+	| C_BR:a                        {: RESULT = a.getLexema(); :}
+	| C_BUTTON:a                    {: RESULT = a.getLexema(); :}
+	| C_H1:a                        {: RESULT = a.getLexema(); :}
+	| C_P:a                         {: RESULT = a.getLexema(); :}
 	//SCRIPTING
-	| C_SCRIPTING 
+	| C_SCRIPTING:a                 {: RESULT = a.getLexema(); :}
 	//PARAMETROS
-	| HREF
-	| BACKGROUND
-	| COLOR
-	| FONT_SIZE
-	| FONT_FAMILY
-	| TEXT_ALIGN
-	| TYPE
-	| ID
-	| NAME
-	| COLS
-	| ROWS
-	| CLASS
-	| SRC
-	| WIDTH
-	| HEIGHT
-	| ALT
-	| ONCLICK
+	| HREF:a                        {: RESULT = a.getLexema(); :}
+	| BACKGROUND:a                  {: RESULT = a.getLexema(); :}
+	| COLOR:a                       {: RESULT = a.getLexema(); :}
+	| FONT_SIZE:a                   {: RESULT = a.getLexema(); :}
+	| FONT_FAMILY:a                 {: RESULT = a.getLexema(); :}
+	| TEXT_ALIGN:a                  {: RESULT = a.getLexema(); :}
+	| TYPE:a                        {: RESULT = a.getLexema(); :}
+	| ID:a                          {: RESULT = a.getLexema(); :}
+	| NAME:a                        {: RESULT = a.getLexema(); :}
+	| COLS:a                        {: RESULT = a.getLexema(); :}
+	| ROWS:a                        {: RESULT = a.getLexema(); :}
+	| CLASS:a                       {: RESULT = a.getLexema(); :}
+	| SRC:a                         {: RESULT = a.getLexema(); :}
+	| WIDTH:a                       {: RESULT = a.getLexema(); :}
+	| HEIGHT:a                      {: RESULT = a.getLexema(); :}
+	| ALT:a                         {: RESULT = a.getLexema(); :}
+	| ONCLICK:a                     {: RESULT = a.getLexema(); :}
 	//PARAMETROS SCRIPTING
-	| ON_LOAD
-	| PROCESS_ABC
+	| ON_LOAD:a                     {: RESULT = a.getLexema(); :}
+	| PROCESS_ABC:a                 {: RESULT = a.getLexema(); :}
 	//TIPO DATOS
-	| INTEGER
-	| DECIMAL
-	| BOOLEAN
-	| CHAR
-	| STRING
+	| INTEGER:a                     {: RESULT = a.getLexema(); :}
+	| DECIMAL:a                     {: RESULT = a.getLexema(); :}
+	| BOOLEAN:a                     {: RESULT = a.getLexema(); :}
+	| CHAR:a                        {: RESULT = a.getLexema(); :}
+	| STRING:a                      {: RESULT = a.getLexema(); :}
 	//FUNCIONES ESPECIALES LENGUAJE CLC
-	| FUNCTION_ASC
-	| FUNCTION_DESC
-	| FUNCTION_LETPAR_NUM
-	| FUNCTION_LETIMPAR_NUM
-	| FUNCTION_REVERSE
-	| FUNCTION_CARACTER_ALEATORIO
-	| FUNCTION_NUM_ALEATORIO
-	| FUNCTION_ALERT_INFO
-	| FUNCTION_EXIT
+	| FUNCTION_ASC:a                {: RESULT = a.getLexema(); :}
+	| FUNCTION_DESC:a           	{: RESULT = a.getLexema(); :}
+	| FUNCTION_LETPAR_NUM:a     	{: RESULT = a.getLexema(); :}
+	| FUNCTION_LETIMPAR_NUM:a   	{: RESULT = a.getLexema(); :}
+	| FUNCTION_REVERSE:a        	{: RESULT = a.getLexema(); :}
+	| FUNCTION_CARACTER_ALEATORIO:a {: RESULT = a.getLexema(); :}
+	| FUNCTION_NUM_ALEATORIO:a      {: RESULT = a.getLexema(); :}
+	| FUNCTION_ALERT_INFO:a         {: RESULT = a.getLexema(); :}
+	| FUNCTION_EXIT:a               {: RESULT = a.getLexema(); :}
 	//ACCESO A IDENTIFICADORES
-	| GET_ELEMEN_BY_ID
+	| GET_ELEMEN_BY_ID:a            {: RESULT = a.getLexema(); :}
 	//BLOQUE INSTRUCCIONES
-	| INIT
-	| END
+	| INIT:a                        {: RESULT = a.getLexema(); :}
+	| END:a                         {: RESULT = a.getLexema(); :}
 	//SENTENCIAS
-	| IF
-	| ELSE
-	| THEN
+	| IF:a                          {: RESULT = a.getLexema(); :}
+	| ELSE:a                        {: RESULT = a.getLexema(); :}
+	| THEN:a                        {: RESULT = a.getLexema(); :}
 	//CICLOS
-	| REPEAT
-	| HUNTIL 
-	| WHILE
-	| THENWHILE
+	| REPEAT:a                      {: RESULT = a.getLexema(); :}
+	| HUNTIL :a                     {: RESULT = a.getLexema(); :}
+	| WHILE:a                       {: RESULT = a.getLexema(); :}
+	| THENWHILE:a                   {: RESULT = a.getLexema(); :}
 	//INSERT
-	| INSERT
+	| INSERT:a                      {: RESULT = a.getLexema(); :}
 	//MODO DECLARACION
-	| MODO_GLOBAL
+	| MODO_GLOBAL:a                 {: RESULT = a.getLexema(); :}
 	//DATA VALUES
-	| INTEGER_VALUE
-	| DECIMAL_VALUE
-	| BOOLEAN_VALUE
+	| INTEGER_VALUE:a               {: RESULT = a.getLexema(); :}
+	| DECIMAL_VALUE:a               {: RESULT = a.getLexema(); :}
+	| BOOLEAN_VALUE:a               {: RESULT = a.getLexema(); :}
 	//VALORES CON COMILLAS
-	| TEXT_VALUE
-	| ID_VALUE_STR
-	| DIGIT_VALUE
+	| TEXT_VALUE:a                  {: RESULT = a.getLexema(); :}
+	| ID_VALUE_STR:a                {: RESULT = a.getLexema(); :}
+	| DIGIT_VALUE:a                 {: RESULT = a.getLexema(); :}
 	;
 
 /////////////////////////SCRIPTING
