@@ -5,6 +5,7 @@
  */
 package ventana;
 
+import clasesDAO.TokenError;
 import gramatica_gcic.LexerGCIC;
 import gramatica_gcic.parser;
 import java.awt.event.AdjustmentEvent;
@@ -18,6 +19,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringReader;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
@@ -351,7 +353,37 @@ public class Ventana extends javax.swing.JFrame {
                 LexerGCIC lexer = new LexerGCIC(sr);
                 parser pars = new parser(lexer);
                 try{                        
-                    pars.parse();     
+                    pars.parse();    
+                    
+                    ArrayList<TokenError> listadoErroresLexicos = lexer.obtenerListadoErroresLexicos();
+                    ArrayList<TokenError> listadoErroresSintacticos = pars.getListadoErroresParser();
+                    
+                    System.out.println("\n\n\n/////////////////////////////////////////////////");
+                    
+                    try{
+                        for(TokenError te: listadoErroresLexicos){
+                            System.out.println(""+te.getTipoToken()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+" Linea"+te.getLinea()+" Columna: "+te.getColumna());
+                        }
+                    }catch(Exception ex){
+                        
+                    }
+                    try{
+                        for(TokenError te: listadoErroresSintacticos){
+                            if(te.getMsgError().equalsIgnoreCase("La etiqueta de cierre debe ser <C_GCIC>")){//fin del archivo mal cerrado                                
+                                String tokens[]=normalized_string.split("\n");   
+                                int line = tokens.length, col = tokens[tokens.length - 1].length() + 1;
+                                
+                                te.setLinea(line);
+                                te.setColumna(col);
+
+                            }
+                            System.out.println(""+te.getTipoToken()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+" Linea"+te.getLinea()+" Columna: "+te.getColumna());
+                        }
+                    }catch(Exception ex){
+                        
+                    }
+                    
+                    
                 }catch(Exception ex){
                     System.out.println("Error en el lenguajes de etqiuetas: "+ex.getMessage());
                     ex.printStackTrace();

@@ -18,22 +18,28 @@ parser code{:
 	public void syntax_error(Symbol a){
 		Token tokenError = (Token) a.value;//lo transformamos en token para obtener su lexema, fila y columna		
 		String msgError = "Se esperaba: ";	
-
 		
-		int linea = tokenError.getLinea();
-		int columna = tokenError.getColumna();
+                
+		int linea = (tokenError != null) ? tokenError.getLinea() : 0;
+		int columna = (tokenError != null) ? tokenError.getColumna() : 0;
 
-		for(int i = 0; i < expected_token_ids().size(); i++){
-			//msgError = msgError + mensajes[expected_token_ids().get(i)];
-			msgError = msgError + symbl_name_from_id(expected_token_ids().get(i)) + " ";
+		if(a.sym == sym.EOF){
+			System.out.println("END OF FILE");
+			TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", "Etiqueta de cierre", "La etiqueta de cierre debe ser <C_GCIC>", -1, -1);
+			listadoErroresSintacticos.add(tokenErrorAux);
+		}else{
+			for(int i = 0; i < expected_token_ids().size(); i++){
+				//msgError = msgError + mensajes[expected_token_ids().get(i)];
+				msgError = msgError + symbl_name_from_id(expected_token_ids().get(i)) + " ";
 
-			if(i < expected_token_ids().size() - 1)
-				msgError = msgError + ", ";			
+				if(i < expected_token_ids().size() - 1)
+					msgError = msgError + ", ";			
+			}
+			//System.out.println("error de sintaxis: linea: "+tokenError.getLexema()+" "+tokenError.getLinea()+" columna: "+tokenError.getColumna()+" MENSAJE: "+msgError);
+			TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", tokenError.getLexema(), msgError, linea, columna);
+			listadoErroresSintacticos.add(tokenErrorAux);
 		}
-        		System.out.println("error de sintaxis: linea: "+tokenError.getLexema()+" "+tokenError.getLinea()+" columna: "+tokenError.getColumna()+" MENSAJE: "+msgError);
-
-        TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", tokenError.getLexema(), msgError, linea, columna);
-        listadoErroresSintacticos.add(tokenErrorAux);
+		
 	}
 	
 	public void report_error(String message, Object info) {
@@ -424,15 +430,16 @@ start with s;
 
 s ::= etiqueta_gcic {: System.out.println("Se registro una etiqueta GCIC"); :}
 	| /* empty */   {: System.out.println("Se registro una etiqueta vacia"); :}
-	| etiqueta_scripting {: System.out.println("Se registro una etiqueta sripting"); :}
+	| error	s		{: System.out.println("Cierre bien la etiqueta C_GCIC"); :}
+	//| etiqueta_scripting {: System.out.println("Se registro una etiqueta sripting"); :}
 	;
 
 //////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
 /////////////////////////CONTENIDO
-etiqueta_gcic     ::= etiqueta_apertura_gcic bloque_elements_gcic etiqueta_cierre_gcic;
-etiqueta_head     ::= etiqueta_apertura_head bloque_elements_head etiqueta_cierre_head;
-etiqueta_body     ::= etiqueta_apertura_body bloque_elements_body etiqueta_cierre_body;
-etiqueta_div      ::= etiqueta_apertura_div  bloque_elements_body etiqueta_cierre_div ;
+etiqueta_gcic     ::= etiqueta_apertura_gcic bloque_elements_gcic etiqueta_cierre_gcic ;//| error;
+etiqueta_head     ::= etiqueta_apertura_head bloque_elements_head etiqueta_cierre_head | error;
+etiqueta_body     ::= etiqueta_apertura_body bloque_elements_body etiqueta_cierre_body | error;
+etiqueta_div      ::= etiqueta_apertura_div  bloque_elements_body etiqueta_cierre_div  | error;
 
 bloque_elements_gcic ::= etiqueta_head etiqueta_body; //Head y el Body, obligatorio la declaracion de estos 2 terminos
 
@@ -443,6 +450,7 @@ bloque_elements_head ::= bloque_elements_head elements_head
 elements_head ::= 
 	  etiqueta_title
 	| etiqueta_link
+	|  error {: System.out.println("Error etiqueta del head"); :}
 	;
 
 bloque_elements_body ::= bloque_elements_body elements_body
@@ -460,7 +468,8 @@ elements_body ::=
 	| etiqueta_button
 	| etiqueta_h1
 	| etiqueta_p
-	| etiqueta_scripting 
+	| etiqueta_scripting
+	//| error  {: System.out.println("Error etiqueta del body"); :}
 	;
 
 /////////////////////////SELECT
@@ -615,7 +624,7 @@ contenido_texto_unidad ::= ALL_CHARACTERS
 /////////////////////////SCRIPTING
 etiqueta_scripting ::= etiqueta_apertura_sripting bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
-etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic     MAYOR;
+etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic     MAYOR;// | error {: System.out.println("Error etoqueta gcic"); :}
 etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        MAYOR; 
 etiqueta_apertura_title    ::= MENOR C_TITLE    /* NO PARAMETROS */        MAYOR;
 etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link     MAYOR;
@@ -624,7 +633,7 @@ etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label    MAYOR
 etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input    MAYOR;
 etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea MAYOR;
 etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label    MAYOR;
-etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        MAYOR;
+etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        MAYOR;//| error;
 etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div      MAYOR;
 etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img      MAYOR;
 etiqueta_apertura_br       ::= MENOR C_BR       /* NO PARAMETROS */        MAYOR;
@@ -634,58 +643,67 @@ etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label    MAYOR
 etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       MAYOR;
 
 /////////////////////////CIERRE, DE LA FORMA </C_NOMBRE_ETIQUETA>
-etiqueta_cierre_gcic     ::= MENOR SIGNO_DIV C_GCIC      MAYOR;
-etiqueta_cierre_head     ::= MENOR SIGNO_DIV C_HEAD      MAYOR;
-etiqueta_cierre_title    ::= MENOR SIGNO_DIV C_TITLE     MAYOR;
-etiqueta_cierre_link     ::= MENOR SIGNO_DIV C_LINK      MAYOR;
-etiqueta_cierre_body     ::= MENOR SIGNO_DIV C_BODY      MAYOR;
-etiqueta_cierre_spam     ::= MENOR SIGNO_DIV C_SPAM      MAYOR;
-etiqueta_cierre_input    ::= MENOR SIGNO_DIV C_INPUT     MAYOR;
-etiqueta_cierre_textarea ::= MENOR SIGNO_DIV C_TEXTAREA  MAYOR;
-etiqueta_cierre_select   ::= MENOR SIGNO_DIV C_SELECT    MAYOR;
-etiqueta_cierre_option   ::= MENOR SIGNO_DIV C_OPTION    MAYOR;
-etiqueta_cierre_div      ::= MENOR SIGNO_DIV C_DIV       MAYOR;
-etiqueta_cierre_img      ::= MENOR SIGNO_DIV C_IMG       MAYOR;
-etiqueta_cierre_button   ::= MENOR SIGNO_DIV C_BUTTON    MAYOR;
-etiqueta_cierre_h1       ::= MENOR SIGNO_DIV C_H1        MAYOR;
-etiqueta_cierre_p        ::= MENOR SIGNO_DIV C_P         MAYOR;
-etiqueta_cierre_sripting ::= MENOR SIGNO_DIV C_SCRIPTING MAYOR;
+etiqueta_cierre_gcic     ::= MENOR SIGNO_DIV C_GCIC      MAYOR | error;
+etiqueta_cierre_head     ::= MENOR SIGNO_DIV C_HEAD      MAYOR ;//| error;
+etiqueta_cierre_title    ::= MENOR SIGNO_DIV C_TITLE     MAYOR | error;
+etiqueta_cierre_link     ::= MENOR SIGNO_DIV C_LINK      MAYOR | error;
+etiqueta_cierre_body     ::= MENOR SIGNO_DIV C_BODY      MAYOR ;//| error;
+etiqueta_cierre_spam     ::= MENOR SIGNO_DIV C_SPAM      MAYOR | error;
+etiqueta_cierre_input    ::= MENOR SIGNO_DIV C_INPUT     MAYOR | error;
+etiqueta_cierre_textarea ::= MENOR SIGNO_DIV C_TEXTAREA  MAYOR | error;
+etiqueta_cierre_select   ::= MENOR SIGNO_DIV C_SELECT    MAYOR | error;
+etiqueta_cierre_option   ::= MENOR SIGNO_DIV C_OPTION    MAYOR | error;
+etiqueta_cierre_div      ::= MENOR SIGNO_DIV C_DIV       MAYOR ;//| error;
+etiqueta_cierre_img      ::= MENOR SIGNO_DIV C_IMG       MAYOR | error;
+etiqueta_cierre_button   ::= MENOR SIGNO_DIV C_BUTTON    MAYOR | error;
+etiqueta_cierre_h1       ::= MENOR SIGNO_DIV C_H1        MAYOR | error;
+etiqueta_cierre_p        ::= MENOR SIGNO_DIV C_P         MAYOR | error;
+etiqueta_cierre_sripting ::= MENOR SIGNO_DIV C_SCRIPTING MAYOR | error;
 
 //////////////////////////////////////////////////BLOQUE PARAMETROS
 bloque_parametros_gcic ::= bloque_parametros_gcic parametros_gcic
 	| /* empty */
+	| error {: System.out.println("Error parametros gcic"); :}
 	;
 
 bloque_parametros_link ::= bloque_parametros_link parametros_link
 	| /* empty */
+	| error {: System.out.println("Error parametros link"); :}
 	;
 
 bloque_parametros_body ::= bloque_parametros_body parametros_background
 	| /* empty */
+	| error {: System.out.println("Error parametros body"); :}
 	;
 
 bloque_parametros_input ::= bloque_parametros_input parametros_input
 	| /* empty */
+	| error {: System.out.println("Error parametros input"); :}
 	;
 
 bloque_parametros_textarea ::= bloque_parametros_textarea parametros_textarea
 	| /* empty */
+	| error {: System.out.println("Error parametros textarea"); :}
 	;	
 
 bloque_parametros_div ::= bloque_parametros_div parametros_div
 	| /* empty */
+	| error {: System.out.println("Error parametros div"); :}
 	;
 
 bloque_parametros_img ::= bloque_parametros_img parametros_img
 	| /* empty */
+	| error {: System.out.println("Error parametros img"); :}
 	;
 
 bloque_parametros_label ::= bloque_parametros_label parametros_letras
 	| /* empty */
+	| error {: System.out.println("Error parametros label"); :}
 	;	
 	
 bloque_parametros_button ::= bloque_parametros_button parametros_button
 	| /* empty */
+	| error {: System.out.println("Error parametros button"); :}
 	;
 
 
