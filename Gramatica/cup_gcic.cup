@@ -314,6 +314,15 @@ non terminal bloque_parametros_img;
 non terminal bloque_parametros_label;
 non terminal bloque_parametros_button;
 
+non terminal bloque_parametros_contenido_gcic;
+non terminal bloque_parametros_contenido_link;
+non terminal bloque_parametros_contenido_body;
+non terminal bloque_parametros_contenido_input;
+non terminal bloque_parametros_contenido_textarea;
+non terminal bloque_parametros_contenido_div;
+non terminal bloque_parametros_contenido_img;
+non terminal bloque_parametros_contenido_label;
+non terminal bloque_parametros_contenido_button;
 //////////////////////////////////////////////////PARAMETROS 
 non terminal parametros_gcic;
 non terminal parametros_link;
@@ -635,22 +644,22 @@ contenido_texto_unidad ::=
 /////////////////////////SCRIPTING
 etiqueta_scripting ::= etiqueta_apertura_sripting bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
-etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic     MAYOR;// | error {: System.out.println("Error etoqueta gcic"); :}
+etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic          ;// | error {: System.out.println("Error etoqueta gcic"); :}
 etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        MAYOR; 
 etiqueta_apertura_title    ::= MENOR C_TITLE    /* NO PARAMETROS */        MAYOR;
-etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link     MAYOR;
-etiqueta_apertura_body     ::= MENOR C_BODY     bloque_parametros_body     MAYOR;
-etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label    MAYOR;
-etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input    MAYOR;
-etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea MAYOR;
-etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label    MAYOR;
+etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link          ;
+etiqueta_apertura_body     ::= MENOR C_BODY     bloque_parametros_body          ;
+etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label         ;
+etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input         ;
+etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea      ;
+etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label         ;
 etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        MAYOR;//| error;
-etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div      MAYOR;
-etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img      MAYOR;
+etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div           ;
+etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img           ;
 etiqueta_apertura_br       ::= MENOR C_BR       /* NO PARAMETROS */        MAYOR;
-etiqueta_apertura_button   ::= MENOR C_BUTTON   bloque_parametros_button   MAYOR;
-etiqueta_apertura_h1       ::= MENOR C_H1       bloque_parametros_label    MAYOR;
-etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label    MAYOR;
+etiqueta_apertura_button   ::= MENOR C_BUTTON   bloque_parametros_button        ;
+etiqueta_apertura_h1       ::= MENOR C_H1       bloque_parametros_label         ;
+etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label         ;
 etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       MAYOR;
 
 /////////////////////////CIERRE, DE LA FORMA </C_NOMBRE_ETIQUETA>
@@ -672,51 +681,78 @@ etiqueta_cierre_p        ::= MENOR SIGNO_DIV C_P         MAYOR | error;
 etiqueta_cierre_sripting ::= MENOR SIGNO_DIV C_SCRIPTING MAYOR | error;
 
 //////////////////////////////////////////////////BLOQUE PARAMETROS
-bloque_parametros_gcic ::= bloque_parametros_gcic parametros_gcic
-	| /* empty */
+bloque_parametros_gcic ::= bloque_parametros_contenido_gcic MAYOR
 	| error {: System.out.println("Error parametros gcic"); :}
 	;
 
-bloque_parametros_link ::= bloque_parametros_link parametros_link
-	| /* empty */
+bloque_parametros_link ::= bloque_parametros_contenido_link MAYOR
 	| error {: System.out.println("Error parametros link"); :}
 	;
 
-bloque_parametros_body ::= bloque_parametros_body parametros_background
-	| /* empty */
+bloque_parametros_body ::= bloque_parametros_contenido_body MAYOR
 	| error {: System.out.println("Error parametros body"); :}
 	;
 
-bloque_parametros_input ::= bloque_parametros_input parametros_input
-	| /* empty */
+bloque_parametros_input ::= bloque_parametros_contenido_input MAYOR
 	| error {: System.out.println("Error parametros input"); :}
 	;
 
-bloque_parametros_textarea ::= bloque_parametros_textarea parametros_textarea
-	| /* empty */
+bloque_parametros_textarea ::= bloque_parametros_contenido_textarea MAYOR
 	| error {: System.out.println("Error parametros textarea"); :}
-	;	
+	;
 
-bloque_parametros_div ::= bloque_parametros_div parametros_div
-	| /* empty */
+bloque_parametros_div ::= bloque_parametros_contenido_div MAYOR
 	| error {: System.out.println("Error parametros div"); :}
 	;
 
-bloque_parametros_img ::= bloque_parametros_img parametros_img
-	| /* empty */
+bloque_parametros_img ::= bloque_parametros_contenido_img MAYOR
 	| error {: System.out.println("Error parametros img"); :}
 	;
 
-bloque_parametros_label ::= bloque_parametros_label parametros_letras
-	| /* empty */
+bloque_parametros_label ::= bloque_parametros_contenido_label MAYOR
 	| error {: System.out.println("Error parametros label"); :}
-	;	
-	
-bloque_parametros_button ::= bloque_parametros_button parametros_button
-	| /* empty */
+	;
+
+bloque_parametros_button ::= bloque_parametros_contenido_button MAYOR
 	| error {: System.out.println("Error parametros button"); :}
 	;
 
+
+bloque_parametros_contenido_gcic ::= bloque_parametros_contenido_gcic parametros_gcic
+	| /* empty */	
+	;
+
+bloque_parametros_contenido_link ::= bloque_parametros_contenido_link parametros_link
+	| /* empty */	
+	;
+
+bloque_parametros_contenido_body ::= bloque_parametros_contenido_body parametros_background
+	| /* empty */	
+	;
+
+bloque_parametros_contenido_input ::= bloque_parametros_contenido_input parametros_input
+	| /* empty */	
+	;
+
+bloque_parametros_contenido_textarea ::= bloque_parametros_contenido_textarea parametros_textarea
+	| /* empty */	
+	;	
+
+bloque_parametros_contenido_div ::= bloque_parametros_contenido_div parametros_div
+	| /* empty */	
+	;
+
+bloque_parametros_contenido_img ::= bloque_parametros_contenido_img parametros_img
+	| /* empty */	
+	;
+
+bloque_parametros_contenido_label ::= bloque_parametros_contenido_label parametros_letras
+	| /* empty */
+	;		
+
+bloque_parametros_contenido_button ::= bloque_parametros_contenido_button parametros_button
+	| /* empty */	
+	;
 
 //////////////////////////////////////////////////PARAMETROS 	
 parametros_gcic ::= parametro_unidad_id
