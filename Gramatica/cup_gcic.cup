@@ -430,7 +430,7 @@ start with s;
 
 s ::= etiqueta_gcic {: System.out.println("Se registro una etiqueta GCIC"); :}
 	| /* empty */   {: System.out.println("Se registro una etiqueta vacia"); :}
-	| error	s		{: System.out.println("Cierre bien la etiqueta C_GCIC"); :}
+	| error			{: System.out.println("Cierre bien la etiqueta C_GCIC"); :}
 	//| etiqueta_scripting {: System.out.println("Se registro una etiqueta sripting"); :}
 	;
 
@@ -450,7 +450,7 @@ bloque_elements_head ::= bloque_elements_head elements_head
 elements_head ::= 
 	  etiqueta_title
 	| etiqueta_link
-	|  error {: System.out.println("Error etiqueta del head"); :}
+	| error {: System.out.println("Error etiqueta del head"); :}
 	;
 
 bloque_elements_body ::= bloque_elements_body elements_body
@@ -469,7 +469,8 @@ elements_body ::=
 	| etiqueta_h1
 	| etiqueta_p
 	| etiqueta_scripting
-	//| error  {: System.out.println("Error etiqueta del body"); :}
+	//| /* empty */
+	//| error {: System.out.println("Error etiqueta del body"); :}
 	;
 
 /////////////////////////SELECT
@@ -486,15 +487,15 @@ etiqueta_br       ::= etiqueta_apertura_br;
 etiqueta_img      ::= etiqueta_apertura_img etiqueta_cierre_img;
 
 /////////////////////////TEXTOS
-etiqueta_title    ::= etiqueta_apertura_title    contenido_texto:a etiqueta_cierre_title   {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_link     ::= etiqueta_apertura_link     contenido_texto:a etiqueta_cierre_link    {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_spam     ::= etiqueta_apertura_spam     contenido_texto:a etiqueta_cierre_spam    {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_input    ::= etiqueta_apertura_input    contenido_texto:a etiqueta_cierre_input   {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto:a etiqueta_cierre_textarea{: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_option   ::= etiqueta_apertura_option   contenido_texto:a etiqueta_cierre_option  {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_button   ::= etiqueta_apertura_button   contenido_texto:a etiqueta_cierre_button  {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto:a etiqueta_cierre_h1      {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_p        ::= etiqueta_apertura_p        contenido_texto:a etiqueta_cierre_p       {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_title    ::= etiqueta_apertura_title    contenido_texto:a etiqueta_cierre_title    {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_link     ::= etiqueta_apertura_link     contenido_texto:a etiqueta_cierre_link     {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_spam     ::= etiqueta_apertura_spam     contenido_texto:a etiqueta_cierre_spam     {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_input    ::= etiqueta_apertura_input    contenido_texto:a etiqueta_cierre_input    {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto:a etiqueta_cierre_textarea {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_option   ::= etiqueta_apertura_option   contenido_texto:a etiqueta_cierre_option   {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_button   ::= etiqueta_apertura_button   contenido_texto:a etiqueta_cierre_button   {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto:a etiqueta_cierre_h1       {: System.out.println(" ---> TEXTO --->: "+a); :};
+etiqueta_p        ::= etiqueta_apertura_p        contenido_texto:a etiqueta_cierre_p        {: System.out.println(" ---> TEXTO --->: "+a); :};
 
 
 contenido_texto   ::= contenido_texto:bloqueTexto contenido_texto_unidad:textoAux
@@ -509,7 +510,7 @@ contenido_texto   ::= contenido_texto:bloqueTexto contenido_texto_unidad:textoAu
 		{:
 			RESULT = "";
 		:}
-	//| contenido_texto error
+	//| error MENOR
 	;
 
 contenido_texto_unidad ::= 
@@ -569,7 +570,7 @@ contenido_texto_unidad ::=
 	//PARAMETROS
 	| HREF:a                        {: RESULT = a.getLexema(); :}
 	| BACKGROUND:a                  {: RESULT = a.getLexema(); :}
-	| COLOR:a                       {: RESULT = a.getLexema(); :}
+	| COLOR:a   C_H1                    {: RESULT = a.getLexema(); :}
 	| FONT_SIZE:a                   {: RESULT = a.getLexema(); :}
 	| FONT_FAMILY:a                 {: RESULT = a.getLexema(); :}
 	| TEXT_ALIGN:a                  {: RESULT = a.getLexema(); :}
