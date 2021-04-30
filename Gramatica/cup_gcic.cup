@@ -303,6 +303,7 @@ non terminal etiqueta_cierre_h1;
 non terminal etiqueta_cierre_p;
 non terminal etiqueta_cierre_sripting;
 
+non terminal etiqueta_cierre_general;
 //////////////////////////////////////////////////BLOQUE PARAMETROS
 non terminal bloque_parametros_gcic;
 non terminal bloque_parametros_link;
@@ -367,6 +368,7 @@ non terminal parametro_valor_reservado;
 //FUNCION
 non terminal bloque_funciones;
 non terminal funcion_unitaria;
+non terminal funcion_unitaria_simbolos_inicio;
 non terminal nombre_funciones;
 //BLOQUE INSTRUCCIONES
 non terminal bloque_instrucciones_sentencias;
@@ -644,24 +646,26 @@ contenido_texto_unidad ::=
 /////////////////////////SCRIPTING
 etiqueta_scripting ::= etiqueta_apertura_sripting bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
-etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic          ;// | error {: System.out.println("Error etoqueta gcic"); :}
-etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        MAYOR; 
-etiqueta_apertura_title    ::= MENOR C_TITLE    /* NO PARAMETROS */        MAYOR;
-etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link          ;
-etiqueta_apertura_body     ::= MENOR C_BODY     bloque_parametros_body          ;
-etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label         ;
-etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input         ;
-etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea      ;
-etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label         ;
-etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        MAYOR;//| error;
-etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div           ;
-etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img           ;
-etiqueta_apertura_br       ::= MENOR C_BR       /* NO PARAMETROS */        MAYOR;
-etiqueta_apertura_button   ::= MENOR C_BUTTON   bloque_parametros_button        ;
-etiqueta_apertura_h1       ::= MENOR C_H1       bloque_parametros_label         ;
-etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label         ;
-etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       MAYOR;
+etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic                            ;// | error {: System.out.println("Error etoqueta gcic"); :}
+etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        etiqueta_cierre_general; 
+etiqueta_apertura_title    ::= MENOR C_TITLE    /* NO PARAMETROS */        etiqueta_cierre_general;
+etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link                            ;
+etiqueta_apertura_body     ::= MENOR C_BODY     bloque_parametros_body                            ;
+etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label                           ;
+etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input                           ;
+etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea                        ;
+etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label                           ;
+etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        etiqueta_cierre_general;//| error;
+etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div                             ;
+etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img                             ;
+etiqueta_apertura_br       ::= MENOR C_BR       /* NO PARAMETROS */        etiqueta_cierre_general;
+etiqueta_apertura_button   ::= MENOR C_BUTTON   bloque_parametros_button                          ;
+etiqueta_apertura_h1       ::= MENOR C_H1       bloque_parametros_label                           ;
+etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label                           ;
+etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       etiqueta_cierre_general;// | error;
 
+etiqueta_cierre_general  ::= MAYOR	
+	| error;
 /////////////////////////CIERRE, DE LA FORMA </C_NOMBRE_ETIQUETA>
 etiqueta_cierre_gcic     ::= MENOR SIGNO_DIV C_GCIC      MAYOR | error;
 etiqueta_cierre_head     ::= MENOR SIGNO_DIV C_HEAD      MAYOR ;//| error;
@@ -933,14 +937,20 @@ parametro_valor_reservado ::= COLOR_HEX
 bloque_funciones ::= bloque_funciones funcion_unitaria
 		{: System.out.println ("Se ejecuto BLOQUE DE FUNCIONES  "); :}
 	| /* empty */
+	//| bloque_funciones error
 	;
-funcion_unitaria ::= nombre_funciones PAREN_INI PAREN_FIN CORCH_INI //PROCESS_hola()[
+funcion_unitaria ::= nombre_funciones funcion_unitaria_simbolos_inicio//PAREN_INI PAREN_FIN CORCH_INI //PROCESS_hola()[
 						bloque_instrucciones
 					CORCH_FIN // ]
 					{: System.out.println ("Se ejecuto FUNCION  "); :}
+	//| error {: System.out.println ("Se esperaba ] "); :}
+	;
+funcion_unitaria_simbolos_inicio ::= PAREN_INI PAREN_FIN CORCH_INI
+	| error
 	;
 nombre_funciones ::= PROCESS_ABC
 	| ON_LOAD
+	//| error
 	;
 
 //BLOQUE INSTRUCCIONES
@@ -951,8 +961,10 @@ bloque_instrucciones_sentencias ::= bloque_instrucciones_sentencias_inicio //INI
 	| instruccion_general //INSTRUCCION SOLITARIA
 	;
 bloque_instrucciones_sentencias_inicio ::= INIT LLAVE_INI DOS_PUNTOS
+	| error
 	;
 bloque_instrucciones_sentencias_fin ::= DOS_PUNTOS LLAVE_FIN END
+	| error
 	;
 bloque_instrucciones ::= bloque_instrucciones instruccion_general
 	| /* empty */ 
@@ -960,17 +972,21 @@ bloque_instrucciones ::= bloque_instrucciones instruccion_general
 instruccion_general ::= instruccion PUNTO_COMA //INSTRUCCION QUE TERMINA EN PUNTO Y COMA
 	| bloque_sentencia_if //IF, ELSE IF, ELSE
 	| instruccion_ciclos //REPEAT Y WHILE
+	//| error
+	//| error
 	;
 instruccion ::= intruccion_declaracion {: System.out.println ("Se ejecuto declaracion  "); :}
 	| intruccion_asignacion {: System.out.println ("Se ejecuto asignacion  "); :}
 	| instruccion_insert {: System.out.println ("Se ejecuto insert  "); :}
 	| funciones_instruccion //instrucciones especiales
+	| error
 	;
 //DECLARACION Y ASIGNACION
 intruccion_declaracion ::= tipo_datos modo_variable nombres_variables //declaracion del tipo << string @global a, b, c >>
 	;
 intruccion_asignacion ::= nombres_variables IGUAL asignacion //pueden asignarse    << a, b, c = "hola"; >>
 	| intruccion_declaracion IGUAL asignacion //pueden asignarse con declaraciones << string a, b, c = "hola"; >>
+	//| error
 	;
 asignacion ::= 
 	  //VALORES
@@ -985,6 +1001,7 @@ valores_datos_primarios ::= INTEGER_VALUE
 	| get_element_value //para strings solamente
 	| nombres_variables_unidad //variable << string a = b; >> donde b es un string
 	| funciones_con_valor //funciones especiales que retornan un dato
+	| error
 	;
 
 tipo_datos ::= STRING
@@ -992,9 +1009,11 @@ tipo_datos ::= STRING
 	| DECIMAL
 	| CHAR
 	| BOOLEAN
+	//| error //sentencias inicio
 	;	
 nombres_variables ::= nombres_variables COMA nombres_variables_unidad
 	| nombres_variables_unidad
+	| nombres_variables error nombres_variables_unidad //?
 	;
 nombres_variables_unidad ::= ID_VALUE
 	//ETIQUETAS HTML
@@ -1034,10 +1053,12 @@ nombres_variables_unidad ::= ID_VALUE
 	| HEIGHT
 	| ALT
 	| ONCLICK
+	//| error //datos primarios
 	;
 
 //MODO
 modo_variable ::= MODO_GLOBAL //@global
+	| error
 	| /* empty */
 	;
 //IF, ELSE IF, ELSE
@@ -1065,15 +1086,18 @@ bloque_sentencia_if ::= bloque_if //comparacion_else //bloque con else
 	;
 bloque_if ::= comparacion_if bloque_if_elses comparacion_else//bloque sin else
 		{: System.out.println ("Se ejecuto BLOQUE IF ELSES  "); :}
+	//| error
 	;
 bloque_if_elses ::= bloque_if_elses comparacion_else_if //bloques de else if
 	| /* empty */
 	;
 comparacion_if ::= IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
 		{: System.out.println ("-------------------Se ejecuto IF  "); :}
+	//| error
 	;
 comparacion_else_if ::= ELSE_IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
 		{: System.out.println ("-------------------Se ejecuto ELSE IF  "); :}
+	//| error
 	;
 comparacion_else ::= ELSE bloque_instrucciones_sentencias // ELSE ...
 		{: System.out.println ("-------------------Se ejecuto ELSE  "); :}
@@ -1083,6 +1107,7 @@ comparacion_else ::= ELSE bloque_instrucciones_sentencias // ELSE ...
 //REPEAT AND WHILE
 instruccion_ciclos ::= ciclo_repeat
 	| ciclo_while
+	//| error
 	;
 ciclo_repeat ::= ciclo_repeat_declaracion bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo repeat  "); :}
 	;
@@ -1090,8 +1115,10 @@ ciclo_while ::= ciclo_while_declaracion bloque_instrucciones_sentencias {: Syste
 	;
 
 ciclo_while_declaracion ::= WHILE PAREN_INI condicion PAREN_FIN THENWHILE
+	//| error
 	;
 ciclo_repeat_declaracion ::= REPEAT PAREN_INI condicion_repeat_inicio PAREN_FIN HUNTIL PAREN_INI condicion_repeat_fin PAREN_FIN
+	//| error
 	;
 condicion_repeat_inicio ::= intruccion_asignacion {: System.out.println ("Se ejecuto condicion inicio repeat  "); :}
 	;
@@ -1101,29 +1128,35 @@ condicion_repeat_fin ::= //INTEGER_VALUE
 	;
 //INSERT
 instruccion_insert ::= INSERT PAREN_INI valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
+	//| error// intruccion_asignacion
 	;
 
 valores_insert_token ::= valores_insert_token COMA valores_insert_token_unidad
 	//| /* empty, generamos un '' */
 	| valores_insert_token_unidad
+	| error 
 	;
 
 valores_insert_token_unidad ::= INSERT_TOKEN_VALUE //cualquier otra cadena encerrada entre ''
 	| ID_VALUE_CHAR	//id encerrado entre ''
 	| CHARACT_VALUE	//caracter
 	| nombres_variables_unidad //variables aceptadas
+	//| error // error tipo dato
 	;
 
 //GET ELEMENT
 get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id PAREN_FIN {: System.out.println ("Se ejecuto get element byId  "); :}
+	//| error //nombre var unidad o tipo dato
 	;
 get_element_value_id ::= ID_VALUE_CHAR
 	| CHARACT_VALUE
+	| error
 	;
 
 //CONDICION Retorna true or false
-condicion ::= operacion_logica;
-
+condicion ::= operacion_logica
+	//| error; //se verifica en nombre variable unidad
+	;
 //OPERACIONES
 operacion_logica ::= operacion_logica SIMBOL_AND operacion_logica {: System.out.println ("Se ejecuto AND"); 	:}
     | operacion_logica SIMBOL_OR operacion_logica {: System.out.println ("Se ejecuto OR"); :}
@@ -1144,7 +1177,7 @@ operacion_relacional::=
     | operacion_aritmetica NO_IGUAL    operacion_aritmetica {: System.out.println ("Se ejecuto != "); :} 
     | operacion_aritmetica IGUAL_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto =  "); :} 
 	| operacion_aritmetica                                  {: System.out.println ("Valor/variable"); :} 
-    | error                                                 {: System.out.println ("Error op. rel."); :}
+    //| error                                                 {: System.out.println ("Error op. rel."); :}
     ;
 operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:n2 
 	{: 
@@ -1201,6 +1234,7 @@ operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:n1 S
 		System.out.println(" ( )"); 	
 	:}
 	PAREN_FIN
+	//| error //datos primarios
     ;    
 
 //FUNCIONES ESPECIALES
@@ -1208,14 +1242,17 @@ operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:n1 S
 funciones_con_valor ::= funciones_con_valor_tipo funciones_con_valor_parametros
 	| FUNCTION_CARACTER_ALEATORIO PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto CHAR ALEATORIO "); :}
 	| FUNCTION_NUM_ALEATORIO PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto NUM ALEATORIO "); :}
+	//| error
 	;
 funciones_con_valor_tipo ::= FUNCTION_ASC {: System.out.println ("Se ejecuto FUN ASC "); :}
 	| FUNCTION_DESC {: System.out.println ("Se ejecuto FUN DESC "); :}
 	| FUNCTION_LETPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM PAR "); :}
 	| FUNCTION_LETIMPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM IMPAR "); :}
 	| FUNCTION_REVERSE	 {: System.out.println ("Se ejecuto FUN REVERSE "); :}
+	| error
 	;
 funciones_con_valor_parametros ::= PAREN_INI operacion_aritmetica_con_parentesis PAREN_FIN
+	| error
 	;
 
 funciones_instruccion ::= FUNCTION_ALERT_INFO funciones_con_valor_parametros {: System.out.println ("Se ejecuto FUN ALERT "); :}
