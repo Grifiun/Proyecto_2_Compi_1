@@ -665,7 +665,9 @@ etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label         
 etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       etiqueta_cierre_general;// | error;
 
 etiqueta_cierre_general  ::= MAYOR	
-	| error;
+	| error
+	| error MAYOR
+ 	;
 /////////////////////////CIERRE, DE LA FORMA </C_NOMBRE_ETIQUETA>
 etiqueta_cierre_gcic     ::= MENOR SIGNO_DIV C_GCIC      MAYOR | error;
 etiqueta_cierre_head     ::= MENOR SIGNO_DIV C_HEAD      MAYOR ;//| error;
@@ -686,39 +688,48 @@ etiqueta_cierre_sripting ::= MENOR SIGNO_DIV C_SCRIPTING MAYOR | error;
 
 //////////////////////////////////////////////////BLOQUE PARAMETROS
 bloque_parametros_gcic ::= bloque_parametros_contenido_gcic MAYOR
-	| error {: System.out.println("Error parametros gcic"); :}
+	| error bloque_parametros_gcic {: System.out.println("Error parametros gcic"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_link ::= bloque_parametros_contenido_link MAYOR
-	| error {: System.out.println("Error parametros link"); :}
+	| error bloque_parametros_link {: System.out.println("Error parametros link"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_body ::= bloque_parametros_contenido_body MAYOR
-	| error {: System.out.println("Error parametros body"); :}
+	| error bloque_parametros_body {: System.out.println("Error parametros body"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_input ::= bloque_parametros_contenido_input MAYOR
-	| error {: System.out.println("Error parametros input"); :}
+	| error bloque_parametros_input {: System.out.println("Error parametros input"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_textarea ::= bloque_parametros_contenido_textarea MAYOR
-	| error {: System.out.println("Error parametros textarea"); :}
+	| error bloque_parametros_textarea {: System.out.println("Error parametros textarea"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_div ::= bloque_parametros_contenido_div MAYOR
-	| error {: System.out.println("Error parametros div"); :}
+	| error bloque_parametros_div {: System.out.println("Error parametros div"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_img ::= bloque_parametros_contenido_img MAYOR
-	| error {: System.out.println("Error parametros img"); :}
+	| error bloque_parametros_img {: System.out.println("Error parametros img"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_label ::= bloque_parametros_contenido_label MAYOR
-	| error {: System.out.println("Error parametros label"); :}
+	| error bloque_parametros_label {: System.out.println("Error parametros label"); :}
+	| error MAYOR
 	;
 
 bloque_parametros_button ::= bloque_parametros_contenido_button MAYOR
-	| error {: System.out.println("Error parametros button"); :}
+	| error bloque_parametros_button {: System.out.println("Error parametros button"); :}
+	| error MAYOR
 	;
 
 

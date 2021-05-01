@@ -74,7 +74,7 @@ public class Ventana extends javax.swing.JFrame {
         txtNumeration = new javax.swing.JTextPane();
         lblPosition = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        txtSalida = new javax.swing.JTextPane();
         jLabel1 = new javax.swing.JLabel();
         btnNuevo = new java.awt.Button();
         btnGuardarComo = new java.awt.Button();
@@ -148,7 +148,7 @@ public class Ventana extends javax.swing.JFrame {
 
         jSplitPane1.setLeftComponent(scrollNumeration);
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(txtSalida);
 
         jLabel1.setText("SALIDA:");
 
@@ -354,7 +354,7 @@ public class Ventana extends javax.swing.JFrame {
                 parser pars = new parser(lexer);
                 try{                        
                     pars.parse();    
-                    
+                    txtSalida.setText("");
                     ArrayList<TokenError> listadoErroresLexicos = lexer.obtenerListadoErroresLexicos();
                     ArrayList<TokenError> listadoErroresSintacticos = pars.getListadoErroresParser();
                     
@@ -368,7 +368,8 @@ public class Ventana extends javax.swing.JFrame {
                         
                     }
                     try{
-                        for(TokenError te: listadoErroresSintacticos){
+                        String errores = "";
+                        for(TokenError te: listadoErroresSintacticos){                            
                             if(te.getMsgError().equalsIgnoreCase("La etiqueta de cierre debe ser <C_GCIC>")){//fin del archivo mal cerrado                                
                                 String tokens[]=normalized_string.split("\n");   
                                 int line = tokens.length, col = tokens[tokens.length - 1].length() + 1;
@@ -377,8 +378,11 @@ public class Ventana extends javax.swing.JFrame {
                                 te.setColumna(col);
 
                             }
-                            System.out.println(""+te.getTipoToken()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+" Linea"+te.getLinea()+" Columna: "+te.getColumna());
+                            errores += te.getTipoToken()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+" Linea"+te.getLinea()+" Columna: "+te.getColumna() + "\n";                            
                         }
+                        System.out.println(errores);
+                        txtSalida.setText(errores);
+                        
                     }catch(Exception ex){
                         
                     }
@@ -589,12 +593,12 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSplitPane jSplitPane1;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JLabel lblPosition;
     private javax.swing.JPanel panelEditorTexto;
     private javax.swing.JScrollPane scrollEntrada;
     private javax.swing.JScrollPane scrollNumeration;
     private javax.swing.JTextPane txtEntrada;
     private javax.swing.JTextPane txtNumeration;
+    private javax.swing.JTextPane txtSalida;
     // End of variables declaration//GEN-END:variables
 }
