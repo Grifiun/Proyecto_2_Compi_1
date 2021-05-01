@@ -216,7 +216,7 @@ BOOLEAN_VALUE   = true | false
 CHARACT_VALUE   = (\' | \‘ |  \’)  ([\40-\53] | [\55-\176]) (\' | \‘ |  \’)  //excluimos la 54, que es la misma comilla simple
 
 //TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
-TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\176])+ (\" | \“ |  \”) 
+TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\134] | [\136-\176] | ("]" [\0-\40]* [a-zA-Z]) )+ (\" | \“ |  \”) 
 INSERT_TOKEN_VALUE  = (\' | \‘ |  \’)   ([\0-\46] | [\50-\176])+ (\' | \‘ |  \’) 
 
 //////////////////////////////////IDS , ignoramos los 
