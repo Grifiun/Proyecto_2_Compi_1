@@ -972,9 +972,15 @@ bloque_instrucciones_sentencias ::= bloque_instrucciones_sentencias_inicio //INI
 	| instruccion_general //INSTRUCCION SOLITARIA
 	;
 bloque_instrucciones_sentencias_inicio ::= INIT LLAVE_INI DOS_PUNTOS
+	| error LLAVE_INI DOS_PUNTOS
+	| INIT  error DOS_PUNTOS
+	| INIT LLAVE_INI error
 	| error
 	;
 bloque_instrucciones_sentencias_fin ::= DOS_PUNTOS LLAVE_FIN END
+	| error LLAVE_FIN END
+	| DOS_PUNTOS error END
+	| DOS_PUNTOS LLAVE_FIN error
 	| error
 	;
 bloque_instrucciones ::= bloque_instrucciones instruccion_general
