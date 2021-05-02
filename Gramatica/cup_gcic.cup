@@ -398,7 +398,6 @@ non terminal comparacion_else;
 non terminal instruccion_ciclos;
 non terminal ciclo_repeat;
 non terminal ciclo_while;
-non terminal ciclo_while_declaracion;
 non terminal ciclo_repeat_declaracion;
 non terminal condicion_repeat_inicio;
 non terminal condicion_repeat_fin;
@@ -600,7 +599,7 @@ contenido_texto_unidad ::=
 	| ON_LOAD:a                     {: RESULT = a.getLexema(); :}
 	| PROCESS_ABC:a                 {: RESULT = a.getLexema(); :}
 	//TIPO DATOS
-	| INTEGER:a                     {: RESULT = a.getLexema(); :}
+  /*| INTEGER:a                     {: RESULT = a.getLexema(); :}
 	| DECIMAL:a                     {: RESULT = a.getLexema(); :}
 	| BOOLEAN:a                     {: RESULT = a.getLexema(); :}
 	| CHAR:a                        {: RESULT = a.getLexema(); :}
@@ -614,9 +613,9 @@ contenido_texto_unidad ::=
 	| FUNCTION_CARACTER_ALEATORIO:a {: RESULT = a.getLexema(); :}
 	| FUNCTION_NUM_ALEATORIO:a      {: RESULT = a.getLexema(); :}
 	| FUNCTION_ALERT_INFO:a         {: RESULT = a.getLexema(); :}
-	| FUNCTION_EXIT:a               {: RESULT = a.getLexema(); :}
+	| FUNCTION_EXIT:a               {: RESULT = a.getLexema(); :}	
 	//ACCESO A IDENTIFICADORES
-	| GET_ELEMEN_BY_ID:a            {: RESULT = a.getLexema(); :}
+	| GET_ELEMEN_BY_ID:a            {: RESULT = a.getLexema(); :}*/
 	//BLOQUE INSTRUCCIONES
 	| INIT:a                        {: RESULT = a.getLexema(); :}
 	| END:a                         {: RESULT = a.getLexema(); :}
@@ -1018,7 +1017,7 @@ valores_datos_primarios ::= INTEGER_VALUE
 	| get_element_value //para strings solamente
 	| nombres_variables_unidad //variable << string a = b; >> donde b es un string
 	| funciones_con_valor //funciones especiales que retornan un dato
-	| error
+	//| error
 	;
 
 tipo_datos ::= STRING
@@ -1108,36 +1107,53 @@ bloque_if ::= comparacion_if bloque_if_elses comparacion_else//bloque sin else
 bloque_if_elses ::= bloque_if_elses comparacion_else_if //bloques de else if
 	| /* empty */
 	;
-comparacion_if ::= IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
+comparacion_if ::= IF condicion THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
 		{: System.out.println ("-------------------Se ejecuto IF  "); :}
 	//| error
+	| IF condicion error bloque_instrucciones_sentencias
+	| IF error     THEN bloque_instrucciones_sentencias
+	| IF error 	bloque_instrucciones_sentencias
 	;
-comparacion_else_if ::= ELSE_IF PAREN_INI condicion PAREN_FIN THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
+comparacion_else_if ::= ELSE_IF condicion THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
 		{: System.out.println ("-------------------Se ejecuto ELSE IF  "); :}
 	//| error
+	| ELSE_IF condicion error bloque_instrucciones_sentencias
+	| ELSE_IF error     THEN bloque_instrucciones_sentencias
+	| ELSE_IF error bloque_instrucciones_sentencias
 	;
 comparacion_else ::= ELSE bloque_instrucciones_sentencias // ELSE ...
 		{: System.out.println ("-------------------Se ejecuto ELSE  "); :}
 	| /* empty */
 	;
-
+/*
+paren_ini_error ::= PAREN_INI
+	| error
+	;
+*/
 //REPEAT AND WHILE
 instruccion_ciclos ::= ciclo_repeat
 	| ciclo_while
 	//| error
 	;
 ciclo_repeat ::= ciclo_repeat_declaracion bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo repeat  "); :}
+	| REPEAT error bloque_instrucciones_sentencias
 	;
-ciclo_while ::= ciclo_while_declaracion bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo while  "); :}
+ciclo_while ::= WHILE condicion THENWHILE bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo while  "); :}
+	| WHILE error bloque_instrucciones_sentencias
+	| WHILE condicion error bloque_instrucciones_sentencias
 	;
 
-ciclo_while_declaracion ::= WHILE PAREN_INI condicion PAREN_FIN THENWHILE
+ciclo_repeat_declaracion ::= REPEAT condicion_repeat_inicio HUNTIL PAREN_INI condicion_repeat_fin PAREN_FIN	
+	| REPEAT error HUNTIL PAREN_INI condicion_repeat_fin PAREN_FIN
+	| REPEAT error PAREN_INI condicion_repeat_fin PAREN_FIN
+	| REPEAT condicion_repeat_inicio error PAREN_INI condicion_repeat_fin PAREN_FIN	
+	| REPEAT condicion_repeat_inicio HUNTIL error PAREN_FIN
+	| REPEAT condicion_repeat_inicio HUNTIL PAREN_INI condicion_repeat_fin error
 	//| error
 	;
-ciclo_repeat_declaracion ::= REPEAT PAREN_INI condicion_repeat_inicio PAREN_FIN HUNTIL PAREN_INI condicion_repeat_fin PAREN_FIN
-	//| error
-	;
-condicion_repeat_inicio ::= intruccion_asignacion {: System.out.println ("Se ejecuto condicion inicio repeat  "); :}
+condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN {: System.out.println ("Se ejecuto condicion inicio repeat  "); :}
+	| error intruccion_asignacion PAREN_FIN
+	| PAREN_INI intruccion_asignacion error 
 	;
 condicion_repeat_fin ::= //INTEGER_VALUE
 	//| nombres_variables_unidad
@@ -1171,7 +1187,10 @@ get_element_value_id ::= ID_VALUE_CHAR
 	;
 
 //CONDICION Retorna true or false
-condicion ::= operacion_logica
+condicion ::=// operacion_logica
+	/*|*/ PAREN_INI operacion_logica PAREN_FIN
+	| error operacion_logica PAREN_FIN
+	| PAREN_INI operacion_logica error
 	//| error; //se verifica en nombre variable unidad
 	;
 //OPERACIONES
@@ -1182,8 +1201,8 @@ operacion_logica ::= operacion_logica SIMBOL_AND operacion_logica {: System.out.
     | PAREN_INI operacion_logica:p 
     {: 
 		System.out.println(" ( )"); 	
-	:}
-	PAREN_FIN
+	:}	
+	PAREN_FIN	
     ;
 //El valor que envian las operaciones racionales deben ser verdadero/falso
 operacion_relacional::= 
@@ -1194,7 +1213,7 @@ operacion_relacional::=
     | operacion_aritmetica NO_IGUAL    operacion_aritmetica {: System.out.println ("Se ejecuto != "); :} 
     | operacion_aritmetica IGUAL_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto =  "); :} 
 	| operacion_aritmetica                                  {: System.out.println ("Valor/variable"); :} 
-    //| error                                                 {: System.out.println ("Error op. rel."); :}
+  //| error                                                 {: System.out.println ("Error op. rel."); :}
     ;
 operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:n2 
 	{: 
@@ -1251,7 +1270,7 @@ operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:n1 S
 		System.out.println(" ( )"); 	
 	:}
 	PAREN_FIN
-	//| error //datos primarios
+	| error //datos primarios
     ;    
 
 //FUNCIONES ESPECIALES
@@ -1266,7 +1285,7 @@ funciones_con_valor_tipo ::= FUNCTION_ASC {: System.out.println ("Se ejecuto FUN
 	| FUNCTION_LETPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM PAR "); :}
 	| FUNCTION_LETIMPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM IMPAR "); :}
 	| FUNCTION_REVERSE	 {: System.out.println ("Se ejecuto FUN REVERSE "); :}
-	| error
+	//| error
 	;
 funciones_con_valor_parametros ::= PAREN_INI operacion_aritmetica_con_parentesis PAREN_FIN
 	| error
