@@ -339,7 +339,7 @@ public class Ventana extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //Ejecutamos el parser
-        String entrada = txtEntrada.getText();
+        String entrada = txtEntrada.getText(); System.out.println(""+true);
         
         try{                    
                 //Palabra descorrompida
@@ -354,21 +354,22 @@ public class Ventana extends javax.swing.JFrame {
                 parser pars = new parser(lexer);
                 try{                        
                     pars.parse();    
-                    txtSalida.setText("");
+                    txtSalida.setText("");                    
+                    String errores = "";
                     ArrayList<TokenError> listadoErroresLexicos = lexer.obtenerListadoErroresLexicos();
-                    ArrayList<TokenError> listadoErroresSintacticos = pars.getListadoErroresParser();
+                    ArrayList<TokenError> listadoErroresSintacticos = pars.getListadoErroresSintacticos();
+                    ArrayList<TokenError> listadoErroresSemanticos = pars.getListadoErroresSemanticos();
                     
                     System.out.println("\n\n\n/////////////////////////////////////////////////");
                     
                     try{
                         for(TokenError te: listadoErroresLexicos){
-                            System.out.println(""+te.getTipoToken()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+" Linea"+te.getLinea()+" Columna: "+te.getColumna());
+                            errores += te.getTipoToken()+" Linea"+te.getLinea()+" Columna: "+te.getColumna()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError() + "\n";                                                     
                         }
                     }catch(Exception ex){
                         
                     }
                     try{
-                        String errores = "";
                         for(TokenError te: listadoErroresSintacticos){                            
                             if(te.getMsgError().equalsIgnoreCase("La etiqueta de cierre debe ser <C_GCIC>")){//fin del archivo mal cerrado                                
                                 String tokens[]=normalized_string.split("\n");   
@@ -378,15 +379,24 @@ public class Ventana extends javax.swing.JFrame {
                                 te.setColumna(col);
 
                             }
-                            errores += te.getTipoToken()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+" Linea"+te.getLinea()+" Columna: "+te.getColumna() + "\n";                            
-                        }
-                        System.out.println(errores);
-                        txtSalida.setText(errores);
-                        
-                    }catch(Exception ex){
+                            errores += te.getTipoToken()+" Linea"+te.getLinea()+" Columna: "+te.getColumna()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError() + "\n";                            
+                        }                        
+                    }catch(Exception ex){ 
                         
                     }
                     
+                    try{
+                        for(TokenError te: listadoErroresSemanticos){
+                            errores += te.getTipoToken()+" Linea"+te.getLinea()+" Columna: "+te.getColumna()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+ "\n";
+                        }
+                    }catch(Exception ex){                        
+                              
+                    }
+                    //mostramos errores
+                    System.out.println(errores); 
+                    txtSalida.setText(errores);
+                    
+                    pars.getTablaSimbolos().imprimirTabla();
                     
                 }catch(Exception ex){
                     System.out.println("Error en el lenguajes de etqiuetas: "+ex.getMessage());

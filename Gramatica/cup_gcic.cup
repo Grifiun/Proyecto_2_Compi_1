@@ -8,11 +8,17 @@ import clasesDAO.Token;
 import clasesDAO.TokenError;
 import java.util.ArrayList;
 import java.util.List;
+import tabla_simbolos.*;
+import operaciones.*;
 
 parser code{:
     //Listado de errores	
 	//Controlador de error sintactico
     ArrayList<TokenError> listadoErroresSintacticos = new ArrayList();
+	TablaSimbolos tablaSimbolos = new TablaSimbolos();
+	OperacionAritmetica operacionAritmetica = new OperacionAritmetica();
+	String procedimiento = "";
+	int scripting = 0;
 	
 	@Override
 	public void syntax_error(Symbol a){
@@ -54,8 +60,27 @@ parser code{:
         return 1;
     }
 
-	public ArrayList<TokenError> getListadoErroresParser(){
+	public TablaSimbolos getTablaSimbolos(){
+		return tablaSimbolos;
+	}
+
+	public ArrayList<TokenError> getListadoErroresSintacticos(){
 		return listadoErroresSintacticos;
+	}
+
+	public ArrayList<TokenError> getListadoErroresSemanticos(){
+		return tablaSimbolos.getListadoErroresSemanticos();
+	}
+
+	public void analizarResultadoOperacionAritmetica(Token tokenAux){
+		TokenError tokenErrorAux = operacionAritmetica.getTokenError();
+		if(tokenErrorAux != null){//se produjo un error
+
+				tokenErrorAux.setLinea(tokenAux.getLinea());
+				tokenErrorAux.setColumna(tokenAux.getColumna());
+				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
+				operacionAritmetica.setTokenError(null);	//reseteamos el error
+		}
 	}
 
     public parser(LexerGCIC lex){
@@ -359,10 +384,10 @@ non terminal parametro_unidad_onclick;
 non terminal parametro_valor_color;
 non terminal parametro_valor_size;
 non terminal parametro_valor_type;
-non terminal parametro_valor_id;
-non terminal parametro_valor_name;
+non terminal Token parametro_valor_id;
+non terminal Token parametro_valor_name;
 non terminal parametro_valor_class;
-non terminal parametro_valor_reservado;
+non terminal Token parametro_valor_reservado;
 
 //////////////////////////////////////////////////SCRIPTING
 //FUNCION
@@ -378,15 +403,15 @@ non terminal bloque_instrucciones;
 non terminal instruccion_general;
 non terminal instruccion;
 //DECLARACION Y ASIGNACION
-non terminal intruccion_declaracion;
+non terminal String[] intruccion_declaracion;
 non terminal intruccion_asignacion;
-non terminal asignacion;
-non terminal valores_datos_primarios;
-non terminal tipo_datos;
-non terminal nombres_variables;
-non terminal nombres_variables_unidad;
+non terminal ValorElemento asignacion;
+non terminal ValorElemento valores_datos_primarios;
+non terminal Token tipo_datos;
+non terminal String nombres_variables;
+non terminal String nombres_variables_unidad;
 //MODO
-non terminal modo_variable;
+non terminal String modo_variable;
 //IF, ELSE IF, ELSE
 non terminal bloque_sentencia_if;
 non terminal bloque_if;
@@ -406,17 +431,17 @@ non terminal instruccion_insert;
 non terminal valores_insert_token;
 non terminal valores_insert_token_unidad;
 //GET ELEMENT
-non terminal get_element_value;
-non terminal get_element_value_id;
+non terminal String get_element_value;
+non terminal String get_element_value_id;
 //CONDICION Retorna true or false
 non terminal condicion;
 //OPERACIONES
 non terminal operacion_logica;
 non terminal operacion_relacional;
 non terminal operacion_aritmetica;
-non terminal operacion_aritmetica_con_parentesis;
+non terminal ValorElemento operacion_aritmetica_con_parentesis;
 //FUNCIONES ESPECIALES
-non terminal funciones_con_valor;
+non terminal ValorElemento funciones_con_valor;
 non terminal funciones_con_valor_tipo;
 non terminal funciones_con_valor_parametros;
 non terminal funciones_instruccion;
@@ -643,7 +668,7 @@ contenido_texto_unidad ::=
 	;
 
 /////////////////////////SCRIPTING
-etiqueta_scripting ::= etiqueta_apertura_sripting bloque_funciones etiqueta_cierre_sripting;
+etiqueta_scripting ::= etiqueta_apertura_sripting {: scripting += 1; :} bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
 etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic                            ;// | error {: System.out.println("Error etoqueta gcic"); :}
 etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        etiqueta_cierre_general; 
@@ -913,33 +938,35 @@ parametro_valor_type ::= TEXT
     | CHECKBOX
     ;
 
-parametro_valor_id ::= COLOR_VALUE
-    | PIXEL_VALUE
-    | PERCE_VALUE
-    | FONT_VALUE
-    | ALIGN_VALUE
-    | TEXT
-    | NUMBER
-    | RADIO
-    | CHECKBOX
-    | DIGIT_VALUE
-    | ROW
-    | COLUMN
-    | ID_VALUE_STR
+parametro_valor_id ::= 
+	  COLOR_VALUE:a  {: RESULT = a; :}
+    | PIXEL_VALUE:a  {: RESULT = a; :}
+    | PERCE_VALUE:a  {: RESULT = a; :}
+    | FONT_VALUE:a   {: RESULT = a; :}
+    | ALIGN_VALUE:a  {: RESULT = a; :}
+    | TEXT:a 		 {: RESULT = a; :}
+    | NUMBER:a 		 {: RESULT = a; :}
+    | RADIO:a 		 {: RESULT = a; :}
+    | CHECKBOX:a	 {: RESULT = a; :}
+    | DIGIT_VALUE:a  {: RESULT = a; :}
+    | ROW:a 		 {: RESULT = a; :}
+    | COLUMN:a 		 {: RESULT = a; :}
+    | ID_VALUE_STR:a {: RESULT = a; :}
     ;
 
-parametro_valor_name ::= TEXT_VALUE
+parametro_valor_name ::= TEXT_VALUE:a {: RESULT = a; :}
     /* pabras reservadas */
-    | parametro_valor_reservado
+    | parametro_valor_reservado:a {: RESULT = a; :}
     ;
 
 parametro_valor_class ::= ROW
     | COLUMN
     ;
 
-parametro_valor_reservado ::= COLOR_HEX
-    | PROCESS_VAL
-    | parametro_valor_id
+parametro_valor_reservado ::= 
+	  COLOR_HEX:a   	   {: RESULT = a; :}
+    | PROCESS_VAL:a 	   {: RESULT = a; :}
+    | parametro_valor_id:a {: RESULT = a; :}
     ;
 
 //////////////////////////////////////////////////SCRIPTING
@@ -958,8 +985,8 @@ funcion_unitaria ::= nombre_funciones funcion_unitaria_simbolos_inicio//PAREN_IN
 funcion_unitaria_simbolos_inicio ::= PAREN_INI PAREN_FIN CORCH_INI
 	| error
 	;
-nombre_funciones ::= PROCESS_ABC
-	| ON_LOAD
+nombre_funciones ::= PROCESS_ABC:a {: procedimiento = a.getLexema(); tablaSimbolos.declararNuevoElemento(a.getLexema(), "Procedimiento/Funcion", scripting, a.getLinea(), a.getColumna()); :}
+	| ON_LOAD:a					   {: procedimiento = a.getLexema(); tablaSimbolos.declararNuevoElemento(a.getLexema(), "Procedimiento/Funcion", scripting, a.getLinea(), a.getColumna()); :}
 	//| error
 	;
 
@@ -998,84 +1025,169 @@ instruccion ::= intruccion_declaracion {: System.out.println ("Se ejecuto declar
 	| error
 	;
 //DECLARACION Y ASIGNACION
-intruccion_declaracion ::= tipo_datos modo_variable nombres_variables //declaracion del tipo << string @global a, b, c >>
+intruccion_declaracion ::= tipo_datos:tipo modo_variable:modo nombres_variables:nombres //declaracion del tipo << string @global a, b, c >>
+		{:
+			//Declaramos
+			//scripting y procedimiento deben cambiar al detectar un nuevo procedimiento o bloque de scripting
+			String[] nombresVariables = nombres.split(",");//separamos por comas
+			//debemos hacer esto con todas las variables declaradas
+			for(int i = 0; i < nombresVariables.length; i++){
+				tablaSimbolos.declararNuevoElemento(nombresVariables[i], tipo.getLexema(), modo, procedimiento, scripting, tipo.getLinea(), tipo.getColumna(), null);//sin valor
+			}
+
+			RESULT = nombresVariables;
+		:}
 	;
-intruccion_asignacion ::= nombres_variables IGUAL asignacion //pueden asignarse    << a, b, c = "hola"; >>
-	| intruccion_declaracion IGUAL asignacion //pueden asignarse con declaraciones << string a, b, c = "hola"; >>
+intruccion_asignacion ::= nombres_variables:nombres IGUAL:a asignacion:valor //pueden asignarse    << a, b, c = "hola"; >>
+		{:
+			String[] nombresVariables = nombres.split(",");//separamos por comas
+
+			for(int i = 0; i < nombresVariables.length; i++){
+				tablaSimbolos.asignarValorElemento(nombresVariables[i], procedimiento, scripting, valor, a.getLinea(), a.getColumna());
+			}
+		:}
+	| intruccion_declaracion:nombresVariables IGUAL:a asignacion:valor //pueden asignarse con declaraciones << string a, b, c = "hola"; >>
+		{:
+			for(int i = 0; i < nombresVariables.length; i++){
+				tablaSimbolos.asignarValorElemento(nombresVariables[i], procedimiento, scripting, valor, a.getLinea(), a.getColumna());
+			}
+		:}
 	//| error
 	;
 asignacion ::= 
 	  //VALORES
-      operacion_aritmetica_con_parentesis //operacion aritmetica, entre variables, o valores primitivos
+      operacion_aritmetica_con_parentesis:valor {: RESULT = valor; :} //operacion aritmetica, entre variables, o valores primitivos
 	;
 	
-valores_datos_primarios ::= INTEGER_VALUE
-	| DECIMAL_VALUE 
-	| BOOLEAN_VALUE
-	| CHARACT_VALUE 
-	| parametro_valor_name // Cualquier cadena de carateres encerradas entre << " " >>
-	| get_element_value //para strings solamente
-	| nombres_variables_unidad //variable << string a = b; >> donde b es un string
-	| funciones_con_valor //funciones especiales que retornan un dato
+valores_datos_primarios ::= INTEGER_VALUE:a //tipo: integer, valor: "" + a.getLexema()
+		{:
+			ValorElemento valorElementoAux;
+			String tipo = "integer";
+			String valor = "" + a.getLexema();
+
+			valorElementoAux = new ValorElemento(valor, tipo);
+			RESULT = valorElementoAux;
+		:}
+	| DECIMAL_VALUE:a //tipo: decimal, valor: "" + a.getLexema() ; 
+		{:
+			ValorElemento valorElementoAux;
+			String tipo = "decimal";
+			String valor = "" + a.getLexema();
+
+			valorElementoAux = new ValorElemento(valor, tipo);
+			RESULT = valorElementoAux;
+		:}
+	| BOOLEAN_VALUE:a //tipo: boolean, valor: "\"" + a.getLexema() +"\"" 
+		{:
+			ValorElemento valorElementoAux;
+			String tipo = "boolean";
+			String valor = "" + a.getLexema();
+
+			valorElementoAux = new ValorElemento(valor, tipo);
+			RESULT = valorElementoAux;
+		:}
+	| CHARACT_VALUE:a //tipo: char, valor: "" + a.getLexema()
+		{:
+			ValorElemento valorElementoAux;
+			String tipo = "char";
+			String valor = "" + a.getLexema();
+
+			valorElementoAux = new ValorElemento(valor, tipo);
+			RESULT = valorElementoAux;
+		:}
+	| parametro_valor_name:a //tipo, valor: a , Cualquier cadena de carateres encerradas entre << " " >>
+		{:
+			ValorElemento valorElementoAux;
+			String tipo = "string";
+			String valor = "" + a.getLexema();//este ya tendria que ser string
+
+			valorElementoAux = new ValorElemento(valor, tipo);
+			RESULT = valorElementoAux;
+		:}
+	| get_element_value:a //tipo: string, valor: a,  para strings solamente
+		{:
+			ValorElemento valorElementoAux;
+			String tipo = "string";
+			String valor = "" + a;//este ya tendria que ser string
+
+			valorElementoAux = new ValorElemento(valor, tipo);
+			RESULT = valorElementoAux;
+		:}
+	| nombres_variables_unidad:identificador //tipo, valor: tablaSimbolos.buscarValorElementoPorId(), variable << string a = b; >> donde b es un string
+		{:
+			ValorElemento valorElementoAux = tablaSimbolos.buscarValorElementoPorId(identificador, procedimiento, scripting);
+			RESULT = valorElementoAux;
+		:}	
+	| funciones_con_valor:valorElementoAux //tipo, valor: a (va a ser un valor elmento) ,funciones especiales que retornan un dato
+		{:
+			RESULT = valorElementoAux;
+		:}
 	//| error
 	;
 
-tipo_datos ::= STRING
-	| INTEGER
-	| DECIMAL
-	| CHAR
-	| BOOLEAN
+tipo_datos ::= STRING:a {: RESULT = a; :}
+	| INTEGER:a		    {: RESULT = a; :}
+	| DECIMAL:a		    {: RESULT = a; :}
+	| CHAR:a			{: RESULT = a; :}
+	| BOOLEAN:a		    {: RESULT = a; :}
 	//| error //sentencias inicio
 	;	
-nombres_variables ::= nombres_variables COMA nombres_variables_unidad
-	| nombres_variables_unidad
+nombres_variables ::= nombres_variables:nombres COMA nombres_variables_unidad:nombre
+		{: 
+			RESULT = nombres+","+nombre; 
+		:}
+	| nombres_variables_unidad:nombre 
+		{: 
+			RESULT = ""+nombre; 
+		:}
 	| nombres_variables error nombres_variables_unidad //?
 	;
-nombres_variables_unidad ::= ID_VALUE
+nombres_variables_unidad ::= 
+	  ID_VALUE:a 	{: RESULT = a.getLexema(); :}
 	//ETIQUETAS HTML
-	| C_GCIC
-	| C_HEAD
-	| C_TITLE
-	| C_LINK
-	| C_BODY
-	| C_SPAM
-	| C_INPUT
-	| C_TEXTAREA
-	| C_SELECT
-	| C_OPTION
-	| C_DIV
-	| C_IMG
-	| C_BR
-	| C_BUTTON
-	| C_H1
-	| C_P
+	| C_GCIC:a 		{: RESULT = a.getLexema(); :}
+	| C_HEAD:a 		{: RESULT = a.getLexema(); :}
+	| C_TITLE:a		{: RESULT = a.getLexema(); :}
+	| C_LINK:a 		{: RESULT = a.getLexema(); :}
+	| C_BODY:a 		{: RESULT = a.getLexema(); :}
+	| C_SPAM:a 		{: RESULT = a.getLexema(); :}
+	| C_INPUT:a 	{: RESULT = a.getLexema(); :}
+	| C_TEXTAREA:a 	{: RESULT = a.getLexema(); :}
+	| C_SELECT:a 	{: RESULT = a.getLexema(); :}
+	| C_OPTION:a 	{: RESULT = a.getLexema(); :}
+	| C_DIV:a 		{: RESULT = a.getLexema(); :}
+	| C_IMG:a 		{: RESULT = a.getLexema(); :}
+	| C_BR:a 		{: RESULT = a.getLexema(); :}
+	| C_BUTTON:a 	{: RESULT = a.getLexema(); :}
+	| C_H1:a 		{: RESULT = a.getLexema(); :}
+	| C_P:a 		{: RESULT = a.getLexema(); :}
 	//SCRIPTING
-	| C_SCRIPTING
+	| C_SCRIPTING:a {: RESULT = a.getLexema(); :}
 	//PARAMETROS
-	| HREF
-	| BACKGROUND
-	| COLOR
-	| FONT_SIZE
-	| FONT_FAMILY
-	| TEXT_ALIGN
-	| TYPE
-	| ID
-	| NAME
-	| COLS
-	| ROWS
-	| CLASS
-	| SRC
-	| WIDTH
-	| HEIGHT
-	| ALT
-	| ONCLICK
+	| HREF:a 		{: RESULT = a.getLexema(); :}
+	| BACKGROUND:a  {: RESULT = a.getLexema(); :}
+	| COLOR:a 		{: RESULT = a.getLexema(); :}
+	| FONT_SIZE:a 	{: RESULT = a.getLexema(); :}
+	| FONT_FAMILY:a {: RESULT = a.getLexema(); :}
+	| TEXT_ALIGN:a 	{: RESULT = a.getLexema(); :}
+	| TYPE:a 		{: RESULT = a.getLexema(); :}
+	| ID:a 			{: RESULT = a.getLexema(); :}
+	| NAME:a 		{: RESULT = a.getLexema(); :}
+	| COLS:a 		{: RESULT = a.getLexema(); :}
+	| ROWS:a 		{: RESULT = a.getLexema(); :}
+	| CLASS:a 		{: RESULT = a.getLexema(); :}
+	| SRC:a 		{: RESULT = a.getLexema(); :}
+	| WIDTH:a 		{: RESULT = a.getLexema(); :}
+	| HEIGHT:a 		{: RESULT = a.getLexema(); :}
+	| ALT:a 		{: RESULT = a.getLexema(); :}
+	| ONCLICK:a 	{: RESULT = a.getLexema(); :}
 	//| error //datos primarios
 	;
 
 //MODO
-modo_variable ::= MODO_GLOBAL //@global
+modo_variable ::= MODO_GLOBAL {: RESULT = "@global"; :}//@global
 	| error
-	| /* empty */
+	| /* empty */  		      {: RESULT = "-"; :}//no global
 	;
 //IF, ELSE IF, ELSE
 bloque_sentencia_if ::= bloque_if //comparacion_else //bloque con else
@@ -1178,11 +1290,16 @@ valores_insert_token_unidad ::= INSERT_TOKEN_VALUE //cualquier otra cadena encer
 	;
 
 //GET ELEMENT
-get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id PAREN_FIN {: System.out.println ("Se ejecuto get element byId  "); :}
+get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id:identificador PAREN_FIN 
+		{:
+			System.out.println ("Se ejecuto get element byId  "); 
+			//obtenemos el valor
+			RESULT = identificador;
+		:}
 	//| error //nombre var unidad o tipo dato
 	;
-get_element_value_id ::= ID_VALUE_CHAR
-	| CHARACT_VALUE
+get_element_value_id ::= ID_VALUE_CHAR:a {: RESULT = a.getLexema(); :}
+	| CHARACT_VALUE:a {: RESULT = a.getLexema(); :}
 	| error
 	;
 
@@ -1241,33 +1358,47 @@ operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:
 	:}	
     ;  
 
-operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:n1 SIGNO_MAS operacion_aritmetica_con_parentesis:n2 
+operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:valor1 SIGNO_MAS:a operacion_aritmetica_con_parentesis:valor2
 	{: 
 		System.out.println(" + "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "suma");	
+		analizarResultadoOperacionAritmetica(a);	
+		RESULT = valorElementoAux;
 	:}	
-    | operacion_aritmetica_con_parentesis:n1 SIGNO_MIN operacion_aritmetica_con_parentesis:n2
+    | operacion_aritmetica_con_parentesis:valor1 SIGNO_MIN:a operacion_aritmetica_con_parentesis:valor2
     {: 
 		System.out.println(" - "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "resta");	
+		analizarResultadoOperacionAritmetica(a);		
+		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica_con_parentesis:n1 SIGNO_POR operacion_aritmetica_con_parentesis:n2 
+    | operacion_aritmetica_con_parentesis:valor1 SIGNO_POR:a operacion_aritmetica_con_parentesis:valor2
     {: 
 		System.out.println(" * "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "multiplicacion");	
+		analizarResultadoOperacionAritmetica(a);
+		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica_con_parentesis:n1 SIGNO_DIV operacion_aritmetica_con_parentesis:n2
+    | operacion_aritmetica_con_parentesis:valor1 SIGNO_DIV:a operacion_aritmetica_con_parentesis:valor2
     {: 
 		System.out.println(" / "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "division");	
+		analizarResultadoOperacionAritmetica(a);
+		RESULT = valorElementoAux;
 	:}
-    | valores_datos_primarios:e
+    | valores_datos_primarios:valorElementoAux
     {: 
 		System.out.println ("Valor/variable");	
+		RESULT = valorElementoAux;
 	:}
     | SIGNO_MIN operacion_aritmetica_con_parentesis:n1
     {: 
 		System.out.println(" Entero negativo "); 
 	:}	
-	| PAREN_INI operacion_aritmetica_con_parentesis:p 
+	| PAREN_INI operacion_aritmetica_con_parentesis:valorElementoAux
     {: 
 		System.out.println(" ( )"); 	
+		RESULT = valorElementoAux;
 	:}
 	PAREN_FIN
 	| error //datos primarios
