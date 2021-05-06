@@ -12212,12 +12212,19 @@ class CUP$parser$actions {
           case 439: // get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id PAREN_FIN 
             {
               String RESULT =null;
+		int posicionleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
+		int posicionright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
+		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int identificadorleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int identificadorright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String identificador = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 			System.out.println ("Se ejecuto get element byId  "); 
-			//obtenemos el valor
+			//obtenemos el valor, identificador String
+			String idOriginal = identificador.substring(1, identificador.length() - 1).trim();
+			String textoGetElemenById = tablaSimbolosEtiquetas.getElementById(idOriginal, posicion);
+			analizarParametroEtiqueta(posicion);//revisar si existe o no la etiqueta con id buscada
+
 			RESULT = identificador;
 		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("get_element_value",144, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);

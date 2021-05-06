@@ -1404,10 +1404,14 @@ valores_insert_token_unidad ::= INSERT_TOKEN_VALUE //cualquier otra cadena encer
 	;
 
 //GET ELEMENT
-get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id:identificador PAREN_FIN 
+get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI:posicion get_element_value_id:identificador PAREN_FIN 
 		{:
 			System.out.println ("Se ejecuto get element byId  "); 
-			//obtenemos el valor
+			//obtenemos el valor, identificador String
+			String idOriginal = identificador.substring(1, identificador.length() - 1).trim();
+			String textoGetElemenById = tablaSimbolosEtiquetas.getElementById(idOriginal);
+			analizarParametroEtiqueta(posicion);//revisar si existe o no la etiqueta con id buscada
+
 			RESULT = identificador;
 		:}
 	//| error //nombre var unidad o tipo dato

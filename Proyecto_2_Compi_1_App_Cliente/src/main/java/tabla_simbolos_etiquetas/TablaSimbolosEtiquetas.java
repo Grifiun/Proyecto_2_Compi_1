@@ -5,6 +5,7 @@
  */
 package tabla_simbolos_etiquetas;
 
+import clasesDAO.Token;
 import clasesDAO.TokenError;
 import java.util.ArrayList;
 import tabla_simbolos_etiquetas.*;
@@ -80,6 +81,21 @@ public class TablaSimbolosEtiquetas {
         return null;            
     }    
 
+    public String getElementById(String valorId){
+        ParametroEtiqueta elementoExistente = buscarElementoId("id", valorId, 0);
+        String msgError = "";
+        ///VERIFICAMOS QUE NO HAYA UNA VARIABLE YA DECLARADA CON ESE ID
+        if(elementoExistente != null){//existe
+            
+            return valorId;//terminamos la funcion, retornando el id, aux
+        }else{//no existe
+            msgError = "getElemenById busca un id <"+valorId+"> no existe";
+            tokenErrorAuxiliar = new TokenError("ERROR SEMANTICO", "getElemenById", msgError, -1, -1);
+        }
+        
+        return null;
+    }
+    
     public ArrayList<ParametroEtiqueta> getElementosTS() {
         return elementosTS;
     }
