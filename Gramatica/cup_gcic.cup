@@ -9,6 +9,7 @@ import clasesDAO.TokenError;
 import java.util.ArrayList;
 import java.util.List;
 import tabla_simbolos.*;
+import tabla_simbolos_etiquetas.*;
 import operaciones.*;
 
 parser code{:
@@ -16,8 +17,13 @@ parser code{:
 	//Controlador de error sintactico
     ArrayList<TokenError> listadoErroresSintacticos = new ArrayList();
 	TablaSimbolos tablaSimbolos = new TablaSimbolos();
+	TablaSimbolosEtiquetas tablaSimbolosEtiquetas = new TablaSimbolosEtiquetas();
 	OperacionAritmetica operacionAritmetica = new OperacionAritmetica();
+	OperacionRelacional operacionRelacional = new OperacionRelacional();
+	OperacionLogica     operacionLogica     = new OperacionLogica    ();
 	String procedimiento = "";
+	String etiqueta = "";
+	int numeroEtiqueta = 0;
 	int scripting = 0;
 	
 	@Override
@@ -64,6 +70,10 @@ parser code{:
 		return tablaSimbolos;
 	}
 
+	public TablaSimbolosEtiquetas getTablaSimbolosEtiquetas(){
+		return tablaSimbolosEtiquetas;
+	}
+
 	public ArrayList<TokenError> getListadoErroresSintacticos(){
 		return listadoErroresSintacticos;
 	}
@@ -80,6 +90,38 @@ parser code{:
 				tokenErrorAux.setColumna(tokenAux.getColumna());
 				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
 				operacionAritmetica.setTokenError(null);	//reseteamos el error
+		}
+	}
+
+	public void analizarResultadoOperacionRelacional(Token tokenAux){
+		TokenError tokenErrorAux = operacionRelacional.getTokenError();
+		if(tokenErrorAux != null){//se produjo un error
+
+				tokenErrorAux.setLinea(tokenAux.getLinea());
+				tokenErrorAux.setColumna(tokenAux.getColumna());
+				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
+				operacionRelacional.setTokenError(null);	//reseteamos el error
+		}
+	}
+
+	public void analizarResultadoOperacionLogico(Token tokenAux){
+		TokenError tokenErrorAux = operacionLogica.getTokenError();
+		if(tokenErrorAux != null){//se produjo un error
+
+				tokenErrorAux.setLinea(tokenAux.getLinea());
+				tokenErrorAux.setColumna(tokenAux.getColumna());
+				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
+				operacionLogica.setTokenError(null);	//reseteamos el error
+		}
+	}
+
+	public void analizarParametroEtiqueta(Token tokenAux){
+		TokenError tokenErrorAux = tablaSimbolosEtiquetas.getTokenErrorAuxiliar();
+		if(tokenErrorAux != null){//se produjo un error
+			tokenErrorAux.setLinea(tokenAux.getLinea());
+			tokenErrorAux.setColumna(tokenAux.getColumna());
+			tablaSimbolos.addErrorSemantico(tokenErrorAux);		
+			tablaSimbolosEtiquetas.resetTokenErrorAuxiliar();	//reseteamos el error
 		}
 	}
 
@@ -381,12 +423,12 @@ non terminal parametro_unidad_onclick;
 
 //non terminal parametro_unidad_option;
 //////////////////////////////////////////////////VALORES
-non terminal parametro_valor_color;
-non terminal parametro_valor_size;
-non terminal parametro_valor_type;
+non terminal Token parametro_valor_color;
+non terminal Token parametro_valor_size;
+non terminal Token parametro_valor_type;
 non terminal Token parametro_valor_id;
 non terminal Token parametro_valor_name;
-non terminal parametro_valor_class;
+non terminal Token parametro_valor_class;
 non terminal Token parametro_valor_reservado;
 
 //////////////////////////////////////////////////SCRIPTING
@@ -436,9 +478,9 @@ non terminal String get_element_value_id;
 //CONDICION Retorna true or false
 non terminal condicion;
 //OPERACIONES
-non terminal operacion_logica;
-non terminal operacion_relacional;
-non terminal operacion_aritmetica;
+non terminal ValorElemento operacion_logica;
+non terminal ValorElemento operacion_relacional;
+non terminal ValorElemento operacion_aritmetica;
 non terminal ValorElemento operacion_aritmetica_con_parentesis;
 //FUNCIONES ESPECIALES
 non terminal ValorElemento funciones_con_valor;
@@ -670,22 +712,22 @@ contenido_texto_unidad ::=
 /////////////////////////SCRIPTING
 etiqueta_scripting ::= etiqueta_apertura_sripting {: scripting += 1; :} bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
-etiqueta_apertura_gcic     ::= MENOR C_GCIC     bloque_parametros_gcic                            ;// | error {: System.out.println("Error etoqueta gcic"); :}
-etiqueta_apertura_head     ::= MENOR C_HEAD     /* NO PARAMETROS */        etiqueta_cierre_general; 
-etiqueta_apertura_title    ::= MENOR C_TITLE    /* NO PARAMETROS */        etiqueta_cierre_general;
-etiqueta_apertura_link     ::= MENOR C_LINK     bloque_parametros_link                            ;
-etiqueta_apertura_body     ::= MENOR C_BODY     bloque_parametros_body                            ;
-etiqueta_apertura_spam     ::= MENOR C_SPAM     bloque_parametros_label                           ;
-etiqueta_apertura_input    ::= MENOR C_INPUT    bloque_parametros_input                           ;
-etiqueta_apertura_textarea ::= MENOR C_TEXTAREA bloque_parametros_textarea                        ;
-etiqueta_apertura_select   ::= MENOR C_SELECT   bloque_parametros_label                           ;
-etiqueta_apertura_option   ::= MENOR C_OPTION   /* NO PARAMETROS */        etiqueta_cierre_general;//| error;
-etiqueta_apertura_div      ::= MENOR C_DIV      bloque_parametros_div                             ;
-etiqueta_apertura_img      ::= MENOR C_IMG      bloque_parametros_img                             ;
-etiqueta_apertura_br       ::= MENOR C_BR       /* NO PARAMETROS */        etiqueta_cierre_general;
-etiqueta_apertura_button   ::= MENOR C_BUTTON   bloque_parametros_button                          ;
-etiqueta_apertura_h1       ::= MENOR C_H1       bloque_parametros_label                           ;
-etiqueta_apertura_p        ::= MENOR C_P        bloque_parametros_label                           ;
+etiqueta_apertura_gcic     ::= MENOR C_GCIC     {: etiqueta = "C_GCIC"    ; numeroEtiqueta++; :} bloque_parametros_gcic                            ;// | error {: System.out.println("Error etoqueta gcic"); :}
+etiqueta_apertura_head     ::= MENOR C_HEAD     {: etiqueta = "C_HEAD"    ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general; 
+etiqueta_apertura_title    ::= MENOR C_TITLE    {: etiqueta = "C_TITLE"   ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general;
+etiqueta_apertura_link     ::= MENOR C_LINK     {: etiqueta = "C_LINK"    ; numeroEtiqueta++; :} bloque_parametros_link                            ;
+etiqueta_apertura_body     ::= MENOR C_BODY     {: etiqueta = "C_BODY"    ; numeroEtiqueta++; :} bloque_parametros_body                            ;
+etiqueta_apertura_spam     ::= MENOR C_SPAM     {: etiqueta = "C_SPAM"    ; numeroEtiqueta++; :} bloque_parametros_label                           ;
+etiqueta_apertura_input    ::= MENOR C_INPUT    {: etiqueta = "C_INPUT"   ; numeroEtiqueta++; :} bloque_parametros_input                           ;
+etiqueta_apertura_textarea ::= MENOR C_TEXTAREA {: etiqueta = "C_TEXTAREA"; numeroEtiqueta++; :} bloque_parametros_textarea                        ;
+etiqueta_apertura_select   ::= MENOR C_SELECT   {: etiqueta = "C_SELECT"  ; numeroEtiqueta++; :} bloque_parametros_label                           ;
+etiqueta_apertura_option   ::= MENOR C_OPTION   {: etiqueta = "C_OPTION"  ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general;//| error;
+etiqueta_apertura_div      ::= MENOR C_DIV      {: etiqueta = "C_DIV"     ; numeroEtiqueta++; :} bloque_parametros_div                             ;
+etiqueta_apertura_img      ::= MENOR C_IMG      {: etiqueta = "C_IMG"     ; numeroEtiqueta++; :} bloque_parametros_img                             ;
+etiqueta_apertura_br       ::= MENOR C_BR       {: etiqueta = "C_BR"      ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general;
+etiqueta_apertura_button   ::= MENOR C_BUTTON   {: etiqueta = "C_BUTTON"  ; numeroEtiqueta++; :} bloque_parametros_button                          ;
+etiqueta_apertura_h1       ::= MENOR C_H1       {: etiqueta = "C_H1"      ; numeroEtiqueta++; :} bloque_parametros_label                           ;
+etiqueta_apertura_p        ::= MENOR C_P        {: etiqueta = "C_P"       ; numeroEtiqueta++; :} bloque_parametros_label                           ;
 etiqueta_apertura_sripting ::= MENOR C_SCRIPTING /* NO PARAMETROS */       etiqueta_cierre_general;// | error;
 
 etiqueta_cierre_general  ::= MAYOR	
@@ -839,103 +881,174 @@ parametros_background ::= parametro_unidad_background
 	
 //////////////////////////////////////////////////PARAMETRO UNIDAD
 parametro_unidad_href ::= CORCH_INI 
-                            HREF IGUAL TEXT_VALUE
+                            HREF:posicion IGUAL TEXT_VALUE:valor
                           CORCH_FIN
-	;
+						  	{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "href", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+						  		analizarParametroEtiqueta(posicion);
+						 	:}
+						  	;
 
 parametro_unidad_background ::= CORCH_INI
-                                    BACKGROUND IGUAL parametro_valor_color
+                                    BACKGROUND:posicion IGUAL parametro_valor_color:valor
                                 CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "background", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+						   		analizarParametroEtiqueta(posicion);
+						    :}
 	;
 
 parametro_unidad_color ::=  CORCH_INI
-                                COLOR IGUAL parametro_valor_color
-                            CORCH_FIN                        
+                                COLOR:posicion IGUAL parametro_valor_color:valor
+                            CORCH_FIN           
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "color", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+						   		analizarParametroEtiqueta(posicion);
+						    :}           
 	;
     
 parametro_unidad_font_size ::=  CORCH_INI
-                                    FONT_SIZE IGUAL parametro_valor_size
+                                    FONT_SIZE:posicion IGUAL parametro_valor_size:valor
                                 CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "font-size", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+						    	analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_font_family ::= CORCH_INI
-                                    FONT_FAMILY IGUAL FONT_VALUE
+                                    FONT_FAMILY:posicion IGUAL FONT_VALUE:valor
                                 CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "font-family", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+						    	analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_text_align ::= CORCH_INI
-                                    TEXT_ALIGN IGUAL ALIGN_VALUE
+                                    TEXT_ALIGN:posicion IGUAL ALIGN_VALUE:valor
                                 CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "text-align", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+						    	analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_type ::= CORCH_INI
-                            TYPE IGUAL parametro_valor_type
+                            TYPE:posicion IGUAL parametro_valor_type:valor
                           CORCH_FIN
+						    {:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "type", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_id ::= CORCH_INI
-                            ID IGUAL parametro_valor_id
+                            ID:posicion IGUAL parametro_valor_id:valor
                         CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "id", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_name ::= CORCH_INI
-                            NAME IGUAL parametro_valor_name
+                            NAME:posicion IGUAL parametro_valor_name:valor
                           CORCH_FIN
+						    {:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "name", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_cols ::= CORCH_INI
-                            COLS IGUAL DIGIT_VALUE
+                            COLS:posicion IGUAL DIGIT_VALUE:valor
                           CORCH_FIN
+						  	{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "cols", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_rows ::= CORCH_INI
-                            ROWS IGUAL DIGIT_VALUE
+                            ROWS:posicion IGUAL DIGIT_VALUE:valor
                           CORCH_FIN
+						    {:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "rows", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_class ::= CORCH_INI
-                            CLASS IGUAL parametro_valor_class
+                            CLASS:posicion IGUAL parametro_valor_class:valor
                           CORCH_FIN
+						    {:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "class", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_src ::=  CORCH_INI 
-                            SRC IGUAL TEXT_VALUE
+                            SRC:posicion IGUAL TEXT_VALUE:valor
                           CORCH_FIN
+						    {:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "src", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_width ::= CORCH_INI 
-                            WIDTH IGUAL parametro_valor_size
+                            WIDTH:posicion IGUAL parametro_valor_size:valor
                            CORCH_FIN
+						    {:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "width", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_height ::= CORCH_INI 
-                                HEIGHT IGUAL parametro_valor_size
+                                HEIGHT:posicion IGUAL parametro_valor_size:valor
                             CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "height", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_alt ::= CORCH_INI 
-                            ALT IGUAL parametro_valor_name
+                            ALT:posicion IGUAL parametro_valor_name:valor
                          CORCH_FIN
+						 	{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "alt", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 parametro_unidad_onclick ::= CORCH_INI 
-                                ONCLICK IGUAL PROCESS_VAL
+                                ONCLICK:posicion IGUAL PROCESS_VAL:valor
                              CORCH_FIN
+							{:
+						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "onclick", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
+								analizarParametroEtiqueta(posicion);
+							:}
 	;
 
 //////////////////////////////////////////////////VALORES
-parametro_valor_color ::= COLOR_HEX
-    | COLOR_VALUE
+parametro_valor_color ::= 
+	  COLOR_HEX:a   {: RESULT = a; :}
+    | COLOR_VALUE:a {: RESULT = a; :}
     ;
 
-parametro_valor_size ::= PIXEL_VALUE
-    | PERCE_VALUE
+parametro_valor_size ::= 
+	  PIXEL_VALUE:a  {: RESULT = a; :}
+    | PERCE_VALUE:a  {: RESULT = a; :}
     ;
 
-parametro_valor_type ::= TEXT
-    | NUMBER
-    | RADIO
-    | CHECKBOX
+parametro_valor_type ::= 
+      TEXT:a     {: RESULT = a; :}
+    | NUMBER:a   {: RESULT = a; :}
+    | RADIO:a    {: RESULT = a; :}
+    | CHECKBOX:a {: RESULT = a; :}
     ;
 
 parametro_valor_id ::= 
@@ -959,8 +1072,9 @@ parametro_valor_name ::= TEXT_VALUE:a {: RESULT = a; :}
     | parametro_valor_reservado:a {: RESULT = a; :}
     ;
 
-parametro_valor_class ::= ROW
-    | COLUMN
+parametro_valor_class ::= 
+	  ROW:a     {: RESULT = a; :}
+    | COLUMN:a	{: RESULT = a; :}
     ;
 
 parametro_valor_reservado ::= 
@@ -1311,50 +1425,129 @@ condicion ::=// operacion_logica
 	//| error; //se verifica en nombre variable unidad
 	;
 //OPERACIONES
-operacion_logica ::= operacion_logica SIMBOL_AND operacion_logica {: System.out.println ("Se ejecuto AND"); 	:}
-    | operacion_logica SIMBOL_OR operacion_logica {: System.out.println ("Se ejecuto OR"); :}
-    | SIMBOL_NOT operacion_logica {: System.out.println ("Se ejecuto NOT");	:}
-	| operacion_relacional {: System.out.println ("Valor"); :}
-    | PAREN_INI operacion_logica:p 
-    {: 
-		System.out.println(" ( )"); 	
-	:}	
+operacion_logica ::= 
+	  operacion_logica:valor1 SIMBOL_AND:a operacion_logica:valor2 
+	  	{: 
+		  	System.out.println ("Se ejecuto AND"); 
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1, valor2, "AND");	
+			analizarResultadoOperacionLogico(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_logica:valor1 SIMBOL_OR:a  operacion_logica:valor2 
+		{: 
+			System.out.println ("Se ejecuto OR"); 
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1, valor2, "OR");	
+			analizarResultadoOperacionLogico(a);	
+			RESULT = valorElementoAux;
+		:}
+    | SIMBOL_NOT:a operacion_logica:valor1 
+		{: 
+			System.out.println ("Se ejecuto NOT");	
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1);//mandamos un solo param	
+			analizarResultadoOperacionLogico(a);	
+			RESULT = valorElementoAux;
+		:}
+	| operacion_relacional:valor1
+		{: 
+			System.out.println ("Valor"); 
+			RESULT = valor1;
+		:}
+    | PAREN_INI operacion_logica:valor1
+    	{: 
+			System.out.println(" ( )"); 
+			RESULT = valor1;
+		:}	
 	PAREN_FIN	
     ;
 //El valor que envian las operaciones racionales deben ser verdadero/falso
 operacion_relacional::= 
-	  operacion_aritmetica MAYOR       operacion_aritmetica {: System.out.println ("Se ejecuto >  "); :}
-    | operacion_aritmetica MENOR       operacion_aritmetica {: System.out.println ("Se ejecuto <  "); :}
-    | operacion_aritmetica MAYOR_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto >= "); :}
-    | operacion_aritmetica MENOR_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto <= "); :}
-    | operacion_aritmetica NO_IGUAL    operacion_aritmetica {: System.out.println ("Se ejecuto != "); :} 
-    | operacion_aritmetica IGUAL_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto =  "); :} 
-	| operacion_aritmetica                                  {: System.out.println ("Valor/variable"); :} 
+	  operacion_relacional:valor1 MAYOR:a       operacion_relacional:valor2 
+	  	{: 
+			System.out.println ("Se ejecuto >  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MAYOR");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 MENOR:a       operacion_relacional:valor2
+		{: 
+			System.out.println ("Se ejecuto <  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MENOR");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 MAYOR_IGUAL:a operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto >= "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MAYOR_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 MENOR_IGUAL:a operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto <= "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MENOR_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 NO_IGUAL:a    operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto != "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "NO_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:} 
+    | operacion_relacional:valor1 IGUAL_IGUAL:a operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto =  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "IGUAL_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:} 
+	| operacion_aritmetica:valor1                                  
+		{: 
+			System.out.println ("Valor/variable"); 
+			RESULT = valor1;
+		:} 
   //| error                                                 {: System.out.println ("Error op. rel."); :}
     ;
-operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:n2 
+operacion_aritmetica ::= operacion_aritmetica:valor1 SIGNO_MAS:a operacion_aritmetica:valor2 
 	{: 
 		System.out.println(" + "); 	
-	:}	
-    | operacion_aritmetica:n1 SIGNO_MIN operacion_aritmetica:n2
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "suma");	
+		analizarResultadoOperacionAritmetica(a);	
+		RESULT = valorElementoAux;
+	:}		
+    | operacion_aritmetica:valor1 SIGNO_MIN:a operacion_aritmetica:valor2
     {: 
 		System.out.println(" - "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "resta");	
+		analizarResultadoOperacionAritmetica(a);		
+		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica:n1 SIGNO_POR operacion_aritmetica:n2 
+    | operacion_aritmetica:valor1 SIGNO_POR:a operacion_aritmetica:valor2
     {: 
 		System.out.println(" * "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "multiplicacion");	
+		analizarResultadoOperacionAritmetica(a);
+		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica:n1 SIGNO_DIV operacion_aritmetica:n2
+    | operacion_aritmetica:valor1 SIGNO_DIV:a operacion_aritmetica:valor2
     {: 
 		System.out.println(" / "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "division");	
+		analizarResultadoOperacionAritmetica(a);
+		RESULT = valorElementoAux;
 	:}
-    | valores_datos_primarios:e
+    | valores_datos_primarios:valorElementoAux
     {: 
-		System.out.println ("Valor/variable");	
+		System.out.println ("Valor/variable");
+		RESULT = valorElementoAux;	
 	:}
-    | SIGNO_MIN operacion_aritmetica:n1
+    | SIGNO_MIN operacion_aritmetica:valorElementoAux
     {: 
 		System.out.println(" Entero negativo "); 
+		//temporal
+		RESULT = valorElementoAux;
 	:}	
     ;  
 
