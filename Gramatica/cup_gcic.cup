@@ -19,6 +19,8 @@ parser code{:
 	TablaSimbolos tablaSimbolos = new TablaSimbolos();
 	TablaSimbolosEtiquetas tablaSimbolosEtiquetas = new TablaSimbolosEtiquetas();
 	OperacionAritmetica operacionAritmetica = new OperacionAritmetica();
+	OperacionRelacional operacionRelacional = new OperacionRelacional();
+	OperacionLogica     operacionLogica     = new OperacionLogica    ();
 	String procedimiento = "";
 	String etiqueta = "";
 	int numeroEtiqueta = 0;
@@ -88,6 +90,28 @@ parser code{:
 				tokenErrorAux.setColumna(tokenAux.getColumna());
 				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
 				operacionAritmetica.setTokenError(null);	//reseteamos el error
+		}
+	}
+
+	public void analizarResultadoOperacionRelacional(Token tokenAux){
+		TokenError tokenErrorAux = operacionRelacional.getTokenError();
+		if(tokenErrorAux != null){//se produjo un error
+
+				tokenErrorAux.setLinea(tokenAux.getLinea());
+				tokenErrorAux.setColumna(tokenAux.getColumna());
+				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
+				operacionRelacional.setTokenError(null);	//reseteamos el error
+		}
+	}
+
+	public void analizarResultadoOperacionLogico(Token tokenAux){
+		TokenError tokenErrorAux = operacionLogica.getTokenError();
+		if(tokenErrorAux != null){//se produjo un error
+
+				tokenErrorAux.setLinea(tokenAux.getLinea());
+				tokenErrorAux.setColumna(tokenAux.getColumna());
+				tablaSimbolos.addErrorSemantico(tokenErrorAux);		
+				operacionLogica.setTokenError(null);	//reseteamos el error
 		}
 	}
 
@@ -454,9 +478,9 @@ non terminal String get_element_value_id;
 //CONDICION Retorna true or false
 non terminal condicion;
 //OPERACIONES
-non terminal operacion_logica;
-non terminal operacion_relacional;
-non terminal operacion_aritmetica;
+non terminal ValorElemento operacion_logica;
+non terminal ValorElemento operacion_relacional;
+non terminal ValorElemento operacion_aritmetica;
 non terminal ValorElemento operacion_aritmetica_con_parentesis;
 //FUNCIONES ESPECIALES
 non terminal ValorElemento funciones_con_valor;
@@ -1401,50 +1425,129 @@ condicion ::=// operacion_logica
 	//| error; //se verifica en nombre variable unidad
 	;
 //OPERACIONES
-operacion_logica ::= operacion_logica SIMBOL_AND operacion_logica {: System.out.println ("Se ejecuto AND"); 	:}
-    | operacion_logica SIMBOL_OR operacion_logica {: System.out.println ("Se ejecuto OR"); :}
-    | SIMBOL_NOT operacion_logica {: System.out.println ("Se ejecuto NOT");	:}
-	| operacion_relacional {: System.out.println ("Valor"); :}
-    | PAREN_INI operacion_logica:p 
-    {: 
-		System.out.println(" ( )"); 	
-	:}	
+operacion_logica ::= 
+	  operacion_logica:valor1 SIMBOL_AND:a operacion_logica:valor2 
+	  	{: 
+		  	System.out.println ("Se ejecuto AND"); 
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1, valor2, "AND");	
+			analizarResultadoOperacionLogico(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_logica:valor1 SIMBOL_OR:a  operacion_logica:valor2 
+		{: 
+			System.out.println ("Se ejecuto OR"); 
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1, valor2, "OR");	
+			analizarResultadoOperacionLogico(a);	
+			RESULT = valorElementoAux;
+		:}
+    | SIMBOL_NOT:a operacion_logica:valor1 
+		{: 
+			System.out.println ("Se ejecuto NOT");	
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1);//mandamos un solo param	
+			analizarResultadoOperacionLogico(a);	
+			RESULT = valorElementoAux;
+		:}
+	| operacion_relacional:valor1
+		{: 
+			System.out.println ("Valor"); 
+			RESULT = valor1;
+		:}
+    | PAREN_INI operacion_logica:valor1
+    	{: 
+			System.out.println(" ( )"); 
+			RESULT = valor1;
+		:}	
 	PAREN_FIN	
     ;
 //El valor que envian las operaciones racionales deben ser verdadero/falso
 operacion_relacional::= 
-	  operacion_aritmetica MAYOR       operacion_aritmetica {: System.out.println ("Se ejecuto >  "); :}
-    | operacion_aritmetica MENOR       operacion_aritmetica {: System.out.println ("Se ejecuto <  "); :}
-    | operacion_aritmetica MAYOR_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto >= "); :}
-    | operacion_aritmetica MENOR_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto <= "); :}
-    | operacion_aritmetica NO_IGUAL    operacion_aritmetica {: System.out.println ("Se ejecuto != "); :} 
-    | operacion_aritmetica IGUAL_IGUAL operacion_aritmetica {: System.out.println ("Se ejecuto =  "); :} 
-	| operacion_aritmetica                                  {: System.out.println ("Valor/variable"); :} 
+	  operacion_relacional:valor1 MAYOR:a       operacion_relacional:valor2 
+	  	{: 
+			System.out.println ("Se ejecuto >  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MAYOR");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 MENOR:a       operacion_relacional:valor2
+		{: 
+			System.out.println ("Se ejecuto <  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MENOR");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 MAYOR_IGUAL:a operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto >= "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MAYOR_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 MENOR_IGUAL:a operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto <= "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MENOR_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:}
+    | operacion_relacional:valor1 NO_IGUAL:a    operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto != "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "NO_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:} 
+    | operacion_relacional:valor1 IGUAL_IGUAL:a operacion_relacional:valor2 
+		{: 
+			System.out.println ("Se ejecuto =  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "IGUAL_IGUAL");	
+			analizarResultadoOperacionRelacional(a);	
+			RESULT = valorElementoAux;
+		:} 
+	| operacion_aritmetica:valor1                                  
+		{: 
+			System.out.println ("Valor/variable"); 
+			RESULT = valor1;
+		:} 
   //| error                                                 {: System.out.println ("Error op. rel."); :}
     ;
-operacion_aritmetica ::= operacion_aritmetica:n1 SIGNO_MAS operacion_aritmetica:n2 
+operacion_aritmetica ::= operacion_aritmetica:valor1 SIGNO_MAS:a operacion_aritmetica:valor2 
 	{: 
 		System.out.println(" + "); 	
-	:}	
-    | operacion_aritmetica:n1 SIGNO_MIN operacion_aritmetica:n2
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "suma");	
+		analizarResultadoOperacionAritmetica(a);	
+		RESULT = valorElementoAux;
+	:}		
+    | operacion_aritmetica:valor1 SIGNO_MIN:a operacion_aritmetica:valor2
     {: 
 		System.out.println(" - "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "resta");	
+		analizarResultadoOperacionAritmetica(a);		
+		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica:n1 SIGNO_POR operacion_aritmetica:n2 
+    | operacion_aritmetica:valor1 SIGNO_POR:a operacion_aritmetica:valor2
     {: 
 		System.out.println(" * "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "multiplicacion");	
+		analizarResultadoOperacionAritmetica(a);
+		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica:n1 SIGNO_DIV operacion_aritmetica:n2
+    | operacion_aritmetica:valor1 SIGNO_DIV:a operacion_aritmetica:valor2
     {: 
 		System.out.println(" / "); 	
+		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "division");	
+		analizarResultadoOperacionAritmetica(a);
+		RESULT = valorElementoAux;
 	:}
-    | valores_datos_primarios:e
+    | valores_datos_primarios:valorElementoAux
     {: 
-		System.out.println ("Valor/variable");	
+		System.out.println ("Valor/variable");
+		RESULT = valorElementoAux;	
 	:}
-    | SIGNO_MIN operacion_aritmetica:n1
+    | SIGNO_MIN operacion_aritmetica:valorElementoAux
     {: 
 		System.out.println(" Entero negativo "); 
+		//temporal
+		RESULT = valorElementoAux;
 	:}	
     ;  
 
