@@ -3,6 +3,7 @@ package gramatica_gcic;
 import java_cup.runtime.*;
 import gramatica_gcic.sym;
 import gramatica_gcic.LexerGCIC;
+import gramatica_gcic_insert.*;
 import java_cup.runtime.XMLElement;
 import clasesDAO.Token;
 import clasesDAO.TokenError;
@@ -11,6 +12,7 @@ import java.util.List;
 import tabla_simbolos.*;
 import tabla_simbolos_etiquetas.*;
 import operaciones.*;
+import java.io.StringReader;
 
 parser code{:
     //Listado de errores	
@@ -23,9 +25,14 @@ parser code{:
 	OperacionLogica     operacionLogica     = new OperacionLogica    ();
 	String procedimiento = "";
 	String etiqueta = "";
+	String bloqueHTML = "C_GCIC";
 	int numeroEtiqueta = 0;
 	int scripting = 0;
 	
+	//parametros para revisar insert
+	int filaInsert = 0;
+	int columnaInsert = 0;
+
 	@Override
 	public void syntax_error(Symbol a){
 		Token tokenError = (Token) a.value;//lo transformamos en token para obtener su lexema, fila y columna		
@@ -123,6 +130,33 @@ parser code{:
 			tablaSimbolos.addErrorSemantico(tokenErrorAux);		
 			tablaSimbolosEtiquetas.resetTokenErrorAuxiliar();	//reseteamos el error
 		}
+	}
+
+	public void analizarTextoInsert(String texto){
+		//Ejecutamos el parser
+        texto = texto.substring(1, texto.length() - 1).trim();
+        
+        try{                    
+                //Palabra descorrompida
+                
+                StringReader sr = new StringReader(texto);
+                LexerGCICInsert lexer = new LexerGCICInsert(sr);
+                ParserInsert pars = new ParserInsert(lexer, listadoErroresSintacticos, tablaSimbolos, tablaSimbolosEtiquetas, filaInsert, columnaInsert, bloqueHTML, numeroEtiqueta + 1);
+    
+                try{                        
+                    pars.parse();   
+                }catch(Exception ex){
+                    System.out.println("Error en el lenguajes de etqiuetas insert: "+ex.getMessage());
+                    ex.printStackTrace();
+                }finally{
+					numeroEtiqueta = pars.getNumeroEtiqueta();
+				}
+
+                System.out.println(" Parser insert Ejecutado");
+                
+            }catch(Exception ex){
+                System.out.println("Error al ejecutar el parser insert: "+ex.getLocalizedMessage());
+            }
 	}
 
     public parser(LexerGCIC lex){
@@ -471,7 +505,7 @@ non terminal condicion_repeat_fin;
 //INSERT
 non terminal instruccion_insert;
 non terminal valores_insert_token;
-non terminal valores_insert_token_unidad;
+non terminal String valores_insert_token_unidad;
 //GET ELEMENT
 non terminal String get_element_value;
 non terminal String get_element_value_id;
@@ -484,8 +518,8 @@ non terminal ValorElemento operacion_aritmetica;
 non terminal ValorElemento operacion_aritmetica_con_parentesis;
 //FUNCIONES ESPECIALES
 non terminal ValorElemento funciones_con_valor;
-non terminal funciones_con_valor_tipo;
-non terminal funciones_con_valor_parametros;
+non terminal Token funciones_con_valor_tipo;
+non terminal ValorElemento funciones_con_valor_parametros;
 non terminal funciones_instruccion;
 
 ////////////////////////////////////////////////////////////////PRECEDENCIA
@@ -527,6 +561,7 @@ bloque_elements_head ::= bloque_elements_head elements_head
 elements_head ::= 
 	  etiqueta_title
 	| etiqueta_link
+	| etiqueta_scripting
 	| error {: System.out.println("Error etiqueta del head"); :}
 	;
 
@@ -713,10 +748,10 @@ contenido_texto_unidad ::=
 etiqueta_scripting ::= etiqueta_apertura_sripting {: scripting += 1; :} bloque_funciones etiqueta_cierre_sripting;
  /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
 etiqueta_apertura_gcic     ::= MENOR C_GCIC     {: etiqueta = "C_GCIC"    ; numeroEtiqueta++; :} bloque_parametros_gcic                            ;// | error {: System.out.println("Error etoqueta gcic"); :}
-etiqueta_apertura_head     ::= MENOR C_HEAD     {: etiqueta = "C_HEAD"    ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general; 
+etiqueta_apertura_head     ::= MENOR C_HEAD     {: etiqueta = "C_HEAD"    ; numeroEtiqueta++; bloqueHTML = "C_HEAD"; :} /**/etiqueta_cierre_general; 
 etiqueta_apertura_title    ::= MENOR C_TITLE    {: etiqueta = "C_TITLE"   ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general;
 etiqueta_apertura_link     ::= MENOR C_LINK     {: etiqueta = "C_LINK"    ; numeroEtiqueta++; :} bloque_parametros_link                            ;
-etiqueta_apertura_body     ::= MENOR C_BODY     {: etiqueta = "C_BODY"    ; numeroEtiqueta++; :} bloque_parametros_body                            ;
+etiqueta_apertura_body     ::= MENOR C_BODY     {: etiqueta = "C_BODY"    ; numeroEtiqueta++; bloqueHTML = "C_BODY"; :}      bloque_parametros_body;
 etiqueta_apertura_spam     ::= MENOR C_SPAM     {: etiqueta = "C_SPAM"    ; numeroEtiqueta++; :} bloque_parametros_label                           ;
 etiqueta_apertura_input    ::= MENOR C_INPUT    {: etiqueta = "C_INPUT"   ; numeroEtiqueta++; :} bloque_parametros_input                           ;
 etiqueta_apertura_textarea ::= MENOR C_TEXTAREA {: etiqueta = "C_TEXTAREA"; numeroEtiqueta++; :} bloque_parametros_textarea                        ;
@@ -1386,28 +1421,33 @@ condicion_repeat_fin ::= //INTEGER_VALUE
 	/*|*/ operacion_aritmetica_con_parentesis
 	;
 //INSERT
-instruccion_insert ::= INSERT PAREN_INI valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
+instruccion_insert ::= INSERT PAREN_INI:a {: filaInsert = a.getLinea(); columnaInsert = a.getColumna(); :} valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
 	//| error// intruccion_asignacion
 	;
 
-valores_insert_token ::= valores_insert_token COMA valores_insert_token_unidad
+valores_insert_token ::= valores_insert_token COMA:a {: filaInsert = a.getLinea(); columnaInsert = a.getColumna(); :} valores_insert_token_unidad:texto {: analizarTextoInsert(texto); :}
 	//| /* empty, generamos un '' */
-	| valores_insert_token_unidad
+	| valores_insert_token_unidad:texto {: analizarTextoInsert(texto); :}
 	| error 
 	;
 
-valores_insert_token_unidad ::= INSERT_TOKEN_VALUE //cualquier otra cadena encerrada entre ''
-	| ID_VALUE_CHAR	//id encerrado entre ''
-	| CHARACT_VALUE	//caracter
-	| nombres_variables_unidad //variables aceptadas
+valores_insert_token_unidad ::= 
+	  INSERT_TOKEN_VALUE:a       {: RESULT = a.getLexema(); :}//cualquier otra cadena encerrada entre ''
+	| ID_VALUE_CHAR:a	         {: RESULT = a.getLexema(); :}//id encerrado entre ''
+	| CHARACT_VALUE:a	         {: RESULT = a.getLexema(); :}//caracter
+	| nombres_variables_unidad:a {: RESULT = a; :}//variables aceptadas
 	//| error // error tipo dato
 	;
 
 //GET ELEMENT
-get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI get_element_value_id:identificador PAREN_FIN 
+get_element_value ::= GET_ELEMEN_BY_ID PAREN_INI:posicion get_element_value_id:identificador PAREN_FIN 
 		{:
 			System.out.println ("Se ejecuto get element byId  "); 
-			//obtenemos el valor
+			//obtenemos el valor, identificador String
+			String idOriginal = identificador.substring(1, identificador.length() - 1).trim();
+			String textoGetElemenById = tablaSimbolosEtiquetas.getElementById(idOriginal);
+			analizarParametroEtiqueta(posicion);//revisar si existe o no la etiqueta con id buscada
+
 			RESULT = identificador;
 		:}
 	//| error //nombre var unidad o tipo dato
@@ -1599,19 +1639,39 @@ operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:valo
 
 //FUNCIONES ESPECIALES
 //aceptamos variables, y operaciones aritmeticas, semanticamente los resultados deben ser del tipo correcto
-funciones_con_valor ::= funciones_con_valor_tipo funciones_con_valor_parametros
-	| FUNCTION_CARACTER_ALEATORIO PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto CHAR ALEATORIO "); :}
-	| FUNCTION_NUM_ALEATORIO PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto NUM ALEATORIO "); :}
+funciones_con_valor ::= funciones_con_valor_tipo:funcion funciones_con_valor_parametros:valor 
+		{: 
+			if(valor.getTipoValor().equals("string") == false){//no es string
+				String msg =  "La funcion " + funcion.getLexema() + " solo acepta <string>, tipo actual <" + valor.getTipoValor() + ">";
+				TokenError tokenErrorAux = new TokenError("ERROR SEMANTICO", funcion.getLexema(), msg, funcion.getLinea(), funcion.getColumna());
+				tablaSimbolos.addErrorSemantico(tokenErrorAux);
+			}
+
+			RESULT = valor;
+			
+		:}
+	| FUNCTION_CARACTER_ALEATORIO PAREN_INI PAREN_FIN 
+		{: 
+			System.out.println ("Se ejecuto CHAR ALEATORIO "); 
+			ValorElemento valorElementoAux = new ValorElemento("0", "char");
+			RESULT = valorElementoAux;
+		:}
+	| FUNCTION_NUM_ALEATORIO PAREN_INI PAREN_FIN 
+		{: 
+			System.out.println ("Se ejecuto NUM ALEATORIO ");
+			ValorElemento valorElementoAux = new ValorElemento("'x'", "integer");
+			RESULT = valorElementoAux;
+		:}
 	//| error
 	;
-funciones_con_valor_tipo ::= FUNCTION_ASC {: System.out.println ("Se ejecuto FUN ASC "); :}
-	| FUNCTION_DESC {: System.out.println ("Se ejecuto FUN DESC "); :}
-	| FUNCTION_LETPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM PAR "); :}
-	| FUNCTION_LETIMPAR_NUM {: System.out.println ("Se ejecuto FUN LET NUM IMPAR "); :}
-	| FUNCTION_REVERSE	 {: System.out.println ("Se ejecuto FUN REVERSE "); :}
+funciones_con_valor_tipo ::= FUNCTION_ASC:a {: RESULT = a; System.out.println ("Se ejecuto FUN ASC "); :}
+	| FUNCTION_DESC:a {: RESULT = a; System.out.println ("Se ejecuto FUN DESC "); :}
+	| FUNCTION_LETPAR_NUM:a {: RESULT = a; System.out.println ("Se ejecuto FUN LET NUM PAR "); :}
+	| FUNCTION_LETIMPAR_NUM:a {: RESULT = a; System.out.println ("Se ejecuto FUN LET NUM IMPAR "); :}
+	| FUNCTION_REVERSE:a	 {: RESULT = a; System.out.println ("Se ejecuto FUN REVERSE "); :}
 	//| error
 	;
-funciones_con_valor_parametros ::= PAREN_INI operacion_aritmetica_con_parentesis PAREN_FIN
+funciones_con_valor_parametros ::= PAREN_INI operacion_aritmetica_con_parentesis:valor PAREN_FIN {: RESULT = valor; :}
 	| error
 	;
 

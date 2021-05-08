@@ -35,8 +35,17 @@ public class OperacionAritmetica {
             }else{
                 //realizamos la operacion
                 String nuevoElementoValor = realizarOperacionAritmetica(valor1, valor2, tipoNuevoValorAux, "suma");
-                ValorElemento nuevoElemento = new ValorElemento(nuevoElementoValor, tipoNuevoValorAux);
-                return nuevoElemento;
+                if(valor2.getTipoValor().equals("integer") && valor2.getValorElemento().equals("0".trim())){
+                    //error, num/0
+                    String msgError = "La operacion aritmetica <"+tipoOperacion+"> entre <"+valor1.getValorElemento()+"> y <"+valor2.getValorElemento()+"> produce un error de ejecucion, NO DIVIDE ENTRE 0";
+                    tokenError = new TokenError("ERROR SEMANTICO", valor1.getValorElemento()+" + "+valor2.getValorElemento(), msgError, -1, -1);
+
+                    return null;
+                }else{
+                    ValorElemento nuevoElemento = new ValorElemento(nuevoElementoValor, tipoNuevoValorAux);
+                    return nuevoElemento;
+                }                
+                
             }               
         }else{
             return null;
