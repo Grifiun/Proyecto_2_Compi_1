@@ -7,6 +7,9 @@ package tabla_simbolos;
 
 import clasesDAO.TokenError;
 import java.util.ArrayList;
+import tablas.TablaAsignacion;
+import tablas.TablasOperacionesAritmeticas;
+
 
 /**
  *
@@ -61,6 +64,11 @@ public class TablaSimbolos {
         String msgError = "";
         Elemento elementAux;
         Elemento elementoExistente = buscarElementoId(identificador, procedimiento, scripting);
+                
+        int tipoVariable = getPosicionIndice(tipo);//
+        int valorAsignar = (valor != null)? getPosicionIndice(valor) : 0;//   
+        
+        String nuevoTipoValor = TablaAsignacion.tablaAsignacionesValidez[tipoVariable][valorAsignar];//
         
         ///VERIFICAMOS QUE NO HAYA UNA VARIABLE YA DECLARADA CON ESE ID
         if(elementoExistente != null){//existe
@@ -82,9 +90,9 @@ public class TablaSimbolos {
             listadoErroresSemanticos.add(tokenErrorAux);
             
             return;//terminamos la funcion
-        }//si existe, sigue la funcion
+        }//si existe, sigue la funcion        
         
-        if(valor != null && tipo.equalsIgnoreCase(valor.getTipoValor())){//si son del mismo tipo
+        if(valor != null && nuevoTipoValor.equalsIgnoreCase("error") == false){//si son del mismo tipo y no es error
             elementAux = new Elemento(identificador, tipo, modo, procedimiento, scripting, fila, columna, valor);
             elementosTS.add(elementAux);
         }else if(valor == null){//declaracion sin asginar valor
@@ -107,9 +115,14 @@ public class TablaSimbolos {
      */
     public void asignarValorElemento(String identificador, String procedimiento, int scripting, ValorElemento valor, int fila, int columna){
         String msgError;
-        Elemento elementAux = buscarElementoId(identificador, procedimiento, scripting);
+        Elemento elementAux = buscarElementoId(identificador, procedimiento, scripting);        
+        int tipoVariable = (elementAux != null)? getPosicionIndice(elementAux.getTipo()) : 0;//
+        int valorAsignar = (valor != null) ? getPosicionIndice(valor) : 0;//
+        
+        String nuevoTipoValor = TablaAsignacion.tablaAsignacionesValidez[tipoVariable][valorAsignar];//        
+        
         if(elementAux != null){//existe          
-            if(valor != null && elementAux.getTipo().equalsIgnoreCase(valor.getTipoValor())){//si son del mismo tipo
+            if(valor != null && nuevoTipoValor.equalsIgnoreCase("error") == false){//si son del mismo tipo
                 elementAux.setValor(valor);//seteamos el valor           
             }else{//marcamos un error
                 
@@ -195,6 +208,72 @@ public class TablaSimbolos {
         }
     }
 
+    /**
+     * Funcion dedicada a calcular el indice segun su tipo
+     * integer = 1
+     * string  = 2
+     * decimal = 3
+     * char    = 4
+     * boolean = 5
+     * @param valor1
+     * @return 
+     */
+    public int getPosicionIndice(ValorElemento valor1){
+        int indice = 0;
+        switch(valor1.getTipoValor()){
+            case "integer":
+                indice = 1;
+               break;     
+            case "string":
+                indice = 2;
+               break;     
+            case "decimal":
+                indice = 3;
+               break;     
+            case "char":
+                indice = 4;
+               break;     
+            case "boolean":
+                indice = 5;
+               break;     
+        }
+        
+        return indice;
+    }
+    
+    /**
+     * Funcion dedicada a calcular el indice segun su tipo
+     * integer = 1
+     * string  = 2
+     * decimal = 3
+     * char    = 4
+     * boolean = 5
+     * @param valor1
+     * @return 
+     */
+    public int getPosicionIndice(String valor1){
+        int indice = 0;
+        switch(valor1){
+            case "integer":
+                indice = 1;
+               break;     
+            case "string":
+                indice = 2;
+               break;     
+            case "decimal":
+                indice = 3;
+               break;     
+            case "char":
+                indice = 4;
+               break;     
+            case "boolean":
+                indice = 5;
+               break;     
+        }
+        
+        return indice;
+    }
+    
     public ArrayList<Elemento> getElementosTS() {
         return elementosTS;
     }
