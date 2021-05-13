@@ -15,16 +15,69 @@ import java.util.Objects;
 public class Etiqueta {
     private String tipo;//C_GCIC, C_H1, etc
     private String texto;// Texto, si tienen
-    private ArrayList<ParametroEtiqueta> listadoParametros;//listado de parametros, tipo nombre
+    private ArrayList<ParametroEtiquetaInterno> listadoParametros;//listado de parametros, tipo nombre
     private ArrayList<Etiqueta> listadoEtiquetas;// para contenedores, pueden tener más etiquetas dentro
+    private CGCICAHTML conversor = new CGCICAHTML();
 
-    public Etiqueta(String tipo, String texto, ArrayList<ParametroEtiqueta> listadoParametros, ArrayList<Etiqueta> listadoEtiquetas) {
+    public Etiqueta(String tipo, String texto, ArrayList<ParametroEtiquetaInterno> listadoParametros, ArrayList<Etiqueta> listadoEtiquetas) {
         this.tipo = tipo;
         this.texto = texto;
         this.listadoParametros = listadoParametros;
         this.listadoEtiquetas = listadoEtiquetas;
     }
+    
+    public Etiqueta(String tipo, ArrayList<ParametroEtiquetaInterno> listadoParametros) {
+        this.tipo = tipo;
+        this.texto = "";
+        this.listadoParametros = listadoParametros;
+        this.listadoEtiquetas = null;
+    }
 
+    public String generarCodigoHTML(int nivel){//el nivel servira para dejar las tabulaciones
+        //Codigo finales
+        String codigoHTML = "";
+        String tabulacion = "";
+        //Tabulaciones y codigo
+        String tab = "\t";
+        String newLine = "\n";
+        //Tabulacion
+        for(int i = 0; i < nivel; i++){//agregamos la tabulacion dependiendo del nivel en el que se encuentra
+            tabulacion += tab;
+        }
+        
+        //Auxiliares
+        String etiquetaApertura = "";
+        String etiquetasInternas = "";
+        String etiquetaHTML = conversor.parseGCICToHTML(tipo);// del tipo </C_GCIC> hacia </html>
+        String etiquetaCierre = newLine + tabulacion + "</" + etiquetaHTML + ">";//etiqueta de cierre del tipo </C_GCIC> hacia </html>
+                       
+        //Codigo inicial con parametros
+        etiquetaApertura += newLine + tabulacion + "<" + etiquetaHTML;
+        if(listadoParametros != null){
+            for(ParametroEtiquetaInterno paramAux: listadoParametros){
+                etiquetaApertura += " " + paramAux.getNombreParametro() + " = " + paramAux.getValorParametro();//Parametros
+            }
+        }        
+        etiquetaApertura +=  ">";
+        
+        //Etiquetas internos
+        if(listadoEtiquetas != null){
+            for(Etiqueta paramEtiquetas: listadoEtiquetas){
+                etiquetasInternas += paramEtiquetas.generarCodigoHTML(nivel + 1);//Codigo html con un nivel diferente
+            }
+        }
+        
+        String textoInterno = "";
+        if(texto != null){
+            textoInterno = newLine + tabulacion + tab + texto;//texto interno
+        }
+        
+        //Codigo HTML final
+        codigoHTML = etiquetaApertura + textoInterno + etiquetasInternas + etiquetaCierre;
+        
+        return codigoHTML;//retornamos el codigo html
+    }
+    
     public String getTipo() {
         return tipo;
     }
@@ -41,11 +94,11 @@ public class Etiqueta {
         this.texto = texto;
     }
 
-    public ArrayList<ParametroEtiqueta> getListadoParametros() {
+    public ArrayList<ParametroEtiquetaInterno> getListadoParametros() {
         return listadoParametros;
     }
 
-    public void setListadoParametros(ArrayList<ParametroEtiqueta> listadoParametros) {
+    public void setListadoParametros(ArrayList<ParametroEtiquetaInterno> listadoParametros) {
         this.listadoParametros = listadoParametros;
     }
 

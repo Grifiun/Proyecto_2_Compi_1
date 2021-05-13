@@ -9,11 +9,11 @@ package etiquetas;
  *
  * @author 50234
  */
-public class ParametroEtiqueta {
+public class ParametroEtiquetaInterno {
     private String nombreParametro;
     private String valorParametro;
 
-    public ParametroEtiqueta(String nombreParametro, String valorParametro) {
+    public ParametroEtiquetaInterno(String nombreParametro, String valorParametro) {
         this.nombreParametro = nombreParametro;
         this.valorParametro = valorParametro;
     }
