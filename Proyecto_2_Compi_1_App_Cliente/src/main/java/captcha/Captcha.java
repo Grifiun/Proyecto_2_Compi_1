@@ -44,10 +44,37 @@ public class Captcha {
         this.ultimoRegistro = "2021-05-20";
     }
     
+    /**
+     * Generamos el codigo para guardar la informacion
+     * Ejemplo:
+     * 
+     *      captcha_matematico_2{
+                name = "Captcha Matematico 1",
+                veces_abierto = 0,
+                aciertos = 0,
+                fallos = 0,   
+                ultimo_registro = "2021-05-16"   
+            }
+     * @return 
+     */
+    public String generarCodigoGuardado(){
+        String newLine = "\n";
+        String tab = "\t";
+        String codigoGuardado = id + "{" + newLine;
+        codigoGuardado += tab + "name = \"" + name + "\"," + newLine;
+        codigoGuardado += tab + "veces_abierto = \"" + vecesAbierto + "\"," + newLine;
+        codigoGuardado += tab + "aciertos = \"" + aciertos + "\"," + newLine;
+        codigoGuardado += tab + "fallos = \"" + fallos + "\"," + newLine;
+        codigoGuardado += tab + "ultimo_registro = \"" + ultimoRegistro + "\"" + newLine;
+        codigoGuardado += "}";
+        
+        return codigoGuardado;
+    }
+    
     public String getId() {
         return id;
     }
-
+    
     public void setId(String id) {
         this.id = id;
     }
