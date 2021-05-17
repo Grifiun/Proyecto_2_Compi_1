@@ -54,8 +54,31 @@ public class Etiqueta {
         //Codigo inicial con parametros
         etiquetaApertura += newLine + tabulacion + "<" + etiquetaHTML;
         if(listadoParametros != null){
+            String styleParametros = "";
             for(ParametroEtiquetaInterno paramAux: listadoParametros){
-                etiquetaApertura += " " + paramAux.getNombreParametro() + " = " + paramAux.getValorParametro();//Parametros
+                String nombreParamAux = paramAux.getNombreParametro().toLowerCase().replaceAll("_", "-");
+                String valorParamAux = paramAux.getValorParametro();
+                
+                switch(nombreParamAux){
+                    case "background":
+                    case "color":
+                    case "font-size":
+                    case "font-family":
+                    case "text-align":
+                    case "type":
+                    case "width":
+                    case "height":
+                        //si son parametros de tipo Style agregamos al style 
+                        styleParametros += nombreParamAux + " : " + valorParamAux.substring(1, valorParamAux.length() - 1).trim() + "; ";
+                        break;
+                    default:
+                        etiquetaApertura += " " + nombreParamAux + " = " + valorParamAux;//Parametros
+                }
+                
+            }
+            
+            if(styleParametros.equalsIgnoreCase("") == false){//tiene datos
+                etiquetaApertura += " style = \"" + styleParametros + "\"";
             }
         }        
         etiquetaApertura +=  ">";
@@ -76,6 +99,20 @@ public class Etiqueta {
         codigoHTML = etiquetaApertura + textoInterno + etiquetasInternas + etiquetaCierre;
         
         return codigoHTML;//retornamos el codigo html
+    }
+    
+    public String getParametroEtiqueta(String nombreParametro){        
+        try{
+            for(int i = 0; i < listadoParametros.size(); i++){
+                if(listadoParametros.get(i).getNombreParametro().equalsIgnoreCase(nombreParametro)){
+                    return listadoParametros.get(i).getValorParametro();
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        
+        return null;
     }
     
     public String getTipo() {
