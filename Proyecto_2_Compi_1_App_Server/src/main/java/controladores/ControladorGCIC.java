@@ -5,12 +5,16 @@
  */
 package controladores;
 
+import ManejoArchivos.GuardarEtiqueta;
+import captcha.RevisarRepitenciaID;
+import clasesDAO.TokenError;
 import gramatica_gcic.LexerGCIC;
 import gramatica_gcic.parser;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -38,8 +42,10 @@ public class ControladorGCIC extends HttpServlet {
             throws ServletException, IOException {              
         response.setContentType("text/html;charset=UTF-8");
         
+        String salida = "xersedsd";
         try ( PrintWriter out = response.getWriter()) {
             // TODO output your page here. You may use following sample code. 
+            
             try{
                 String entrada = request.getParameter("texto");                     
                 //Palabra descorrompida
@@ -51,16 +57,89 @@ public class ControladorGCIC extends HttpServlet {
                 LexerGCIC lexer = new LexerGCIC(sr);
                 parser pars = new parser(lexer);
                 try{                        
-                    pars.parse();     
+                    pars.parse();                       
+                    String errores = "";
+                    ArrayList<TokenError> listadoErroresLexicos = lexer.obtenerListadoErroresLexicos();
+                    ArrayList<TokenError> listadoErroresSintacticos = pars.getListadoErroresSintacticos();
+                    ArrayList<TokenError> listadoErroresSemanticos = pars.getListadoErroresSemanticos();
+                    
+                    RevisarRepitenciaID rrid = new RevisarRepitenciaID();
+                    String idAux = pars.getEtiquetaGCIC().getParametroEtiqueta("id").replaceAll("\"", "").trim();
+                    if(rrid.revisarExistenciaCaptchaConId(idAux) != null){//tiene error
+                        listadoErroresSemanticos.add(rrid.revisarExistenciaCaptchaConId(idAux));
+                    }
+                    
+                    System.out.println("\n\n\n/////////////////////////////////////////////////");
+                    
+                    try{
+                        for(TokenError te: listadoErroresLexicos){
+                            errores += te.getTipoToken()+" Linea"+te.getLinea()+" Columna: "+te.getColumna()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError() + "\n";                                                     
+                        }
+                    }catch(Exception ex){
+                        
+                    }
+                    try{
+                        for(TokenError te: listadoErroresSintacticos){                            
+                            if(te.getMsgError().equalsIgnoreCase("La etiqueta de cierre debe ser <C_GCIC>")){//fin del archivo mal cerrado                                
+                                String tokens[]=normalized_string.split("\n");   
+                                int line = tokens.length, col = tokens[tokens.length - 1].length() + 1;
+                                
+                                te.setLinea(line);
+                                te.setColumna(col);
+
+                            }
+                            errores += te.getTipoToken()+" Linea"+te.getLinea()+" Columna: "+te.getColumna()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError() + "\n";                            
+                        }                        
+                    }catch(Exception ex){ 
+                        
+                    }
+                    
+                    try{
+                        for(TokenError te: listadoErroresSemanticos){
+                            errores += te.getTipoToken()+" Linea"+te.getLinea()+" Columna: "+te.getColumna()+" Lexema :"+te.getLexema()+" Mensaje: "+te.getMsgError()+ "\n";
+                        }
+                    }catch(Exception ex){                        
+                              
+                    }
+                    
+                    pars.getTablaSimbolos().imprimirTabla();
+                    System.out.println("///////////////ETIQUETAS");
+                    pars.getTablaSimbolosEtiquetas().imprimirTabla();
+                    
+                    
+                    //System.out.println("//////////////////////CODIGO HTML: ");
+                    //System.out.println(pars.getEtiquetaGCIC().generarCodigoHTML(0));//nivel 0
+                    
+                    //Guardamos si no hay errires}
+                    if(errores.equals("")){
+                        errores = "Sin errores de compilacion, captcha agregado al listado";
+                        GuardarEtiqueta guardarEtiqueta = new GuardarEtiqueta();
+                        guardarEtiqueta.guardarEtiqueta(pars.getEtiquetaGCIC(), pars.getContenidoScripting()/*, pars.getDireccionRedirect()*/);
+                    }
+                    
+                    //mostramos errores
+                    System.out.println(errores); 
+                    
+                    System.out.println("SCRIPTING::");
+                    System.out.println(pars.getContenidoScripting());
+                    salida = errores;
+                    
                 }catch(Exception ex){
-                    System.out.println("Error en el lenguajes de etqiuetas");
+                    System.out.println("Error en el lenguajes de etqiuetas: "+ex.getMessage());
+                    ex.printStackTrace();
                 }
 
                 System.out.println(" Parser Ejecutado");
-                
+                request.getSession().setAttribute("entrada", normalized_string);
+                request.getSession().setAttribute("salida", salida);
+                               
             }catch(Exception ex){
                 System.out.println("Error al ejecutar el parser: "+ex.getLocalizedMessage());
-            }            
+            }finally{
+                request.getSession().setAttribute("mensajeError", "recibido");     
+                String direccion = "jsp/ide.jsp";
+                response.sendRedirect(direccion);
+            }
         }
         
     }
@@ -94,9 +173,7 @@ public class ControladorGCIC extends HttpServlet {
         processRequest(request, response);
         
         
-        request.getSession().setAttribute("mensajeError", "recibido");     
-        String direccion = "jsp/home.jsp";
-        //response.sendRedirect(direccion);
+        
     }
 
     /**

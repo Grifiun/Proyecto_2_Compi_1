@@ -399,6 +399,9 @@ public class Ventana extends javax.swing.JFrame {
                     pars.getTablaSimbolosEtiquetas().imprimirTabla();
                     
                     
+                    System.out.println("//////////////////////CODIGO HTML: ");
+                    System.out.println(pars.getEtiquetaGCIC().generarCodigoHTML(0));//nivel 0
+                    
                 }catch(Exception ex){
                     System.out.println("Error en el lenguajes de etqiuetas: "+ex.getMessage());
                     ex.printStackTrace();

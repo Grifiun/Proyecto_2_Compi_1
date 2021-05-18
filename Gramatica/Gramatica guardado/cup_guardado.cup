@@ -1,0 +1,166 @@
+package gramatica_guardado;
+
+import java_cup.runtime.*;
+import gramatica_guardado.ParserGuardadoSym;
+import gramatica_guardado.LexerGuardado;
+import java_cup.runtime.XMLElement;
+import clasesDAO.Token;
+import clasesDAO.TokenError;
+import java.util.ArrayList;
+import java.util.List;
+import captcha.*;
+
+class ParserGuardado;
+parser code{:
+    //Listado de errores	
+	//Controlador de error sintactico
+    ArrayList<TokenError> listadoErroresSintacticos = new ArrayList();
+    ArrayList<Captcha> listadoCaptchas = new ArrayList();
+	
+	@Override
+	public void syntax_error(Symbol a){
+		Token tokenError = (Token) a.value;//lo transformamos en token para obtener su lexema, fila y columna		
+		String msgError = "Se esperaba: ";	
+		
+                
+		int linea = (tokenError != null) ? tokenError.getLinea() : 0;
+		int columna = (tokenError != null) ? tokenError.getColumna() : 0;
+		
+		if(a.sym == ParserGuardadoSym.EOF){
+			System.out.println("END OF FILE");
+			TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", "Etiqueta de cierre", "La etiqueta de cierre debe ser }", -1, -1);
+			listadoErroresSintacticos.add(tokenErrorAux);
+		}else{
+			for(int i = 0; i < expected_token_ids().size(); i++){
+				//msgError = msgError + mensajes[expected_token_ids().get(i)];
+				msgError = msgError + symbl_name_from_id(expected_token_ids().get(i)) + " ";
+
+				if(i < expected_token_ids().size() - 1)
+					msgError = msgError + ", ";			
+			}
+			//System.out.println("error de sintaxis: linea: "+tokenError.getLexema()+" "+tokenError.getLinea()+" columna: "+tokenError.getColumna()+" MENSAJE: "+msgError);
+			TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", tokenError.getLexema(), msgError, linea, columna);
+			listadoErroresSintacticos.add(tokenErrorAux);
+		}
+		
+	}
+	
+	public void report_error(String message, Object info) {
+        System.out.println("Reportar Error");
+    }
+    
+	public void report_fatal_error(String message, Object info) {
+        System.out.println("Error Fatal: " + info);
+    }
+
+    protected int error_sync_size() {
+        return 1;
+    }
+	
+	public ArrayList<TokenError> getListadoErroresSintacticos(){
+		return listadoErroresSintacticos;
+	}
+
+    public ArrayList<Captcha> getListadoCaptchas(){
+        return listadoCaptchas;
+    }
+
+	public ParserGuardado(LexerGuardado lex){
+        super(lex);
+    }
+:}
+
+//SIMBOLOS
+terminal Token IGUAL       ;
+terminal Token LLAVE_INI   ;
+terminal Token LLAVE_FIN   ;
+terminal Token COMA        ;
+
+//PARAMETROS
+terminal Token NAME            ;
+terminal Token VECES_ABIERTO   ;
+terminal Token ACIERTOS        ;
+terminal Token FALLOS          ;  
+terminal Token ULTIMO_REGISTRO ;
+
+//DATA VALUES
+terminal Token DECIMAL_VALUE   ;
+terminal Token TEXT_VALUE      ;
+terminal Token ID_VALUE        ;
+
+////////////////////////////////////////////////////////////////NO TERMINALES
+non terminal s;
+
+/////////////////////////CAPTCHA
+non terminal bloque_captcha;
+non terminal unidad_captcha;
+
+/////////////////////////PARAMETROS
+non terminal Captcha bloque_parametros_captcha;
+non terminal String parametro_name;
+non terminal String parametro_veces_abierto;
+non terminal String parametro_aciertos;
+non terminal String parametro_fallos;
+non terminal String parametro_ultimo_registro;
+
+start with s;
+
+s ::= bloque_captcha
+    | /* empty */ 
+    | error
+    ;
+
+bloque_captcha ::= bloque_captcha COMA unidad_captcha
+    | unidad_captcha
+    ;
+
+unidad_captcha ::= ID_VALUE:id LLAVE_INI bloque_parametros_captcha:captchaAux LLAVE_FIN
+        {:
+            captchaAux.setId(id.getLexema().replaceAll("\"", "").trim());
+            System.out.println("Se agrega id");
+            listadoCaptchas.add(captchaAux);
+        :}
+    ;
+
+bloque_parametros_captcha ::= 
+    parametro_name:name                  COMA 
+    parametro_veces_abierto:vecesAbierto COMA 
+    parametro_aciertos:aciertos          COMA 
+    parametro_fallos:fallos              COMA 
+    parametro_ultimo_registro:ultimoRegistro
+        {:
+            Captcha captchaAux = new Captcha(name, vecesAbierto, aciertos, fallos, ultimoRegistro);
+            System.out.println("Se crea un nuevo captcha sin id");
+            RESULT = captchaAux;
+        :}
+    ;
+
+parametro_name ::= NAME IGUAL TEXT_VALUE:valor
+        {:
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
+        :}
+    ;
+
+parametro_veces_abierto ::= VECES_ABIERTO IGUAL DECIMAL_VALUE:valor
+        {:
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
+        :}
+    ;
+
+parametro_aciertos ::= ACIERTOS IGUAL DECIMAL_VALUE:valor
+        {:
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
+        :}
+    ;
+
+parametro_fallos ::= FALLOS IGUAL DECIMAL_VALUE:valor
+        {:
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
+        :}
+    ;
+
+parametro_ultimo_registro ::= ULTIMO_REGISTRO IGUAL TEXT_VALUE:valor
+        {:
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
+        :}
+    ;
