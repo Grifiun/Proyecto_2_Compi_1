@@ -9,6 +9,14 @@
 <html>
     <head>
         <%
+            String entrada = "";
+            String salida = "";
+            if(session.getAttribute("entrada") != null){
+                entrada = session.getAttribute("entrada").toString();
+            }
+            if(session.getAttribute("salida") != null){
+                salida = session.getAttribute("salida").toString();
+            }
             
         %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

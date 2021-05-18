@@ -25,10 +25,8 @@ parser code{:
                 
 		int linea = (tokenError != null) ? tokenError.getLinea() : 0;
 		int columna = (tokenError != null) ? tokenError.getColumna() : 0;
-		linea += filaInicial;
-		columna += columnaInicial;
-
-		if(a.sym == ParserInsertSym.EOF){
+		
+		if(a.sym == ParserGuardadoSym.EOF){
 			System.out.println("END OF FILE");
 			TokenError tokenErrorAux = new TokenError("ERROR SINTACTICO", "Etiqueta de cierre", "La etiqueta de cierre debe ser }", -1, -1);
 			listadoErroresSintacticos.add(tokenErrorAux);
@@ -100,9 +98,9 @@ non terminal unidad_captcha;
 /////////////////////////PARAMETROS
 non terminal Captcha bloque_parametros_captcha;
 non terminal String parametro_name;
-non terminal int parametro_veces_abierto;
-non terminal int parametro_aciertos;
-non terminal int parametro_fallos;
+non terminal String parametro_veces_abierto;
+non terminal String parametro_aciertos;
+non terminal String parametro_fallos;
 non terminal String parametro_ultimo_registro;
 
 start with s;
@@ -118,7 +116,8 @@ bloque_captcha ::= bloque_captcha COMA unidad_captcha
 
 unidad_captcha ::= ID_VALUE:id LLAVE_INI bloque_parametros_captcha:captchaAux LLAVE_FIN
         {:
-            captchaAux.setId(id.getLexema().substring(1, id.getLexema().length() - 1).trim());
+            captchaAux.setId(id.getLexema().replaceAll("\"", "").trim());
+            System.out.println("Se agrega id");
             listadoCaptchas.add(captchaAux);
         :}
     ;
@@ -127,40 +126,41 @@ bloque_parametros_captcha ::=
     parametro_name:name                  COMA 
     parametro_veces_abierto:vecesAbierto COMA 
     parametro_aciertos:aciertos          COMA 
-    parametro_fallos:fallas              COMA 
+    parametro_fallos:fallos              COMA 
     parametro_ultimo_registro:ultimoRegistro
         {:
             Captcha captchaAux = new Captcha(name, vecesAbierto, aciertos, fallos, ultimoRegistro);
+            System.out.println("Se crea un nuevo captcha sin id");
             RESULT = captchaAux;
         :}
     ;
 
 parametro_name ::= NAME IGUAL TEXT_VALUE:valor
         {:
-            RESULT = valor.getLexema().substring(1, valor.getLexema().length() - 1).trim();
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
         :}
     ;
 
 parametro_veces_abierto ::= VECES_ABIERTO IGUAL DECIMAL_VALUE:valor
         {:
-            RESULT = Integer.parseInt(valor.getLexema());
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
         :}
     ;
 
 parametro_aciertos ::= ACIERTOS IGUAL DECIMAL_VALUE:valor
         {:
-            RESULT = Integer.parseInt(valor.getLexema());
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
         :}
     ;
 
 parametro_fallos ::= FALLOS IGUAL DECIMAL_VALUE:valor
         {:
-            RESULT = Integer.parseInt(valor.getLexema());
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
         :}
     ;
 
 parametro_ultimo_registro ::= ULTIMO_REGISTRO IGUAL TEXT_VALUE:valor
         {:
-            RESULT = valor.getLexema().substring(1, valor.getLexema().length() - 1).trim();
+            RESULT = valor.getLexema().replaceAll("\"", "").trim();
         :}
     ;

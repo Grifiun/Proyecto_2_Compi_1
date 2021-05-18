@@ -8,116 +8,121 @@ package gramatica_gcic;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int PROCESS_VAL = 86;
-  public static final int COLUMN = 99;
-  public static final int ALIGN_VALUE = 92;
-  public static final int C_P = 37;
-  public static final int TYPE = 45;
-  public static final int SIMBOL_NOT = 17;
+  public static final int PROCESS_VAL = 91;
+  public static final int MENOR_IGUAL = 17;
+  public static final int COLUMN = 104;
+  public static final int ALIGN_VALUE = 97;
+  public static final int C_P = 41;
+  public static final int TYPE = 49;
+  public static final int SIMBOL_NOT = 21;
   public static final int LLAVE_INI = 10;
-  public static final int ROWS = 49;
-  public static final int COLOR_HEX = 87;
-  public static final int INTEGER_VALUE = 104;
-  public static final int CHECKBOX = 96;
+  public static final int ROWS = 53;
+  public static final int COLOR_HEX = 92;
+  public static final int INTEGER_VALUE = 109;
+  public static final int CHECKBOX = 101;
   public static final int MAYOR = 5;
-  public static final int NAME = 47;
-  public static final int ROW = 98;
-  public static final int BOOLEAN_VALUE = 106;
-  public static final int INIT = 73;
-  public static final int C_GCIC = 22;
-  public static final int ALT = 54;
-  public static final int TEXT_ALIGN = 44;
-  public static final int FONT_VALUE = 91;
-  public static final int INTEGER = 58;
-  public static final int C_LINK = 25;
-  public static final int COMENT_BLOCK = 84;
-  public static final int ALL_CHARACTERS = 109;
-  public static final int C_OPTION = 31;
+  public static final int NAME = 51;
+  public static final int ROW = 103;
+  public static final int BOOLEAN_VALUE = 111;
+  public static final int INIT = 77;
+  public static final int C_GCIC = 26;
+  public static final int ALT = 58;
+  public static final int TEXT_ALIGN = 48;
+  public static final int FONT_VALUE = 96;
+  public static final int INTEGER = 62;
+  public static final int C_LINK = 29;
+  public static final int COMENT_BLOCK = 89;
+  public static final int IGUAL_IGUAL = 15;
+  public static final int ALL_CHARACTERS = 114;
+  public static final int C_OPTION = 35;
   public static final int PAREN_FIN = 9;
-  public static final int PERCE_VALUE = 90;
-  public static final int BACKGROUND = 40;
-  public static final int TEXT = 93;
-  public static final int THENWHILE = 81;
-  public static final int C_SPAM = 27;
-  public static final int THEN = 77;
+  public static final int PERCE_VALUE = 95;
+  public static final int BACKGROUND = 44;
+  public static final int TEXT = 98;
+  public static final int THENWHILE = 86;
+  public static final int C_SPAM = 31;
+  public static final int THEN = 82;
   public static final int DOS_PUNTOS = 14;
-  public static final int SIGNO_POR = 20;
-  public static final int DECIMAL_VALUE = 105;
-  public static final int C_BODY = 26;
-  public static final int SIMBOL_OR = 15;
-  public static final int WIDTH = 52;
-  public static final int C_TEXTAREA = 29;
-  public static final int FUNCTION_LETPAR_NUM = 65;
+  public static final int SIGNO_POR = 24;
+  public static final int DECIMAL_VALUE = 110;
+  public static final int C_BODY = 30;
+  public static final int SIMBOL_OR = 19;
+  public static final int WIDTH = 56;
+  public static final int C_TEXTAREA = 33;
+  public static final int FUNCTION_LETPAR_NUM = 69;
   public static final int PUNTO_COMA = 13;
   public static final int PAREN_INI = 8;
-  public static final int CLASS = 50;
-  public static final int C_DIV = 32;
-  public static final int NUMBER = 94;
-  public static final int C_HEAD = 23;
+  public static final int CLASS = 54;
+  public static final int C_DIV = 36;
+  public static final int NUMBER = 99;
+  public static final int C_HEAD = 27;
   public static final int COMA = 12;
-  public static final int SIGNO_MIN = 19;
-  public static final int HUNTIL = 79;
-  public static final int FUNCTION_ASC = 63;
-  public static final int C_SCRIPTING = 38;
-  public static final int FUNCTION_CARACTER_ALEATORIO = 68;
-  public static final int C_INPUT = 28;
-  public static final int COMENT_LINE = 85;
+  public static final int SIGNO_MIN = 23;
+  public static final int HUNTIL = 84;
+  public static final int FUNCTION_ASC = 67;
+  public static final int C_SCRIPTING = 42;
+  public static final int FUNCTION_CARACTER_ALEATORIO = 72;
+  public static final int C_INPUT = 32;
+  public static final int COMENT_LINE = 90;
   public static final int PERCENT = 2;
   public static final int IGUAL = 3;
-  public static final int WHILE = 80;
-  public static final int COLS = 48;
-  public static final int DECIMAL = 59;
-  public static final int CHAR = 61;
-  public static final int BOOLEAN = 60;
-  public static final int FUNCTION_NUM_ALEATORIO = 69;
-  public static final int CHARACT_VALUE = 107;
-  public static final int INSERT_TOKEN_VALUE = 103;
-  public static final int FUNCTION_LETIMPAR_NUM = 66;
+  public static final int WHILE = 85;
+  public static final int COLS = 52;
+  public static final int DECIMAL = 63;
+  public static final int CHAR = 65;
+  public static final int BOOLEAN = 64;
+  public static final int FUNCTION_NUM_ALEATORIO = 73;
+  public static final int ELSE_IF = 81;
+  public static final int CHARACT_VALUE = 112;
+  public static final int INSERT_TOKEN_VALUE = 108;
+  public static final int FUNCTION_LETIMPAR_NUM = 70;
   public static final int CORCH_FIN = 7;
-  public static final int ELSE = 76;
-  public static final int PROCESS_ABC = 57;
+  public static final int ELSE = 80;
+  public static final int NO_IGUAL = 16;
+  public static final int PROCESS_ABC = 61;
   public static final int MENOR = 4;
-  public static final int FUNCTION_REVERSE = 67;
-  public static final int C_BR = 34;
-  public static final int DIGIT_VALUE = 97;
-  public static final int TEXT_VALUE = 102;
-  public static final int ID_VALUE_CHAR = 101;
+  public static final int FUNCTION_REVERSE = 71;
+  public static final int C_BR = 38;
+  public static final int DIGIT_VALUE = 102;
+  public static final int TEXT_VALUE = 107;
+  public static final int ID_VALUE_CHAR = 106;
   public static final int EOF = 0;
-  public static final int C_TITLE = 24;
-  public static final int SIGNO_DIV = 21;
-  public static final int REPEAT = 78;
-  public static final int C_IMG = 33;
+  public static final int C_TITLE = 28;
+  public static final int SIGNO_DIV = 25;
+  public static final int REPEAT = 83;
+  public static final int C_IMG = 37;
   public static final int CORCH_INI = 6;
-  public static final int SIGNO_MAS = 18;
-  public static final int ID_VALUE = 108;
-  public static final int SRC = 51;
-  public static final int ID_VALUE_STR = 100;
-  public static final int HREF = 39;
-  public static final int SIMBOL_AND = 16;
+  public static final int SIGNO_MAS = 22;
+  public static final int ID_VALUE = 113;
+  public static final int SRC = 55;
+  public static final int ID_VALUE_STR = 105;
+  public static final int HREF = 43;
+  public static final int SIMBOL_AND = 20;
   public static final int error = 1;
-  public static final int MODO_GLOBAL = 83;
-  public static final int IF = 75;
-  public static final int GET_ELEMEN_BY_ID = 72;
-  public static final int PIXEL_VALUE = 89;
-  public static final int ID = 46;
-  public static final int COLOR = 41;
-  public static final int ON_LOAD = 56;
-  public static final int COLOR_VALUE = 88;
-  public static final int C_SELECT = 30;
-  public static final int END = 74;
-  public static final int C_H1 = 36;
-  public static final int RADIO = 95;
-  public static final int HEIGHT = 53;
-  public static final int FUNCTION_ALERT_INFO = 70;
-  public static final int FUNCTION_EXIT = 71;
-  public static final int FONT_FAMILY = 43;
-  public static final int FONT_SIZE = 42;
-  public static final int INSERT = 82;
-  public static final int FUNCTION_DESC = 64;
-  public static final int STRING = 62;
-  public static final int ONCLICK = 55;
-  public static final int C_BUTTON = 35;
+  public static final int MODO_GLOBAL = 88;
+  public static final int IF = 79;
+  public static final int GET_ELEMEN_BY_ID = 76;
+  public static final int PIXEL_VALUE = 94;
+  public static final int ID = 50;
+  public static final int COLOR = 45;
+  public static final int ON_LOAD = 60;
+  public static final int COLOR_VALUE = 93;
+  public static final int C_SELECT = 34;
+  public static final int END = 78;
+  public static final int C_H1 = 40;
+  public static final int RADIO = 100;
+  public static final int FUNCTION_ALERT_INFO = 74;
+  public static final int HEIGHT = 57;
+  public static final int FUNCTION_EXIT = 75;
+  public static final int FONT_FAMILY = 47;
+  public static final int FONT_SIZE = 46;
+  public static final int INSERT = 87;
+  public static final int FUNCTION_DESC = 68;
+  public static final int STRING = 66;
+  public static final int ONCLICK = 59;
+  public static final int C_BUTTON = 39;
   public static final int LLAVE_FIN = 11;
+  public static final int MAYOR_IGUAL = 18;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
@@ -134,6 +139,10 @@ public class sym {
   "COMA",
   "PUNTO_COMA",
   "DOS_PUNTOS",
+  "IGUAL_IGUAL",
+  "NO_IGUAL",
+  "MENOR_IGUAL",
+  "MAYOR_IGUAL",
   "SIMBOL_OR",
   "SIMBOL_AND",
   "SIMBOL_NOT",
@@ -196,6 +205,7 @@ public class sym {
   "END",
   "IF",
   "ELSE",
+  "ELSE_IF",
   "THEN",
   "REPEAT",
   "HUNTIL",

@@ -58,20 +58,17 @@ LLAVE_FIN   = "}"
 COMA        = ","
 
 //PARAMETROS
-NAME = name
-VECES_ABIERTO = veces_abierto
-ACIERTOS = aciertos
-FALLOS = fallos   
+NAME            = name
+VECES_ABIERTO   = veces_abierto
+ACIERTOS        = aciertos
+FALLOS          = fallos   
 ULTIMO_REGISTRO = ultimo_registro 
 
 //DATA VALUES
-//INTEGER_VALUE   = (0 | ([1-9] [0-9]*) ) //aceptamos 0 o un numero valido, es decir no aceptamos 0 a la izquierda
+INTEGER_VALUE   = (0 | ([1-9] [0-9]*) ) //aceptamos 0 o un numero valido, es decir no aceptamos 0 a la izquierda
 DECIMAL_VALUE   = (0 | ([1-9] [0-9]*) ) (\. ([0-9]{1,3} [1-9]?)) //? Numero decimal, no aceptamos 0 como ultimo digito
-
 //TEXT VALUE, se excluye el codigo ascii 42, el cual representa a << " >>
 TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\134] | [\136-\176])+ (\" | \“ |  \”) 
-
-//////////////////////////////////IDS , ignoramos los 
 ID_VALUE        = ([a-zA-Z] | "_"  ) ([a-zA-Z0-9] | "_" )* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
 
 %%
@@ -92,7 +89,7 @@ ID_VALUE        = ([a-zA-Z] | "_"  ) ([a-zA-Z0-9] | "_" )* //una letra o simbolo
     {ULTIMO_REGISTRO }           { return retornarSimbolo(ULTIMO_REGISTRO , "ULTIMO_REGISTRO" , yytext(), yyline + 1, yycolumn + 1); }
 
     //DATA VALUES
-    {DECIMAL_VALUE   }           { return retornarSimbolo(DECIMAL_VALUE   , "DECIMAL_VALUE"   , yytext(), yyline + 1, yycolumn + 1); }
+    {DECIMAL_VALUE} | {INTEGER_VALUE}   { return retornarSimbolo(DECIMAL_VALUE   , "DECIMAL_VALUE"   , yytext(), yyline + 1, yycolumn + 1); }
     {TEXT_VALUE      }           { return retornarSimbolo(TEXT_VALUE      , "TEXT_VALUE"      , yytext(), yyline + 1, yycolumn + 1); }
     {ID_VALUE        }           { return retornarSimbolo(ID_VALUE        , "ID_VALUE"        , yytext(), yyline + 1, yycolumn + 1); }
 

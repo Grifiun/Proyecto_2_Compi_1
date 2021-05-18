@@ -6,22 +6,20 @@ entInput.addEventListener('change', function() {
     var fr;
     fr = null;
     fr  = new FileReader();
-    fr.onload=function(){
+    
+    fr.readAsText(this.files[0], 'ISO-8859-1');  
+    this.files = null;
+    
+    fr.onload = function(){
         //document.getElementById('texto')
          //       .textContent = fr.result;
-        
-        
         
         entrada = fr.result;
         //alert(entrada);        
         checkNum(entrada);
         
-        entTexto.innerHTML = entrada;
+        entTexto.innerHTML = entrada.normalize('NFD').replace(/[\u0300-\u036f]/g, "");
     }
-    
-
-    fr.readAsText(this.files[0]);  
-    this.files = null;
     
 })
   
