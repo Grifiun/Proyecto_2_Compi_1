@@ -131,7 +131,7 @@ parser code{:
 	}
 
 	public String getContenidoScripting(){
-		return "//Variables globales\n" + global + "\n//Funciones\n" + contenidoScript;
+		return "/* Variables globales */\n" + global + "\n/* Funciones */\n" + contenidoScript;
 	}
 
 	public String getDireccionRedirect(){
@@ -1731,7 +1731,7 @@ ciclo_while ::= WHILE condicion {: contenidoScript += tab + "while (" + variable
 	| WHILE condicion error bloque_instrucciones_sentencias
 	;
 
-ciclo_repeat_declaracion ::= REPEAT condicion_repeat_inicio HUNTIL PAREN_INI condicion_repeat_fin {: contenidoScript += varCicloAux + " == " + variablesAux + " ; " + varCicloAux + "++)"; :} PAREN_FIN	
+ciclo_repeat_declaracion ::= REPEAT condicion_repeat_inicio HUNTIL PAREN_INI condicion_repeat_fin {: contenidoScript += varCicloAux + " <= " + variablesAux + " ; " + varCicloAux + "++)"; :} PAREN_FIN	
 	| REPEAT error HUNTIL PAREN_INI condicion_repeat_fin PAREN_FIN
 	| REPEAT error PAREN_INI condicion_repeat_fin PAREN_FIN
 	| REPEAT condicion_repeat_inicio error PAREN_INI condicion_repeat_fin PAREN_FIN	
@@ -1739,7 +1739,7 @@ ciclo_repeat_declaracion ::= REPEAT condicion_repeat_inicio HUNTIL PAREN_INI con
 	| REPEAT condicion_repeat_inicio HUNTIL PAREN_INI condicion_repeat_fin error
 	//| error
 	;
-condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN {: System.out.println ("Se ejecuto condicion inicio repeat  "); contenidoScript += tab + "for ( "+ variablesAux2 + " ; ";  :}
+condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN {: System.out.println ("Se ejecuto condicion inicio repeat  "); contenidoScript += tab + "for ( "+ variablesAux2 + " ; "; variablesAux = ""; :}
 	| error intruccion_asignacion PAREN_FIN
 	| PAREN_INI intruccion_asignacion error 
 	;
@@ -1953,9 +1953,10 @@ operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:valo
 		System.out.println ("Valor/variable");	
 		RESULT = valorElementoAux;
 	:}
-    | SIGNO_MIN {: variablesAux += " - "; :} operacion_aritmetica_con_parentesis:n1
+    | SIGNO_MIN {: variablesAux += " - "; :} operacion_aritmetica_con_parentesis:valorElementoAux
     {: 
 		System.out.println(" Entero negativo "); 
+		RESULT = valorElementoAux;
 	:}	
 	| PAREN_INI {: variablesAux += "("; :} operacion_aritmetica_con_parentesis:valorElementoAux
     {: 

@@ -11061,7 +11061,7 @@ public class parser extends java_cup.runtime.lr_parser {
 	}
 
 	public String getContenidoScripting(){
-		return "//Variables globales\n" + global + "\n//Funciones\n" + contenidoScript;
+		return "/* Variables globales */\n" + global + "\n/* Funciones */\n" + contenidoScript;
 	}
 
 	public String getDireccionRedirect(){
@@ -16546,7 +16546,7 @@ class CUP$parser$actions {
           case 429: // NT$24 ::= 
             {
               Object RESULT =null;
- contenidoScript += varCicloAux + " == " + variablesAux + " ; " + varCicloAux + "++)"; 
+ contenidoScript += varCicloAux + " <= " + variablesAux + " ; " + varCicloAux + "++)"; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$24",179, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -16611,7 +16611,7 @@ class CUP$parser$actions {
           case 436: // condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN 
             {
               Object RESULT =null;
-		 System.out.println ("Se ejecuto condicion inicio repeat  "); contenidoScript += tab + "for ( "+ variablesAux2 + " ; ";  
+		 System.out.println ("Se ejecuto condicion inicio repeat  "); contenidoScript += tab + "for ( "+ variablesAux2 + " ; "; variablesAux = ""; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("condicion_repeat_inicio",139, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -17658,11 +17658,12 @@ class CUP$parser$actions {
               ValorElemento RESULT =null;
               // propagate RESULT from NT$46
                 RESULT = (ValorElemento) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-		int n1left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
-		int n1right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		ValorElemento n1 = (ValorElemento)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		int valorElementoAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
+		int valorElementoAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
+		ValorElemento valorElementoAux = (ValorElemento)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 
 		System.out.println(" Entero negativo "); 
+		RESULT = valorElementoAux;
 	
               CUP$parser$result = parser.getSymbolFactory().newSymbol("operacion_aritmetica_con_parentesis",150, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
