@@ -85,8 +85,13 @@ public class Etiqueta {
         
         //Etiquetas internos
         if(listadoEtiquetas != null){
+            System.out.println("SE EJECUTA EL DEL SERVER");
             for(Etiqueta paramEtiquetas: listadoEtiquetas){
-                etiquetasInternas += paramEtiquetas.generarCodigoHTML(nivel + 1);//Codigo html con un nivel diferente
+                try{
+                    etiquetasInternas += paramEtiquetas.generarCodigoHTML(nivel + 1);//Codigo html con un nivel diferente
+                }catch(Exception ex){
+                    System.out.println("Error al generar codigo html interno");
+                }                
             }
         }
         

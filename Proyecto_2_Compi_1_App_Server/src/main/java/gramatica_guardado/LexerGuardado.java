@@ -353,7 +353,7 @@ public class LexerGuardado implements java_cup.runtime.Scanner {
     private Symbol retornarSimbolo(int tipo, String tipoToken, String lexema, int fila, int columna){
         //creamos un  token auxiliar
         Token tokenAux = new Token(tipoToken, lexema, fila, columna);
-        System.out.println("Fila: "+fila+" Columa: "+columna+" Token: "+tipoToken+ " Lexema: "+lexema);
+        //System.out.println("Fila: "+fila+" Columa: "+columna+" Token: "+tipoToken+ " Lexema: "+lexema);
         //retornamos el token aux como simbolo
         return new Symbol(tipo, tokenAux);
     }
