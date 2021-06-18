@@ -14,6 +14,8 @@ import etiquetas.*;
 import tabla_simbolos_etiquetas.*;
 import operaciones.*;
 import java.io.StringReader;
+import repeat_insert.*;
+import funciones.*;
 
 parser code{:
     //Listado de errores	
@@ -24,6 +26,7 @@ parser code{:
 	OperacionAritmetica operacionAritmetica = new OperacionAritmetica();
 	OperacionRelacional operacionRelacional = new OperacionRelacional();
 	OperacionLogica     operacionLogica     = new OperacionLogica    ();
+	RemoverComillasSimples removerCS = new RemoverComillasSimples();
 	Etiqueta etiquetaGCIC = null;
 	String procedimiento = "";
 	String etiqueta = "";
@@ -31,6 +34,7 @@ parser code{:
 	int numeroEtiqueta = 0;
 	int scripting = 0;
 	String contenidoScript = "";
+	String globalScript = ""; //variable que contendra las variables globales
 	String variablesAux = "";
 	String variablesAux2 = "";
 	String varCicloAux = "";
@@ -39,6 +43,32 @@ parser code{:
 	//parametros para revisar insert
 	int filaInsert = 0;
 	int columnaInsert = 0;
+
+	//LISTADOS AUXILIARES, GCIC, BODY, HEAD
+	ArrayList<Etiqueta> listadoEtiquetasGCIC = new ArrayList();
+	ArrayList<Etiqueta> listadoEtiquetasBODY = new ArrayList();
+	ArrayList<Etiqueta> listadoEtiquetasHEAD = new ArrayList();
+	
+	//VARIABLES GLOBALES
+	ArrayList<String> nombresGlobales = new ArrayList();
+	String global = "";
+
+	//TABS
+	String tabSimple = "\t";//para funciones
+	String tabDoble = "\t\t"; //para las instrucciones de una funcion
+	String tab = tabSimple;//su valor es un tab si es para funciones
+							   //acá el tab sería uno doble o triple dependiendo de si está o no en if/ciclo
+
+	//TEXTO AUXILIAR INSERT
+	String textoInsert = "";
+
+	//ciclo REPEAT
+	boolean isRepeat = false;//true cuando es verdadero
+	String nombreIteradorRepeat = "";
+	String tipoInsert = "texto";//var para variables
+	ValorElemento inicioRepeat = null;
+	ValorElemento finRepeat = null;
+	ArrayList<ValorElemento> elementosRepeat = new ArrayList();
 
 	@Override
 	public void syntax_error(Symbol a){
@@ -101,11 +131,21 @@ parser code{:
 	}
 
 	public String getContenidoScripting(){
-		return contenidoScript;
+		return "//Variables globales\n" + global + "\n//Funciones\n" + contenidoScript;
 	}
 
 	public String getDireccionRedirect(){
 		return direccionRedirect;
+	}
+
+	private ArrayList<Etiqueta> listadoEtiquetaActual(){
+		if(bloqueHTML.equals("C_GCIC")){
+			return listadoEtiquetasGCIC;
+		}else if(bloqueHTML.equals("C_HEAD")){
+			return listadoEtiquetasHEAD;
+		}else{//C_BODY
+			return listadoEtiquetasBODY;
+		}
 	}
 
 	public void analizarResultadoOperacionAritmetica(Token tokenAux){
@@ -174,32 +214,64 @@ parser code{:
 
 		return listadoEtiqueta;//retornamos el listado
 	}
+	
+	public void inicializarRepeat(){
+		isRepeat = false;//inicializamos
+		nombreIteradorRepeat = "";
+		inicioRepeat = null;
+		finRepeat = null;
+		elementosRepeat.clear();
+	}
 	 
-	public void analizarTextoInsert(String texto){
-		//Ejecutamos el parser
-        texto = texto.substring(1, texto.length() - 1).trim();
-        
-        try{                    
-                //Palabra descorrompida
-                
-                StringReader sr = new StringReader(texto);
-                LexerGCICInsert lexer = new LexerGCICInsert(sr);
-                ParserInsert pars = new ParserInsert(lexer, listadoErroresSintacticos, tablaSimbolos, tablaSimbolosEtiquetas, filaInsert, columnaInsert, bloqueHTML, numeroEtiqueta + 1);
-    
-                try{                        
-                    pars.parse();   
-                }catch(Exception ex){
-                    System.out.println("Error en el lenguajes de etqiuetas insert: "+ex.getMessage());
-                    ex.printStackTrace();
-                }finally{
-					numeroEtiqueta = pars.getNumeroEtiqueta();
-				}
+	public void agregarTextoInsert(String texto){
+		texto = removerCS.removerComillasSimples(texto);
 
-                System.out.println(" Parser insert Ejecutado");
+		if(isRepeat == true){//estamos en el ciclo repeat
+			System.out.println("Agregamos repeat insert: " + texto);
+			ValorElemento aux = new ValorElemento(texto, tipoInsert);			
+			elementosRepeat.add(aux);
+		}else{//no está en un ciclo
+			textoInsert += " " + texto + "\n";
+		}
+	}
+
+
+	public void analizarTextoInsert(){
+		//Ejecutamos el parser
+        //texto = texto.substring(1, texto.length() - 1).trim();
+		System.out.println("INTENTO ANALIZAR");
+
+		String texto = textoInsert.trim();       
+		if(texto.equals("") == true){
+			return;//terminamos la funcion porque no hay texto que analizar
+		}else{
+			System.out.println("TEXTO INSERT A ANALIZAR");
+			System.out.println(texto);
+		}
+
+        try{                    
+			//Palabra descorrompida
+			
+			StringReader sr = new StringReader(texto);
+			LexerGCICInsert lexer = new LexerGCICInsert(sr);
+			ParserInsert pars = new ParserInsert(lexer, listadoErroresSintacticos, tablaSimbolos, tablaSimbolosEtiquetas, filaInsert, columnaInsert, bloqueHTML, numeroEtiqueta + 1, listadoEtiquetaActual());
+
+			try{                        
+				pars.parse();   
+			}catch(Exception ex){
+				System.out.println("Error en el lenguajes de etqiuetas insert: "+ex.getMessage());
+				ex.printStackTrace();
+			}finally{
+				numeroEtiqueta = pars.getNumeroEtiqueta();
+			}
+
+			System.out.println(" Parser insert Ejecutado");
                 
-            }catch(Exception ex){
-                System.out.println("Error al ejecutar el parser insert: "+ex.getLocalizedMessage());
-            }
+		}catch(Exception ex){
+			System.out.println("Error al ejecutar el parser insert: "+ex.getLocalizedMessage());
+		}
+
+		textoInsert = ""; //reiniciamos el texto insert
 	}
 
     public parser(LexerGCIC lex){
@@ -596,18 +668,21 @@ s ::= etiqueta_gcic:etiquetaPrincipal
 /////////////////////////CONTENIDO
 etiqueta_gcic ::= etiqueta_apertura_gcic:etiquetaAux bloque_elements_gcic:listadoEtiquetas etiqueta_cierre_gcic//| error;
 		{: 
-			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			//etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetasGCIC);
 			RESULT = etiquetaAux;
 		:};
 etiqueta_head     ::= etiqueta_apertura_head:etiquetaAux bloque_elements_head:listadoEtiquetas etiqueta_cierre_head 
 		{: 
-			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			//etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetasHEAD);
 			RESULT = etiquetaAux;	 
 		:}
 	| error;
 etiqueta_body     ::= etiqueta_apertura_body:etiquetaAux bloque_elements_body:listadoEtiquetas etiqueta_cierre_body
 		{: 
-			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			//etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetasBODY);
 			RESULT = etiquetaAux;	 
 		:}
 	| error;
@@ -623,16 +698,21 @@ bloque_elements_gcic ::= etiqueta_head:etiquetaAux1 etiqueta_body:etiquetaAux2
 			ArrayList<Etiqueta> listadoEtiquetaGCIC = new ArrayList();
 			if(etiquetaAux1 != null){
 				listadoEtiquetaGCIC.add(etiquetaAux1);
+				listadoEtiquetasGCIC.add(etiquetaAux1);
 			}
 			if(etiquetaAux2 != null){
 				listadoEtiquetaGCIC.add(etiquetaAux2);
+				listadoEtiquetasGCIC.add(etiquetaAux2);
 			}
 			RESULT = listadoEtiquetaGCIC;
 		:}
 	; //Head y el Body, obligatorio la declaracion de estos 2 terminos
 
 bloque_elements_head ::= bloque_elements_head:listadoEtiquetas elements_head:etiquetaAux
-		{: RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); :}
+		{: 
+			listadoEtiquetasHEAD.add(etiquetaAux);
+			RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux);
+		:}
 	| /* empty */
 	;
 
@@ -644,7 +724,10 @@ elements_head ::=
 	;
 
 bloque_elements_body ::= bloque_elements_body:listadoEtiquetas elements_body:etiquetaAux 
-		{: RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); :}
+		{: 
+			listadoEtiquetasBODY.add(etiquetaAux);
+			RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
+		:}
 	| /* empty */
 	;
 
@@ -774,7 +857,7 @@ contenido_texto_unidad ::=
 	//PARAMETROS
 	| HREF:a                        {: RESULT = a.getLexema(); :}
 	| BACKGROUND:a                  {: RESULT = a.getLexema(); :}
-	| COLOR:a   C_H1                    {: RESULT = a.getLexema(); :}
+	| COLOR:a                       {: RESULT = a.getLexema(); :}
 	| FONT_SIZE:a                   {: RESULT = a.getLexema(); :}
 	| FONT_FAMILY:a                 {: RESULT = a.getLexema(); :}
 	| TEXT_ALIGN:a                  {: RESULT = a.getLexema(); :}
@@ -838,7 +921,7 @@ contenido_texto_unidad ::=
 
 /////////////////////////SCRIPTING
 etiqueta_scripting ::= etiqueta_apertura_sripting {: scripting += 1; :} bloque_funciones etiqueta_cierre_sripting;
- /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
+/////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
 etiqueta_apertura_gcic     ::= MENOR C_GCIC:tipo     {: etiqueta = "C_GCIC"    ; numeroEtiqueta++; :} bloque_parametros_gcic:listadoParametros                            // | error {: System.out.println("Error etoqueta gcic"); :}		
 		{:	RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); :}
 	;
@@ -1290,7 +1373,14 @@ bloque_funciones ::= bloque_funciones funcion_unitaria
 funcion_unitaria ::= nombre_funciones funcion_unitaria_simbolos_inicio//PAREN_INI PAREN_FIN CORCH_INI //PROCESS_hola()[
 						bloque_instrucciones
 					CORCH_FIN // ]
-					{: System.out.println ("Se ejecuto FUNCION  "); contenidoScript += "}\n"; :}
+					{: 
+						//el tab será uno simple, porque finalizo una funcion
+						tab = tabSimple;
+						System.out.println ("Se ejecuto FUNCION  "); 
+						contenidoScript += tab + "}\n"; 
+						//analizamos el insert
+						analizarTextoInsert(); 						
+					:}
 	//| error {: System.out.println ("Se esperaba ] "); :}
 	;
 funcion_unitaria_simbolos_inicio ::= PAREN_INI PAREN_FIN CORCH_INI
@@ -1300,26 +1390,32 @@ nombre_funciones ::= PROCESS_ABC:a
 		{: 
 			procedimiento = a.getLexema(); 
 			tablaSimbolos.declararNuevoElemento(a.getLexema(), "Procedimiento/Funcion", scripting, a.getLinea(), a.getColumna()); 
-			contenidoScript += "function " + a.getLexema().trim() + "(){\n";
-			contenidoScript += "try { ON_LOAD" + scripting + "(); } catch (error) {}\n";//agregamos el onload
+			contenidoScript += tab + "function " + a.getLexema().trim() + "(){\n";
+			tab = tabDoble;//es un tab doble porque ya está dentro de una funtion
+			contenidoScript += tab + "try { ON_LOAD" + scripting + "(); } catch (error) {}\n";//agregamos el onload
 		:}
 	| ON_LOAD:a					   
 		{: 
 			procedimiento = a.getLexema(); 
-			tablaSimbolos.declararNuevoElemento(a.getLexema(), "Procedimiento/Funcion", scripting, a.getLinea(), a.getColumna()); 
-			contenidoScript += "function ON_LOAD" + scripting + "(){\n";
+			tablaSimbolos.declararNuevoElemento(a.getLexema(), "Procedimiento/Funcion", scripting, a.getLinea(), a.getColumna()); 	
+			contenidoScript += tab + "function ON_LOAD" + scripting + "(){\n";
+			tab = tabDoble;//es un tab doble porque ya está dentro de una funtion
 		:}
 	//| error
 	;
 
 //BLOQUE INSTRUCCIONES
 bloque_instrucciones_sentencias ::= bloque_instrucciones_sentencias_inicio  //INIT {::
-									{: contenidoScript += "{\n"; :}
+									{: 
+										contenidoScript += tab + "{\n"; 
+										tab = tab + tabSimple; //agregamos un tab extra								
+									:}
 										bloque_instrucciones 					//BLOQUE DE INSTRUCCIONES
 									bloque_instrucciones_sentencias_fin    //::} END
 									{: 
-										System.out.println ("Se ejecuto BLOQUE DE SENTENCIAS INIT END  "); 
-										contenidoScript += "}\n";
+										System.out.println ("Se ejecuto BLOQUE DE SENTENCIAS INIT END  "); 										
+										tab = tab.replaceFirst(tabSimple, ""); //removemos un tab
+										contenidoScript += tab + "}\n";
 									:}
 	| instruccion_general //INSTRUCCION SOLITARIA
 	;
@@ -1359,7 +1455,12 @@ intruccion_declaracion ::= tipo_datos:tipo modo_variable:modo nombres_variables:
 			//debemos hacer esto con todas las variables declaradas
 			for(int i = 0; i < nombresVariables.length; i++){
 				tablaSimbolos.declararNuevoElemento(nombresVariables[i], tipo.getLexema(), modo, procedimiento, scripting, tipo.getLinea(), tipo.getColumna(), null);//sin valor
-				contenidoScript += "var " + nombresVariables[i] + ";\n";
+				if(modo != null && modo.equals("-") == true){//es variable local
+					contenidoScript += tab + "var " + nombresVariables[i] + ";\n";//agregamos tab
+				}else{//es variable global
+					global += tabSimple + "var " + nombresVariables[i] + ";\n";
+					nombresGlobales.add(nombresVariables[i]);
+				}				
 			}
 
 			RESULT = nombresVariables;
@@ -1371,26 +1472,49 @@ intruccion_asignacion ::= nombres_variables:nombres IGUAL:a asignacion:valor //p
 
 			for(int i = 0; i < nombresVariables.length; i++){
 				tablaSimbolos.asignarValorElemento(nombresVariables[i], procedimiento, scripting, valor, a.getLinea(), a.getColumna());
-				contenidoScript += nombresVariables[i] + " = " + variablesAux + ";\n";	
+				contenidoScript += tab + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";	
 				varCicloAux = nombresVariables[i];
-				variablesAux2 = nombresVariables[i] + " = " + variablesAux;
+				variablesAux2 = nombresVariables[i] + " = " + variablesAux.trim();
+
+				//Asignacion si es un repeat
+				if(isRepeat == true){
+					//esta en un ciclo repeat, agregamos inicio
+					inicioRepeat = valor;
+					nombreIteradorRepeat = nombresVariables[i];
+				}
 			}
 		:}
 	| intruccion_declaracion:nombresVariables IGUAL:a asignacion:valor //pueden asignarse con declaraciones << string a, b, c = "hola"; >>
 		{:
 			for(int i = 0; i < nombresVariables.length; i++){
 				tablaSimbolos.asignarValorElemento(nombresVariables[i], procedimiento, scripting, valor, a.getLinea(), a.getColumna());
-				contenidoScript += nombresVariables[i] + " = " + variablesAux + ";\n";
 				varCicloAux = nombresVariables[i];
-				variablesAux2 = nombresVariables[i] + " = " + variablesAux;
+				variablesAux2 = nombresVariables[i] + " = " + variablesAux.trim();
+
+				if(nombresGlobales.size() > 0 && nombresGlobales.contains(nombresVariables[i])){
+                    //asignacion de valor a variable global
+                    int posicion = nombresGlobales.indexOf(nombresVariables[i]);
+                    nombresGlobales.remove(posicion);
+                                    
+                    global += tabSimple + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";
+				}else{//una variable normal
+                    contenidoScript += tab + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";
+                }
+
+				//Asignacion si es un repeat
+				if(isRepeat == true){
+					//esta en un ciclo repeat, agregamos inicio
+					inicioRepeat = valor;
+					nombreIteradorRepeat = nombresVariables[i];
+				}
 			}
 		:}
 	//| error
 	;
 asignacion ::= 
 	  //VALORES
-      operacion_aritmetica_con_parentesis:valor {: RESULT = valor; :} //operacion aritmetica, entre variables, o valores primitivos
-	;
+      operacion_logica:valor {: RESULT = valor; :} //operacion aritmetica, entre variables, o valores primitivos
+	;///////////////////PRIMER PARCHE: Las variables aceptan operaciones logicas y relacionales aparte de las aritmeticas
 	
 valores_datos_primarios ::= INTEGER_VALUE:a //tipo: integer, valor: "" + a.getLexema()
 		{:
@@ -1439,7 +1563,7 @@ valores_datos_primarios ::= INTEGER_VALUE:a //tipo: integer, valor: "" + a.getLe
 			String valor = "" + a.getLexema();//este ya tendria que ser string
 
 			valorElementoAux = new ValorElemento(valor, tipo);
-			variablesAux += a.getLexema();
+			variablesAux += a.getLexema().trim();
 			RESULT = valorElementoAux;
 		:}
 	| get_element_value:a //tipo: string, valor: a,  para strings solamente
@@ -1560,21 +1684,21 @@ bloque_if ::= comparacion_if bloque_if_elses comparacion_else//bloque sin else
 bloque_if_elses ::= bloque_if_elses comparacion_else_if //bloques de else if
 	| /* empty */
 	;
-comparacion_if ::= IF condicion {: contenidoScript += "if (" + variablesAux + " ) " + "\n"; :} THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
+comparacion_if ::= IF condicion {: contenidoScript += tab + "if (" + variablesAux + " ) " + "\n"; :} THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
 		{: System.out.println ("-------------------Se ejecuto IF  "); :}
 	//| error
 	| IF condicion error bloque_instrucciones_sentencias
 	| IF error     THEN bloque_instrucciones_sentencias
 	| IF error 	bloque_instrucciones_sentencias
 	;
-comparacion_else_if ::= ELSE_IF condicion {: contenidoScript += " else if (" + variablesAux + ") \n"; :} THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
+comparacion_else_if ::= ELSE_IF condicion {: contenidoScript += tab + "else if (" + variablesAux + ") \n"; :} THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
 		{: System.out.println ("-------------------Se ejecuto ELSE IF  "); :}
 	//| error
 	| ELSE_IF condicion error bloque_instrucciones_sentencias
 	| ELSE_IF error     THEN bloque_instrucciones_sentencias
 	| ELSE_IF error bloque_instrucciones_sentencias
 	;
-comparacion_else ::= ELSE {: contenidoScript += " else \n"; :} bloque_instrucciones_sentencias // ELSE ...
+comparacion_else ::= ELSE {: contenidoScript += tab + "else \n"; :} bloque_instrucciones_sentencias // ELSE ...
 		{: System.out.println ("-------------------Se ejecuto ELSE  "); :}
 	| /* empty */
 	;
@@ -1584,14 +1708,22 @@ paren_ini_error ::= PAREN_INI
 	;
 */
 //REPEAT AND WHILE
-instruccion_ciclos ::= ciclo_repeat
+instruccion_ciclos ::= {: isRepeat = true; :} ciclo_repeat
 	| ciclo_while
 	//| error
 	;
-ciclo_repeat ::= ciclo_repeat_declaracion bloque_instrucciones_sentencias {: System.out.println ("Se ejecuto ciclo repeat  "); :}
+ciclo_repeat ::= ciclo_repeat_declaracion bloque_instrucciones_sentencias 
+		{: 
+			System.out.println ("Se ejecuto ciclo repeat  "); 
+			//ejecutamos la generacion de inserts en el ciclo
+			RepeatInsert rpInsert = new RepeatInsert();
+			String insertRepeat = rpInsert.generarCodigo(elementosRepeat, nombreIteradorRepeat, inicioRepeat, finRepeat);
+			inicializarRepeat();
+			agregarTextoInsert(insertRepeat);//agregamos al insert general			
+		:}
 	| REPEAT error bloque_instrucciones_sentencias
 	;
-ciclo_while ::= WHILE condicion {: contenidoScript += "while (" + variablesAux + ")"; variablesAux = ""; :} THENWHILE bloque_instrucciones_sentencias 
+ciclo_while ::= WHILE condicion {: contenidoScript += tab + "while (" + variablesAux + ")"; variablesAux = ""; :} THENWHILE bloque_instrucciones_sentencias 
 		{: 
 			System.out.println ("Se ejecuto ciclo while  "); 			
 		:}
@@ -1607,30 +1739,30 @@ ciclo_repeat_declaracion ::= REPEAT condicion_repeat_inicio HUNTIL PAREN_INI con
 	| REPEAT condicion_repeat_inicio HUNTIL PAREN_INI condicion_repeat_fin error
 	//| error
 	;
-condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN {: System.out.println ("Se ejecuto condicion inicio repeat  "); contenidoScript += " for ( "+ variablesAux2 + " ; ";  :}
+condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN {: System.out.println ("Se ejecuto condicion inicio repeat  "); contenidoScript += tab + "for ( "+ variablesAux2 + " ; ";  :}
 	| error intruccion_asignacion PAREN_FIN
 	| PAREN_INI intruccion_asignacion error 
 	;
 condicion_repeat_fin ::= //INTEGER_VALUE
 	//| nombres_variables_unidad
-	/*|*/ operacion_aritmetica_con_parentesis
+	/*|*/ operacion_aritmetica_con_parentesis:finRepeatAuxiliar {: finRepeat = finRepeatAuxiliar; :} //el fin, da un numero final
 	;
 //INSERT
 instruccion_insert ::= INSERT PAREN_INI:a {: filaInsert = a.getLinea(); columnaInsert = a.getColumna(); :} valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
 	//| error// intruccion_asignacion
 	;
 
-valores_insert_token ::= valores_insert_token COMA:a {: filaInsert = a.getLinea(); columnaInsert = a.getColumna(); :} valores_insert_token_unidad:texto {: analizarTextoInsert(texto); :}
+valores_insert_token ::= valores_insert_token COMA:a {: filaInsert = a.getLinea(); columnaInsert = a.getColumna(); :} valores_insert_token_unidad:texto {: agregarTextoInsert(texto); :}
 	//| /* empty, generamos un '' */
-	| valores_insert_token_unidad:texto {: analizarTextoInsert(texto); :}
+	| valores_insert_token_unidad:texto {: agregarTextoInsert(texto); :} // texto insert o variables
 	| error 
 	;
 
 valores_insert_token_unidad ::= 
-	  INSERT_TOKEN_VALUE:a       {: RESULT = a.getLexema(); :}//cualquier otra cadena encerrada entre ''
-	| ID_VALUE_CHAR:a	         {: RESULT = a.getLexema(); :}//id encerrado entre ''
-	| CHARACT_VALUE:a	         {: RESULT = a.getLexema(); :}//caracter
-	| nombres_variables_unidad:a {: RESULT = a; :}//variables aceptadas
+	  INSERT_TOKEN_VALUE:a       {: RESULT = a.getLexema(); tipoInsert = "texto"; :}//cualquier otra cadena encerrada entre ''
+	| ID_VALUE_CHAR:a	         {: RESULT = a.getLexema(); tipoInsert = "texto"; :}//id encerrado entre ''
+	| CHARACT_VALUE:a	         {: RESULT = a.getLexema(); tipoInsert = "texto"; :}//caracter
+	| nombres_variables_unidad:a {: RESULT = a; tipoInsert = "variable"; :}//variables aceptadas
 	//| error // error tipo dato
 	;
 
@@ -1872,6 +2004,6 @@ funciones_con_valor_parametros ::= PAREN_INI {: variablesAux += "("; :} operacio
 	| error
 	;
 
-funciones_instruccion ::= FUNCTION_ALERT_INFO {: variablesAux = ""; :} funciones_con_valor_parametros {: System.out.println ("Se ejecuto FUN ALERT "); contenidoScript += "alert" + variablesAux + ";\n"; :}
-	| FUNCTION_EXIT PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto FUN EXIT "); contenidoScript += "window.location.replace(" + direccionRedirect + ");\n"; :} 
+funciones_instruccion ::= FUNCTION_ALERT_INFO {: variablesAux = ""; :} funciones_con_valor_parametros {: System.out.println ("Se ejecuto FUN ALERT "); contenidoScript += tab + "alert" + variablesAux + ";\n"; :}
+	| FUNCTION_EXIT PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto FUN EXIT "); contenidoScript += tab + "window.location.replace(" + direccionRedirect + ");\n"; :} 
 	;

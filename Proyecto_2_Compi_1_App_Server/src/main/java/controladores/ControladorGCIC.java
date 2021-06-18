@@ -107,8 +107,8 @@ public class ControladorGCIC extends HttpServlet {
                     pars.getTablaSimbolosEtiquetas().imprimirTabla();
                     
                     
-                    //System.out.println("//////////////////////CODIGO HTML: ");
-                    //System.out.println(pars.getEtiquetaGCIC().generarCodigoHTML(0));//nivel 0
+                    System.out.println("//////////////////////CODIGO HTML: ");
+                    System.out.println(pars.getEtiquetaGCIC().generarCodigoHTML(0));//nivel 0
                     
                     //Guardamos si no hay errires}
                     if(errores.equals("")){
@@ -121,7 +121,7 @@ public class ControladorGCIC extends HttpServlet {
                     System.out.println(errores); 
                     
                     System.out.println("SCRIPTING::");
-                    System.out.println(pars.getContenidoScripting());
+                    //System.out.println(pars.getContenidoScripting());
                     salida = errores;
                     
                 }catch(Exception ex){

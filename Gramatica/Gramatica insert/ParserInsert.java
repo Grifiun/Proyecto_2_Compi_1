@@ -14,6 +14,7 @@ import clasesDAO.TokenError;
 import java.util.ArrayList;
 import java.util.List;
 import tabla_simbolos.*;
+import etiquetas.*;
 import tabla_simbolos_etiquetas.*;
 import java_cup.runtime.XMLElement;
 
@@ -67,7 +68,7 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\026\003\000\002\026\003\000\002\026\003\000\002\026" +
     "\003\000\002\026\003\000\002\026\003\000\002\026\003" +
     "\000\002\026\003\000\002\026\003\000\002\026\003\000" +
-    "\002\026\003\000\002\026\003\000\002\026\004\000\002" +
+    "\002\026\003\000\002\026\003\000\002\026\003\000\002" +
     "\026\003\000\002\026\003\000\002\026\003\000\002\026" +
     "\003\000\002\026\003\000\002\026\003\000\002\026\003" +
     "\000\002\026\003\000\002\026\003\000\002\026\003\000" +
@@ -136,8 +137,8 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\u01a4\000\010\002\uffff\003\034\006\005\001\002\000" +
-    "\006\002\uffe7\006\uffe7\001\002\000\032\027\u019b\032\u019a" +
+    "\000\u01a3\000\010\002\uffff\003\034\006\005\001\002\000" +
+    "\006\002\uffe7\006\uffe7\001\002\000\032\027\u019a\032\u0199" +
     "\033\057\034\056\035\053\036\050\040\046\041\052\042" +
     "\054\043\055\044\060\045\047\001\002\000\006\002\uffe9" +
     "\006\uffe9\001\002\000\006\002\uffe4\006\uffe4\001\002\000" +
@@ -183,8 +184,8 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\006\ufff5\001\002\000\006\002\uffea\006\uffea\001\002\000" +
     "\006\002\ufff7\006\ufff7\001\002\000\006\002\000\006\005" +
     "\001\002\000\006\002\uffe5\006\uffe5\001\002\000\004\002" +
-    "\u017d\001\002\000\006\003\uffe0\006\uffe0\001\002\000\006" +
-    "\002\uffe8\006\uffe8\001\002\000\006\003\u0164\006\u0165\001" +
+    "\u017c\001\002\000\006\003\uffe0\006\uffe0\001\002\000\006" +
+    "\002\uffe8\006\uffe8\001\002\000\006\003\u0163\006\u0164\001" +
     "\002\000\166\003\uffd2\004\uffd2\005\uffd2\006\uffd2\007\uffd2" +
     "\010\uffd2\011\uffd2\012\uffd2\013\uffd2\014\uffd2\015\uffd2\016" +
     "\uffd2\017\uffd2\020\uffd2\022\uffd2\023\uffd2\024\uffd2\025\uffd2" +
@@ -851,7 +852,7 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\055\uffcf\056\uffcf\057\uffcf\060\uffcf\061\uffcf\062\uffcf\063" +
     "\uffcf\064\uffcf\065\uffcf\066\uffcf\104\uffcf\107\uffcf\110\uffcf" +
     "\111\uffcf\112\uffcf\113\uffcf\114\uffcf\001\002\000\014\025" +
-    "\u0125\042\054\111\u0127\112\u0126\114\u0124\001\002\000\166" +
+    "\u0124\042\054\111\u0126\112\u0125\114\u0123\001\002\000\166" +
     "\003\uff9c\004\uff9c\005\uff9c\006\uff9c\007\uff9c\010\uff9c\011" +
     "\uff9c\012\uff9c\013\uff9c\014\uff9c\015\uff9c\016\uff9c\017\uff9c" +
     "\020\uff9c\022\uff9c\023\uff9c\024\uff9c\025\uff9c\026\uff9c\027" +
@@ -870,446 +871,260 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\uffa2\052\uffa2\053\uffa2\054\uffa2\055\uffa2\056\uffa2\057\uffa2" +
     "\060\uffa2\061\uffa2\062\uffa2\063\uffa2\064\uffa2\065\uffa2\066" +
     "\uffa2\104\uffa2\107\uffa2\110\uffa2\111\uffa2\112\uffa2\113\uffa2" +
-    "\114\uffa2\001\002\000\004\044\u0123\001\002\000\166\003" +
-    "\uffc4\004\uffc4\005\uffc4\006\uffc4\007\uffc4\010\uffc4\011\uffc4" +
-    "\012\uffc4\013\uffc4\014\uffc4\015\uffc4\016\uffc4\017\uffc4\020" +
-    "\uffc4\022\uffc4\023\uffc4\024\uffc4\025\uffc4\026\uffc4\027\uffc4" +
-    "\030\uffc4\031\uffc4\032\uffc4\033\uffc4\034\uffc4\035\uffc4\036" +
-    "\uffc4\037\uffc4\040\uffc4\041\uffc4\042\uffc4\043\uffc4\044\uffc4" +
-    "\045\uffc4\046\uffc4\047\uffc4\050\uffc4\051\uffc4\052\uffc4\053" +
-    "\uffc4\054\uffc4\055\uffc4\056\uffc4\057\uffc4\060\uffc4\061\uffc4" +
-    "\062\uffc4\063\uffc4\064\uffc4\065\uffc4\066\uffc4\104\uffc4\107" +
-    "\uffc4\110\uffc4\111\uffc4\112\uffc4\113\uffc4\114\uffc4\001\002" +
-    "\000\010\111\u0122\112\u0121\114\u0120\001\002\000\166\003" +
-    "\uffa1\004\uffa1\005\uffa1\006\uffa1\007\uffa1\010\uffa1\011\uffa1" +
-    "\012\uffa1\013\uffa1\014\uffa1\015\uffa1\016\uffa1\017\uffa1\020" +
-    "\uffa1\022\uffa1\023\uffa1\024\uffa1\025\uffa1\026\uffa1\027\uffa1" +
-    "\030\uffa1\031\uffa1\032\uffa1\033\uffa1\034\uffa1\035\uffa1\036" +
-    "\uffa1\037\uffa1\040\uffa1\041\uffa1\042\uffa1\043\uffa1\044\uffa1" +
-    "\045\uffa1\046\uffa1\047\uffa1\050\uffa1\051\uffa1\052\uffa1\053" +
-    "\uffa1\054\uffa1\055\uffa1\056\uffa1\057\uffa1\060\uffa1\061\uffa1" +
-    "\062\uffa1\063\uffa1\064\uffa1\065\uffa1\066\uffa1\104\uffa1\107" +
-    "\uffa1\110\uffa1\111\uffa1\112\uffa1\113\uffa1\114\uffa1\001\002" +
-    "\000\006\002\uffd7\006\uffd7\001\002\000\166\003\uffd4\004" +
-    "\uffd4\005\uffd4\006\uffd4\007\uffd4\010\uffd4\011\uffd4\012\uffd4" +
-    "\013\uffd4\014\uffd4\015\uffd4\016\uffd4\017\uffd4\020\uffd4\022" +
-    "\uffd4\023\uffd4\024\uffd4\025\uffd4\026\uffd4\027\uffd4\030\uffd4" +
-    "\031\uffd4\032\uffd4\033\uffd4\034\uffd4\035\uffd4\036\uffd4\037" +
-    "\uffd4\040\uffd4\041\uffd4\042\uffd4\043\uffd4\044\uffd4\045\uffd4" +
-    "\046\uffd4\047\uffd4\050\uffd4\051\uffd4\052\uffd4\053\uffd4\054" +
-    "\uffd4\055\uffd4\056\uffd4\057\uffd4\060\uffd4\061\uffd4\062\uffd4" +
-    "\063\uffd4\064\uffd4\065\uffd4\066\uffd4\104\uffd4\107\uffd4\110" +
-    "\uffd4\111\uffd4\112\uffd4\113\uffd4\114\uffd4\001\002\000\166" +
-    "\003\uff96\004\uff96\005\uff96\006\uff96\007\uff96\010\uff96\011" +
-    "\uff96\012\uff96\013\uff96\014\uff96\015\uff96\016\uff96\017\uff96" +
-    "\020\uff96\022\uff96\023\uff96\024\uff96\025\uff96\026\uff96\027" +
-    "\uff96\030\uff96\031\uff96\032\uff96\033\uff96\034\uff96\035\uff96" +
-    "\036\uff96\037\uff96\040\uff96\041\uff96\042\uff96\043\uff96\044" +
-    "\uff96\045\uff96\046\uff96\047\uff96\050\uff96\051\uff96\052\uff96" +
-    "\053\uff96\054\uff96\055\uff96\056\uff96\057\uff96\060\uff96\061" +
-    "\uff96\062\uff96\063\uff96\064\uff96\065\uff96\066\uff96\104\uff96" +
-    "\107\uff96\110\uff96\111\uff96\112\uff96\113\uff96\114\uff96\001" +
-    "\002\000\166\003\uffa6\004\uffa6\005\uffa6\006\uffa6\007\uffa6" +
-    "\010\uffa6\011\uffa6\012\uffa6\013\uffa6\014\uffa6\015\uffa6\016" +
-    "\uffa6\017\uffa6\020\uffa6\022\uffa6\023\uffa6\024\uffa6\025\uffa6" +
-    "\026\uffa6\027\uffa6\030\uffa6\031\uffa6\032\uffa6\033\uffa6\034" +
-    "\uffa6\035\uffa6\036\uffa6\037\uffa6\040\uffa6\041\uffa6\042\uffa6" +
-    "\043\uffa6\044\uffa6\045\uffa6\046\uffa6\047\uffa6\050\uffa6\051" +
-    "\uffa6\052\uffa6\053\uffa6\054\uffa6\055\uffa6\056\uffa6\057\uffa6" +
-    "\060\uffa6\061\uffa6\062\uffa6\063\uffa6\064\uffa6\065\uffa6\066" +
-    "\uffa6\104\uffa6\107\uffa6\110\uffa6\111\uffa6\112\uffa6\113\uffa6" +
-    "\114\uffa6\001\002\000\166\003\uffb1\004\uffb1\005\uffb1\006" +
-    "\uffb1\007\uffb1\010\uffb1\011\uffb1\012\uffb1\013\uffb1\014\uffb1" +
-    "\015\uffb1\016\uffb1\017\uffb1\020\uffb1\022\uffb1\023\uffb1\024" +
-    "\uffb1\025\uffb1\026\uffb1\027\uffb1\030\uffb1\031\uffb1\032\uffb1" +
-    "\033\uffb1\034\uffb1\035\uffb1\036\uffb1\037\uffb1\040\uffb1\041" +
-    "\uffb1\042\uffb1\043\uffb1\044\uffb1\045\uffb1\046\uffb1\047\uffb1" +
-    "\050\uffb1\051\uffb1\052\uffb1\053\uffb1\054\uffb1\055\uffb1\056" +
-    "\uffb1\057\uffb1\060\uffb1\061\uffb1\062\uffb1\063\uffb1\064\uffb1" +
-    "\065\uffb1\066\uffb1\104\uffb1\107\uffb1\110\uffb1\111\uffb1\112" +
-    "\uffb1\113\uffb1\114\uffb1\001\002\000\166\003\uffd0\004\uffd0" +
-    "\005\uffd0\006\uffd0\007\uffd0\010\uffd0\011\uffd0\012\uffd0\013" +
-    "\uffd0\014\uffd0\015\uffd0\016\uffd0\017\uffd0\020\uffd0\022\uffd0" +
-    "\023\uffd0\024\uffd0\025\uffd0\026\uffd0\027\uffd0\030\uffd0\031" +
-    "\uffd0\032\uffd0\033\uffd0\034\uffd0\035\uffd0\036\uffd0\037\uffd0" +
-    "\040\uffd0\041\uffd0\042\uffd0\043\uffd0\044\uffd0\045\uffd0\046" +
-    "\uffd0\047\uffd0\050\uffd0\051\uffd0\052\uffd0\053\uffd0\054\uffd0" +
-    "\055\uffd0\056\uffd0\057\uffd0\060\uffd0\061\uffd0\062\uffd0\063" +
-    "\uffd0\064\uffd0\065\uffd0\066\uffd0\104\uffd0\107\uffd0\110\uffd0" +
-    "\111\uffd0\112\uffd0\113\uffd0\114\uffd0\001\002\000\166\003" +
-    "\uffc3\004\uffc3\005\uffc3\006\uffc3\007\uffc3\010\uffc3\011\uffc3" +
-    "\012\uffc3\013\uffc3\014\uffc3\015\uffc3\016\uffc3\017\uffc3\020" +
-    "\uffc3\022\uffc3\023\uffc3\024\uffc3\025\uffc3\026\uffc3\027\uffc3" +
-    "\030\uffc3\031\uffc3\032\uffc3\033\uffc3\034\uffc3\035\uffc3\036" +
-    "\uffc3\037\uffc3\040\uffc3\041\uffc3\042\uffc3\043\uffc3\044\uffc3" +
-    "\045\uffc3\046\uffc3\047\uffc3\050\uffc3\051\uffc3\052\uffc3\053" +
-    "\uffc3\054\uffc3\055\uffc3\056\uffc3\057\uffc3\060\uffc3\061\uffc3" +
-    "\062\uffc3\063\uffc3\064\uffc3\065\uffc3\066\uffc3\104\uffc3\107" +
-    "\uffc3\110\uffc3\111\uffc3\112\uffc3\113\uffc3\114\uffc3\001\002" +
-    "\000\166\003\uff9b\004\uff9b\005\uff9b\006\uff9b\007\uff9b\010" +
-    "\uff9b\011\uff9b\012\uff9b\013\uff9b\014\uff9b\015\uff9b\016\uff9b" +
-    "\017\uff9b\020\uff9b\022\uff9b\023\uff9b\024\uff9b\025\uff9b\026" +
-    "\uff9b\027\uff9b\030\uff9b\031\uff9b\032\uff9b\033\uff9b\034\uff9b" +
-    "\035\uff9b\036\uff9b\037\uff9b\040\uff9b\041\uff9b\042\uff9b\043" +
-    "\uff9b\044\uff9b\045\uff9b\046\uff9b\047\uff9b\050\uff9b\051\uff9b" +
-    "\052\uff9b\053\uff9b\054\uff9b\055\uff9b\056\uff9b\057\uff9b\060" +
-    "\uff9b\061\uff9b\062\uff9b\063\uff9b\064\uff9b\065\uff9b\066\uff9b" +
-    "\104\uff9b\107\uff9b\110\uff9b\111\uff9b\112\uff9b\113\uff9b\114" +
-    "\uff9b\001\002\000\166\003\uffaa\004\uffaa\005\uffaa\006\uffaa" +
-    "\007\uffaa\010\uffaa\011\uffaa\012\uffaa\013\uffaa\014\uffaa\015" +
-    "\uffaa\016\uffaa\017\uffaa\020\uffaa\022\uffaa\023\uffaa\024\uffaa" +
-    "\025\uffaa\026\uffaa\027\uffaa\030\uffaa\031\uffaa\032\uffaa\033" +
-    "\uffaa\034\uffaa\035\uffaa\036\uffaa\037\uffaa\040\uffaa\041\uffaa" +
-    "\042\uffaa\043\uffaa\044\uffaa\045\uffaa\046\uffaa\047\uffaa\050" +
-    "\uffaa\051\uffaa\052\uffaa\053\uffaa\054\uffaa\055\uffaa\056\uffaa" +
-    "\057\uffaa\060\uffaa\061\uffaa\062\uffaa\063\uffaa\064\uffaa\065" +
-    "\uffaa\066\uffaa\104\uffaa\107\uffaa\110\uffaa\111\uffaa\112\uffaa" +
-    "\113\uffaa\114\uffaa\001\002\000\166\003\uff97\004\uff97\005" +
-    "\uff97\006\uff97\007\uff97\010\uff97\011\uff97\012\uff97\013\uff97" +
-    "\014\uff97\015\uff97\016\uff97\017\uff97\020\uff97\022\uff97\023" +
-    "\uff97\024\uff97\025\uff97\026\uff97\027\uff97\030\uff97\031\uff97" +
-    "\032\uff97\033\uff97\034\uff97\035\uff97\036\uff97\037\uff97\040" +
-    "\uff97\041\uff97\042\uff97\043\uff97\044\uff97\045\uff97\046\uff97" +
-    "\047\uff97\050\uff97\051\uff97\052\uff97\053\uff97\054\uff97\055" +
-    "\uff97\056\uff97\057\uff97\060\uff97\061\uff97\062\uff97\063\uff97" +
-    "\064\uff97\065\uff97\066\uff97\104\uff97\107\uff97\110\uff97\111" +
-    "\uff97\112\uff97\113\uff97\114\uff97\001\002\000\166\003\uffb2" +
-    "\004\uffb2\005\uffb2\006\uffb2\007\uffb2\010\uffb2\011\uffb2\012" +
-    "\uffb2\013\uffb2\014\uffb2\015\uffb2\016\uffb2\017\uffb2\020\uffb2" +
-    "\022\uffb2\023\uffb2\024\uffb2\025\uffb2\026\uffb2\027\uffb2\030" +
-    "\uffb2\031\uffb2\032\uffb2\033\uffb2\034\uffb2\035\uffb2\036\uffb2" +
-    "\037\uffb2\040\uffb2\041\uffb2\042\uffb2\043\uffb2\044\uffb2\045" +
-    "\uffb2\046\uffb2\047\uffb2\050\uffb2\051\uffb2\052\uffb2\053\uffb2" +
-    "\054\uffb2\055\uffb2\056\uffb2\057\uffb2\060\uffb2\061\uffb2\062" +
-    "\uffb2\063\uffb2\064\uffb2\065\uffb2\066\uffb2\104\uffb2\107\uffb2" +
-    "\110\uffb2\111\uffb2\112\uffb2\113\uffb2\114\uffb2\001\002\000" +
-    "\166\003\uffca\004\uffca\005\uffca\006\uffca\007\uffca\010\uffca" +
-    "\011\uffca\012\uffca\013\uffca\014\uffca\015\uffca\016\uffca\017" +
-    "\uffca\020\uffca\022\uffca\023\uffca\024\uffca\025\uffca\026\uffca" +
-    "\027\uffca\030\uffca\031\uffca\032\uffca\033\uffca\034\uffca\035" +
-    "\uffca\036\uffca\037\uffca\040\uffca\041\uffca\042\uffca\043\uffca" +
-    "\044\uffca\045\uffca\046\uffca\047\uffca\050\uffca\051\uffca\052" +
-    "\uffca\053\uffca\054\uffca\055\uffca\056\uffca\057\uffca\060\uffca" +
-    "\061\uffca\062\uffca\063\uffca\064\uffca\065\uffca\066\uffca\104" +
-    "\uffca\107\uffca\110\uffca\111\uffca\112\uffca\113\uffca\114\uffca" +
-    "\001\002\000\166\003\uffc2\004\uffc2\005\uffc2\006\uffc2\007" +
-    "\uffc2\010\uffc2\011\uffc2\012\uffc2\013\uffc2\014\uffc2\015\uffc2" +
-    "\016\uffc2\017\uffc2\020\uffc2\022\uffc2\023\uffc2\024\uffc2\025" +
-    "\uffc2\026\uffc2\027\uffc2\030\uffc2\031\uffc2\032\uffc2\033\uffc2" +
-    "\034\uffc2\035\uffc2\036\uffc2\037\uffc2\040\uffc2\041\uffc2\042" +
-    "\uffc2\043\uffc2\044\uffc2\045\uffc2\046\uffc2\047\uffc2\050\uffc2" +
-    "\051\uffc2\052\uffc2\053\uffc2\054\uffc2\055\uffc2\056\uffc2\057" +
-    "\uffc2\060\uffc2\061\uffc2\062\uffc2\063\uffc2\064\uffc2\065\uffc2" +
-    "\066\uffc2\104\uffc2\107\uffc2\110\uffc2\111\uffc2\112\uffc2\113" +
-    "\uffc2\114\uffc2\001\002\000\166\003\uffb8\004\uffb8\005\uffb8" +
-    "\006\uffb8\007\uffb8\010\uffb8\011\uffb8\012\uffb8\013\uffb8\014" +
-    "\uffb8\015\uffb8\016\uffb8\017\uffb8\020\uffb8\022\uffb8\023\uffb8" +
-    "\024\uffb8\025\uffb8\026\uffb8\027\uffb8\030\uffb8\031\uffb8\032" +
-    "\uffb8\033\uffb8\034\uffb8\035\uffb8\036\uffb8\037\uffb8\040\uffb8" +
-    "\041\uffb8\042\uffb8\043\uffb8\044\uffb8\045\uffb8\046\uffb8\047" +
-    "\uffb8\050\uffb8\051\uffb8\052\uffb8\053\uffb8\054\uffb8\055\uffb8" +
-    "\056\uffb8\057\uffb8\060\uffb8\061\uffb8\062\uffb8\063\uffb8\064" +
-    "\uffb8\065\uffb8\066\uffb8\104\uffb8\107\uffb8\110\uffb8\111\uffb8" +
-    "\112\uffb8\113\uffb8\114\uffb8\001\002\000\166\003\uff9e\004" +
-    "\uff9e\005\uff9e\006\uff9e\007\uff9e\010\uff9e\011\uff9e\012\uff9e" +
-    "\013\uff9e\014\uff9e\015\uff9e\016\uff9e\017\uff9e\020\uff9e\022" +
-    "\uff9e\023\uff9e\024\uff9e\025\uff9e\026\uff9e\027\uff9e\030\uff9e" +
-    "\031\uff9e\032\uff9e\033\uff9e\034\uff9e\035\uff9e\036\uff9e\037" +
-    "\uff9e\040\uff9e\041\uff9e\042\uff9e\043\uff9e\044\uff9e\045\uff9e" +
-    "\046\uff9e\047\uff9e\050\uff9e\051\uff9e\052\uff9e\053\uff9e\054" +
-    "\uff9e\055\uff9e\056\uff9e\057\uff9e\060\uff9e\061\uff9e\062\uff9e" +
-    "\063\uff9e\064\uff9e\065\uff9e\066\uff9e\104\uff9e\107\uff9e\110" +
-    "\uff9e\111\uff9e\112\uff9e\113\uff9e\114\uff9e\001\002\000\166" +
-    "\003\uff95\004\uff95\005\uff95\006\uff95\007\uff95\010\uff95\011" +
-    "\uff95\012\uff95\013\uff95\014\uff95\015\uff95\016\uff95\017\uff95" +
-    "\020\uff95\022\uff95\023\uff95\024\uff95\025\uff95\026\uff95\027" +
-    "\uff95\030\uff95\031\uff95\032\uff95\033\uff95\034\uff95\035\uff95" +
-    "\036\uff95\037\uff95\040\uff95\041\uff95\042\uff95\043\uff95\044" +
-    "\uff95\045\uff95\046\uff95\047\uff95\050\uff95\051\uff95\052\uff95" +
-    "\053\uff95\054\uff95\055\uff95\056\uff95\057\uff95\060\uff95\061" +
-    "\uff95\062\uff95\063\uff95\064\uff95\065\uff95\066\uff95\104\uff95" +
-    "\107\uff95\110\uff95\111\uff95\112\uff95\113\uff95\114\uff95\001" +
-    "\002\000\166\003\uffa5\004\uffa5\005\uffa5\006\uffa5\007\uffa5" +
-    "\010\uffa5\011\uffa5\012\uffa5\013\uffa5\014\uffa5\015\uffa5\016" +
-    "\uffa5\017\uffa5\020\uffa5\022\uffa5\023\uffa5\024\uffa5\025\uffa5" +
-    "\026\uffa5\027\uffa5\030\uffa5\031\uffa5\032\uffa5\033\uffa5\034" +
-    "\uffa5\035\uffa5\036\uffa5\037\uffa5\040\uffa5\041\uffa5\042\uffa5" +
-    "\043\uffa5\044\uffa5\045\uffa5\046\uffa5\047\uffa5\050\uffa5\051" +
-    "\uffa5\052\uffa5\053\uffa5\054\uffa5\055\uffa5\056\uffa5\057\uffa5" +
-    "\060\uffa5\061\uffa5\062\uffa5\063\uffa5\064\uffa5\065\uffa5\066" +
-    "\uffa5\104\uffa5\107\uffa5\110\uffa5\111\uffa5\112\uffa5\113\uffa5" +
-    "\114\uffa5\001\002\000\166\003\uff99\004\uff99\005\uff99\006" +
-    "\uff99\007\uff99\010\uff99\011\uff99\012\uff99\013\uff99\014\uff99" +
-    "\015\uff99\016\uff99\017\uff99\020\uff99\022\uff99\023\uff99\024" +
-    "\uff99\025\uff99\026\uff99\027\uff99\030\uff99\031\uff99\032\uff99" +
-    "\033\uff99\034\uff99\035\uff99\036\uff99\037\uff99\040\uff99\041" +
-    "\uff99\042\uff99\043\uff99\044\uff99\045\uff99\046\uff99\047\uff99" +
-    "\050\uff99\051\uff99\052\uff99\053\uff99\054\uff99\055\uff99\056" +
-    "\uff99\057\uff99\060\uff99\061\uff99\062\uff99\063\uff99\064\uff99" +
-    "\065\uff99\066\uff99\104\uff99\107\uff99\110\uff99\111\uff99\112" +
-    "\uff99\113\uff99\114\uff99\001\002\000\166\003\uffcb\004\uffcb" +
-    "\005\uffcb\006\uffcb\007\uffcb\010\uffcb\011\uffcb\012\uffcb\013" +
-    "\uffcb\014\uffcb\015\uffcb\016\uffcb\017\uffcb\020\uffcb\022\uffcb" +
-    "\023\uffcb\024\uffcb\025\uffcb\026\uffcb\027\uffcb\030\uffcb\031" +
-    "\uffcb\032\uffcb\033\uffcb\034\uffcb\035\uffcb\036\uffcb\037\uffcb" +
-    "\040\uffcb\041\uffcb\042\uffcb\043\uffcb\044\uffcb\045\uffcb\046" +
-    "\uffcb\047\uffcb\050\uffcb\051\uffcb\052\uffcb\053\uffcb\054\uffcb" +
-    "\055\uffcb\056\uffcb\057\uffcb\060\uffcb\061\uffcb\062\uffcb\063" +
-    "\uffcb\064\uffcb\065\uffcb\066\uffcb\104\uffcb\107\uffcb\110\uffcb" +
-    "\111\uffcb\112\uffcb\113\uffcb\114\uffcb\001\002\000\166\003" +
-    "\uffc1\004\uffc1\005\uffc1\006\uffc1\007\uffc1\010\uffc1\011\uffc1" +
-    "\012\uffc1\013\uffc1\014\uffc1\015\uffc1\016\uffc1\017\uffc1\020" +
-    "\uffc1\022\uffc1\023\uffc1\024\uffc1\025\uffc1\026\uffc1\027\uffc1" +
-    "\030\uffc1\031\uffc1\032\uffc1\033\uffc1\034\uffc1\035\uffc1\036" +
-    "\uffc1\037\uffc1\040\uffc1\041\uffc1\042\uffc1\043\uffc1\044\uffc1" +
-    "\045\uffc1\046\uffc1\047\uffc1\050\uffc1\051\uffc1\052\uffc1\053" +
-    "\uffc1\054\uffc1\055\uffc1\056\uffc1\057\uffc1\060\uffc1\061\uffc1" +
-    "\062\uffc1\063\uffc1\064\uffc1\065\uffc1\066\uffc1\104\uffc1\107" +
-    "\uffc1\110\uffc1\111\uffc1\112\uffc1\113\uffc1\114\uffc1\001\002" +
-    "\000\166\003\uffbe\004\uffbe\005\uffbe\006\uffbe\007\uffbe\010" +
-    "\uffbe\011\uffbe\012\uffbe\013\uffbe\014\uffbe\015\uffbe\016\uffbe" +
-    "\017\uffbe\020\uffbe\022\uffbe\023\uffbe\024\uffbe\025\uffbe\026" +
-    "\uffbe\027\uffbe\030\uffbe\031\uffbe\032\uffbe\033\uffbe\034\uffbe" +
-    "\035\uffbe\036\uffbe\037\uffbe\040\uffbe\041\uffbe\042\uffbe\043" +
-    "\uffbe\044\uffbe\045\uffbe\046\uffbe\047\uffbe\050\uffbe\051\uffbe" +
-    "\052\uffbe\053\uffbe\054\uffbe\055\uffbe\056\uffbe\057\uffbe\060" +
-    "\uffbe\061\uffbe\062\uffbe\063\uffbe\064\uffbe\065\uffbe\066\uffbe" +
-    "\104\uffbe\107\uffbe\110\uffbe\111\uffbe\112\uffbe\113\uffbe\114" +
-    "\uffbe\001\002\000\166\003\uffbf\004\uffbf\005\uffbf\006\uffbf" +
-    "\007\uffbf\010\uffbf\011\uffbf\012\uffbf\013\uffbf\014\uffbf\015" +
-    "\uffbf\016\uffbf\017\uffbf\020\uffbf\022\uffbf\023\uffbf\024\uffbf" +
-    "\025\uffbf\026\uffbf\027\uffbf\030\uffbf\031\uffbf\032\uffbf\033" +
-    "\uffbf\034\uffbf\035\uffbf\036\uffbf\037\uffbf\040\uffbf\041\uffbf" +
-    "\042\uffbf\043\uffbf\044\uffbf\045\uffbf\046\uffbf\047\uffbf\050" +
-    "\uffbf\051\uffbf\052\uffbf\053\uffbf\054\uffbf\055\uffbf\056\uffbf" +
-    "\057\uffbf\060\uffbf\061\uffbf\062\uffbf\063\uffbf\064\uffbf\065" +
-    "\uffbf\066\uffbf\104\uffbf\107\uffbf\110\uffbf\111\uffbf\112\uffbf" +
-    "\113\uffbf\114\uffbf\001\002\000\166\003\uffa8\004\uffa8\005" +
-    "\uffa8\006\uffa8\007\uffa8\010\uffa8\011\uffa8\012\uffa8\013\uffa8" +
-    "\014\uffa8\015\uffa8\016\uffa8\017\uffa8\020\uffa8\022\uffa8\023" +
-    "\uffa8\024\uffa8\025\uffa8\026\uffa8\027\uffa8\030\uffa8\031\uffa8" +
-    "\032\uffa8\033\uffa8\034\uffa8\035\uffa8\036\uffa8\037\uffa8\040" +
-    "\uffa8\041\uffa8\042\uffa8\043\uffa8\044\uffa8\045\uffa8\046\uffa8" +
-    "\047\uffa8\050\uffa8\051\uffa8\052\uffa8\053\uffa8\054\uffa8\055" +
-    "\uffa8\056\uffa8\057\uffa8\060\uffa8\061\uffa8\062\uffa8\063\uffa8" +
-    "\064\uffa8\065\uffa8\066\uffa8\104\uffa8\107\uffa8\110\uffa8\111" +
-    "\uffa8\112\uffa8\113\uffa8\114\uffa8\001\002\000\166\003\uffc0" +
-    "\004\uffc0\005\uffc0\006\uffc0\007\uffc0\010\uffc0\011\uffc0\012" +
-    "\uffc0\013\uffc0\014\uffc0\015\uffc0\016\uffc0\017\uffc0\020\uffc0" +
-    "\022\uffc0\023\uffc0\024\uffc0\025\uffc0\026\uffc0\027\uffc0\030" +
-    "\uffc0\031\uffc0\032\uffc0\033\uffc0\034\uffc0\035\uffc0\036\uffc0" +
-    "\037\uffc0\040\uffc0\041\uffc0\042\uffc0\043\uffc0\044\uffc0\045" +
-    "\uffc0\046\uffc0\047\uffc0\050\uffc0\051\uffc0\052\uffc0\053\uffc0" +
-    "\054\uffc0\055\uffc0\056\uffc0\057\uffc0\060\uffc0\061\uffc0\062" +
-    "\uffc0\063\uffc0\064\uffc0\065\uffc0\066\uffc0\104\uffc0\107\uffc0" +
-    "\110\uffc0\111\uffc0\112\uffc0\113\uffc0\114\uffc0\001\002\000" +
-    "\004\043\u0128\001\002\000\166\003\uffbc\004\uffbc\005\uffbc" +
-    "\006\uffbc\007\uffbc\010\uffbc\011\uffbc\012\uffbc\013\uffbc\014" +
-    "\uffbc\015\uffbc\016\uffbc\017\uffbc\020\uffbc\022\uffbc\023\uffbc" +
-    "\024\uffbc\025\uffbc\026\uffbc\027\uffbc\030\uffbc\031\uffbc\032" +
-    "\uffbc\033\uffbc\034\uffbc\035\uffbc\036\uffbc\037\uffbc\040\uffbc" +
-    "\041\uffbc\042\uffbc\043\uffbc\044\uffbc\045\uffbc\046\uffbc\047" +
-    "\uffbc\050\uffbc\051\uffbc\052\uffbc\053\uffbc\054\uffbc\055\uffbc" +
-    "\056\uffbc\057\uffbc\060\uffbc\061\uffbc\062\uffbc\063\uffbc\064" +
-    "\uffbc\065\uffbc\066\uffbc\104\uffbc\107\uffbc\110\uffbc\111\uffbc" +
-    "\112\uffbc\113\uffbc\114\uffbc\001\002\000\166\003\uffbd\004" +
-    "\uffbd\005\uffbd\006\uffbd\007\uffbd\010\uffbd\011\uffbd\012\uffbd" +
-    "\013\uffbd\014\uffbd\015\uffbd\016\uffbd\017\uffbd\020\uffbd\022" +
-    "\uffbd\023\uffbd\024\uffbd\025\uffbd\026\uffbd\027\uffbd\030\uffbd" +
-    "\031\uffbd\032\uffbd\033\uffbd\034\uffbd\035\uffbd\036\uffbd\037" +
-    "\uffbd\040\uffbd\041\uffbd\042\uffbd\043\uffbd\044\uffbd\045\uffbd" +
-    "\046\uffbd\047\uffbd\050\uffbd\051\uffbd\052\uffbd\053\uffbd\054" +
-    "\uffbd\055\uffbd\056\uffbd\057\uffbd\060\uffbd\061\uffbd\062\uffbd" +
-    "\063\uffbd\064\uffbd\065\uffbd\066\uffbd\104\uffbd\107\uffbd\110" +
-    "\uffbd\111\uffbd\112\uffbd\113\uffbd\114\uffbd\001\002\000\004" +
-    "\007\u0129\001\002\000\006\002\uff5c\006\uff5c\001\002\000" +
-    "\166\003\u012c\004\u0105\005\364\006\u012d\007\u010b\010\353" +
-    "\011\343\012\u011f\013\u0118\014\363\015\357\016\u0104\017" +
-    "\u0100\020\354\022\u010a\023\u0119\024\u0113\025\362\026\374" +
-    "\027\355\030\u011a\031\345\032\372\033\367\034\365\035" +
-    "\u0103\036\u0117\037\u0111\040\344\041\366\042\351\043\375" +
-    "\044\u0101\045\373\046\u0115\047\376\050\u0109\051\346\052" +
-    "\u0110\053\u011d\054\370\055\377\056\u0108\057\u010c\060\361" +
-    "\061\371\062\u011b\063\352\064\u0107\065\u0114\066\356\104" +
-    "\u011c\107\u010f\110\u0116\111\u011e\112\360\113\u0112\114\347" +
-    "\001\002\000\006\002\uffd5\006\uffd5\001\002\000\006\002" +
-    "\uff57\006\uff57\001\002\000\014\025\u012e\042\054\111\u0127" +
-    "\112\u0126\114\u0124\001\002\000\004\045\u012f\001\002\000" +
-    "\004\007\u0130\001\002\000\006\002\uff58\006\uff58\001\002" +
-    "\000\006\003\u0133\006\u0136\001\002\000\006\003\ufff0\006" +
-    "\ufff0\001\002\000\006\003\uffef\006\uffef\001\002\000\166" +
-    "\003\uffd2\004\uffd2\005\uffd2\006\uffd2\007\uffd2\010\uffd2\011" +
-    "\uffd2\012\uffd2\013\uffd2\014\uffd2\015\uffd2\016\uffd2\017\uffd2" +
-    "\020\uffd2\022\uffd2\023\uffd2\024\uffd2\025\uffd2\026\uffd2\027" +
-    "\uffd2\030\uffd2\031\uffd2\032\uffd2\033\uffd2\034\uffd2\035\uffd2" +
-    "\036\uffd2\037\uffd2\040\uffd2\041\uffd2\042\uffd2\043\uffd2\044" +
-    "\uffd2\045\uffd2\046\uffd2\047\uffd2\050\uffd2\051\uffd2\052\uffd2" +
-    "\053\uffd2\054\uffd2\055\uffd2\056\uffd2\057\uffd2\060\uffd2\061" +
-    "\uffd2\062\uffd2\063\uffd2\064\uffd2\065\uffd2\066\uffd2\104\uffd2" +
-    "\107\uffd2\110\uffd2\111\uffd2\112\uffd2\113\uffd2\114\uffd2\001" +
-    "\002\000\006\003\ufff3\006\ufff3\001\002\000\010\025\u0141" +
-    "\030\u0142\031\u0143\001\002\000\006\002\ufffc\006\ufffc\001" +
-    "\002\000\006\003\ufff1\006\ufff1\001\002\000\166\003\uffd2" +
-    "\004\uffd2\005\uffd2\006\uffd2\007\uffd2\010\uffd2\011\uffd2\012" +
-    "\uffd2\013\uffd2\014\uffd2\015\uffd2\016\uffd2\017\uffd2\020\uffd2" +
-    "\022\uffd2\023\uffd2\024\uffd2\025\uffd2\026\uffd2\027\uffd2\030" +
-    "\uffd2\031\uffd2\032\uffd2\033\uffd2\034\uffd2\035\uffd2\036\uffd2" +
-    "\037\uffd2\040\uffd2\041\uffd2\042\uffd2\043\uffd2\044\uffd2\045" +
-    "\uffd2\046\uffd2\047\uffd2\050\uffd2\051\uffd2\052\uffd2\053\uffd2" +
-    "\054\uffd2\055\uffd2\056\uffd2\057\uffd2\060\uffd2\061\uffd2\062" +
-    "\uffd2\063\uffd2\064\uffd2\065\uffd2\066\uffd2\104\uffd2\107\uffd2" +
-    "\110\uffd2\111\uffd2\112\uffd2\113\uffd2\114\uffd2\001\002\000" +
-    "\166\003\u013c\004\u0105\005\364\006\u013d\007\u010b\010\353" +
-    "\011\343\012\u011f\013\u0118\014\363\015\357\016\u0104\017" +
-    "\u0100\020\354\022\u010a\023\u0119\024\u0113\025\362\026\374" +
-    "\027\355\030\u011a\031\345\032\372\033\367\034\365\035" +
-    "\u0103\036\u0117\037\u0111\040\344\041\366\042\351\043\375" +
-    "\044\u0101\045\373\046\u0115\047\376\050\u0109\051\346\052" +
-    "\u0110\053\u011d\054\370\055\377\056\u0108\057\u010c\060\361" +
-    "\061\371\062\u011b\063\352\064\u0107\065\u0114\066\356\104" +
-    "\u011c\107\u010f\110\u0116\111\u011e\112\360\113\u0112\114\347" +
-    "\001\002\000\006\003\uffdc\006\uffdc\001\002\000\006\003" +
-    "\uff6b\006\uff6b\001\002\000\014\025\u013e\042\054\111\u0127" +
-    "\112\u0126\114\u0124\001\002\000\004\031\u013f\001\002\000" +
-    "\004\007\u0140\001\002\000\006\003\uff6c\006\uff6c\001\002" +
-    "\000\004\027\u0154\001\002\000\006\003\uff90\007\uff90\001" +
-    "\002\000\010\003\uff8e\007\uff8e\010\uff8e\001\002\000\010" +
-    "\003\u0146\007\uff38\010\uff38\001\002\000\166\003\uff8d\004" +
-    "\uff8d\005\uff8d\006\uff8d\007\uff8d\010\uff8d\011\uff8d\012\uff8d" +
-    "\013\uff8d\014\uff8d\015\uff8d\016\uff8d\017\uff8d\020\uff8d\022" +
-    "\uff8d\023\uff8d\024\uff8d\025\uff8d\026\uff8d\027\uff8d\030\uff8d" +
-    "\031\uff8d\032\uff8d\033\uff8d\034\uff8d\035\uff8d\036\uff8d\037" +
-    "\uff8d\040\uff8d\041\uff8d\042\uff8d\043\uff8d\044\uff8d\045\uff8d" +
-    "\046\uff8d\047\uff8d\050\uff8d\051\uff8d\052\uff8d\053\uff8d\054" +
-    "\uff8d\055\uff8d\056\uff8d\057\uff8d\060\uff8d\061\uff8d\062\uff8d" +
-    "\063\uff8d\064\uff8d\065\uff8d\066\uff8d\104\uff8d\107\uff8d\110" +
-    "\uff8d\111\uff8d\112\uff8d\113\uff8d\114\uff8d\001\002\000\010" +
-    "\003\u0146\007\u0151\010\uff38\001\002\000\006\007\u014b\010" +
-    "\u0149\001\002\000\006\007\uff39\010\uff39\001\002\000\004" +
-    "\046\u014c\001\002\000\006\007\uff27\010\uff27\001\002\000" +
-    "\166\003\uff53\004\uff53\005\uff53\006\uff53\007\uff53\010\uff53" +
-    "\011\uff53\012\uff53\013\uff53\014\uff53\015\uff53\016\uff53\017" +
-    "\uff53\020\uff53\022\uff53\023\uff53\024\uff53\025\uff53\026\uff53" +
-    "\027\uff53\030\uff53\031\uff53\032\uff53\033\uff53\034\uff53\035" +
-    "\uff53\036\uff53\037\uff53\040\uff53\041\uff53\042\uff53\043\uff53" +
-    "\044\uff53\045\uff53\046\uff53\047\uff53\050\uff53\051\uff53\052" +
-    "\uff53\053\uff53\054\uff53\055\uff53\056\uff53\057\uff53\060\uff53" +
-    "\061\uff53\062\uff53\063\uff53\064\uff53\065\uff53\066\uff53\104" +
-    "\uff53\107\uff53\110\uff53\111\uff53\112\uff53\113\uff53\114\uff53" +
-    "\001\002\000\004\005\u014d\001\002\000\004\110\u014e\001" +
-    "\002\000\004\011\u014f\001\002\000\006\007\uff10\010\uff10" +
-    "\001\002\000\166\003\uff52\004\uff52\005\uff52\006\uff52\007" +
-    "\uff52\010\uff52\011\uff52\012\uff52\013\uff52\014\uff52\015\uff52" +
-    "\016\uff52\017\uff52\020\uff52\022\uff52\023\uff52\024\uff52\025" +
-    "\uff52\026\uff52\027\uff52\030\uff52\031\uff52\032\uff52\033\uff52" +
-    "\034\uff52\035\uff52\036\uff52\037\uff52\040\uff52\041\uff52\042" +
-    "\uff52\043\uff52\044\uff52\045\uff52\046\uff52\047\uff52\050\uff52" +
-    "\051\uff52\052\uff52\053\uff52\054\uff52\055\uff52\056\uff52\057" +
-    "\uff52\060\uff52\061\uff52\062\uff52\063\uff52\064\uff52\065\uff52" +
-    "\066\uff52\104\uff52\107\uff52\110\uff52\111\uff52\112\uff52\113" +
-    "\uff52\114\uff52\001\002\000\166\003\uff51\004\uff51\005\uff51" +
-    "\006\uff51\007\uff51\010\uff51\011\uff51\012\uff51\013\uff51\014" +
-    "\uff51\015\uff51\016\uff51\017\uff51\020\uff51\022\uff51\023\uff51" +
-    "\024\uff51\025\uff51\026\uff51\027\uff51\030\uff51\031\uff51\032" +
-    "\uff51\033\uff51\034\uff51\035\uff51\036\uff51\037\uff51\040\uff51" +
-    "\041\uff51\042\uff51\043\uff51\044\uff51\045\uff51\046\uff51\047" +
-    "\uff51\050\uff51\051\uff51\052\uff51\053\uff51\054\uff51\055\uff51" +
-    "\056\uff51\057\uff51\060\uff51\061\uff51\062\uff51\063\uff51\064" +
-    "\uff51\065\uff51\066\uff51\104\uff51\107\uff51\110\uff51\111\uff51" +
-    "\112\uff51\113\uff51\114\uff51\001\002\000\006\003\217\007" +
-    "\221\001\002\000\166\003\uff8f\004\uff8f\005\uff8f\006\uff8f" +
-    "\007\uff8f\010\uff8f\011\uff8f\012\uff8f\013\uff8f\014\uff8f\015" +
-    "\uff8f\016\uff8f\017\uff8f\020\uff8f\022\uff8f\023\uff8f\024\uff8f" +
-    "\025\uff8f\026\uff8f\027\uff8f\030\uff8f\031\uff8f\032\uff8f\033" +
-    "\uff8f\034\uff8f\035\uff8f\036\uff8f\037\uff8f\040\uff8f\041\uff8f" +
-    "\042\uff8f\043\uff8f\044\uff8f\045\uff8f\046\uff8f\047\uff8f\050" +
-    "\uff8f\051\uff8f\052\uff8f\053\uff8f\054\uff8f\055\uff8f\056\uff8f" +
-    "\057\uff8f\060\uff8f\061\uff8f\062\uff8f\063\uff8f\064\uff8f\065" +
-    "\uff8f\066\uff8f\104\uff8f\107\uff8f\110\uff8f\111\uff8f\112\uff8f" +
-    "\113\uff8f\114\uff8f\001\002\000\004\007\u0155\001\002\000" +
-    "\006\002\uff6f\006\uff6f\001\002\000\166\003\u0157\004\u0105" +
-    "\005\364\006\u0158\007\u010b\010\353\011\343\012\u011f\013" +
-    "\u0118\014\363\015\357\016\u0104\017\u0100\020\354\022\u010a" +
-    "\023\u0119\024\u0113\025\362\026\374\027\355\030\u011a\031" +
-    "\345\032\372\033\367\034\365\035\u0103\036\u0117\037\u0111" +
-    "\040\344\041\366\042\351\043\375\044\u0101\045\373\046" +
-    "\u0115\047\376\050\u0109\051\346\052\u0110\053\u011d\054\370" +
-    "\055\377\056\u0108\057\u010c\060\361\061\371\062\u011b\063" +
-    "\352\064\u0107\065\u0114\066\356\104\u011c\107\u010f\110\u0116" +
-    "\111\u011e\112\360\113\u0112\114\347\001\002\000\006\003" +
-    "\uff6d\006\uff6d\001\002\000\014\025\u015a\042\054\111\u0127" +
-    "\112\u0126\114\u0124\001\002\000\006\003\uffdd\006\uffdd\001" +
-    "\002\000\004\030\u015b\001\002\000\004\007\u015c\001\002" +
-    "\000\006\003\uff6e\006\uff6e\001\002\000\166\003\u015e\004" +
-    "\u0105\005\364\006\u015f\007\u010b\010\353\011\343\012\u011f" +
-    "\013\u0118\014\363\015\357\016\u0104\017\u0100\020\354\022" +
-    "\u010a\023\u0119\024\u0113\025\362\026\374\027\355\030\u011a" +
-    "\031\345\032\372\033\367\034\365\035\u0103\036\u0117\037" +
-    "\u0111\040\344\041\366\042\351\043\375\044\u0101\045\373" +
-    "\046\u0115\047\376\050\u0109\051\346\052\u0110\053\u011d\054" +
-    "\370\055\377\056\u0108\057\u010c\060\361\061\371\062\u011b" +
-    "\063\352\064\u0107\065\u0114\066\356\104\u011c\107\u010f\110" +
-    "\u0116\111\u011e\112\360\113\u0112\114\347\001\002\000\006" +
-    "\002\uff59\006\uff59\001\002\000\014\025\u0161\042\054\111" +
-    "\u0127\112\u0126\114\u0124\001\002\000\006\002\uffd6\006\uffd6" +
-    "\001\002\000\004\044\u0162\001\002\000\004\007\u0163\001" +
-    "\002\000\006\002\uff5a\006\uff5a\001\002\000\006\002\uff5d" +
-    "\006\uff5d\001\002\000\004\025\u0167\001\002\000\006\002" +
-    "\uffde\006\uffde\001\002\000\004\041\u0168\001\002\000\004" +
-    "\007\u0169\001\002\000\006\002\uff5e\006\uff5e\001\002\000" +
-    "\006\003\u016b\006\u016d\001\002\000\006\002\uff62\006\uff62" +
-    "\001\002\000\006\002\uffe2\006\uffe2\001\002\000\006\025" +
-    "\u0177\037\u0178\001\002\000\006\003\uffe1\006\uffe1\001\002" +
-    "\000\166\003\uffd2\004\uffd2\005\uffd2\006\uffd2\007\uffd2\010" +
-    "\uffd2\011\uffd2\012\uffd2\013\uffd2\014\uffd2\015\uffd2\016\uffd2" +
-    "\017\uffd2\020\uffd2\022\uffd2\023\uffd2\024\uffd2\025\uffd2\026" +
-    "\uffd2\027\uffd2\030\uffd2\031\uffd2\032\uffd2\033\uffd2\034\uffd2" +
-    "\035\uffd2\036\uffd2\037\uffd2\040\uffd2\041\uffd2\042\uffd2\043" +
-    "\uffd2\044\uffd2\045\uffd2\046\uffd2\047\uffd2\050\uffd2\051\uffd2" +
-    "\052\uffd2\053\uffd2\054\uffd2\055\uffd2\056\uffd2\057\uffd2\060" +
-    "\uffd2\061\uffd2\062\uffd2\063\uffd2\064\uffd2\065\uffd2\066\uffd2" +
-    "\104\uffd2\107\uffd2\110\uffd2\111\uffd2\112\uffd2\113\uffd2\114" +
-    "\uffd2\001\002\000\166\003\u0172\004\u0105\005\364\006\u0173" +
-    "\007\u010b\010\353\011\343\012\u011f\013\u0118\014\363\015" +
-    "\357\016\u0104\017\u0100\020\354\022\u010a\023\u0119\024\u0113" +
-    "\025\362\026\374\027\355\030\u011a\031\345\032\372\033" +
-    "\367\034\365\035\u0103\036\u0117\037\u0111\040\344\041\366" +
-    "\042\351\043\375\044\u0101\045\373\046\u0115\047\376\050" +
-    "\u0109\051\346\052\u0110\053\u011d\054\370\055\377\056\u0108" +
-    "\057\u010c\060\361\061\371\062\u011b\063\352\064\u0107\065" +
-    "\u0114\066\356\104\u011c\107\u010f\110\u0116\111\u011e\112\360" +
-    "\113\u0112\114\347\001\002\000\006\003\uffd8\006\uffd8\001" +
-    "\002\000\006\003\uff60\006\uff60\001\002\000\014\025\u0174" +
-    "\042\054\111\u0127\112\u0126\114\u0124\001\002\000\004\037" +
-    "\u0175\001\002\000\004\007\u0176\001\002\000\006\003\uff61" +
-    "\006\uff61\001\002\000\004\036\u017b\001\002\000\006\003" +
-    "\uff82\007\uff82\001\002\000\006\003\217\007\221\001\002" +
-    "\000\166\003\uff81\004\uff81\005\uff81\006\uff81\007\uff81\010" +
-    "\uff81\011\uff81\012\uff81\013\uff81\014\uff81\015\uff81\016\uff81" +
-    "\017\uff81\020\uff81\022\uff81\023\uff81\024\uff81\025\uff81\026" +
-    "\uff81\027\uff81\030\uff81\031\uff81\032\uff81\033\uff81\034\uff81" +
-    "\035\uff81\036\uff81\037\uff81\040\uff81\041\uff81\042\uff81\043" +
-    "\uff81\044\uff81\045\uff81\046\uff81\047\uff81\050\uff81\051\uff81" +
-    "\052\uff81\053\uff81\054\uff81\055\uff81\056\uff81\057\uff81\060" +
-    "\uff81\061\uff81\062\uff81\063\uff81\064\uff81\065\uff81\066\uff81" +
-    "\104\uff81\107\uff81\110\uff81\111\uff81\112\uff81\113\uff81\114" +
-    "\uff81\001\002\000\004\007\u017c\001\002\000\006\002\uff63" +
-    "\006\uff63\001\002\000\004\002\001\001\002\000\006\002" +
-    "\ufff8\006\ufff8\001\002\000\166\003\u0180\004\u0105\005\364" +
-    "\006\u0181\007\u010b\010\353\011\343\012\u011f\013\u0118\014" +
-    "\363\015\357\016\u0104\017\u0100\020\354\022\u010a\023\u0119" +
-    "\024\u0113\025\362\026\374\027\355\030\u011a\031\345\032" +
-    "\372\033\367\034\365\035\u0103\036\u0117\037\u0111\040\344" +
-    "\041\366\042\351\043\375\044\u0101\045\373\046\u0115\047" +
-    "\376\050\u0109\051\346\052\u0110\053\u011d\054\370\055\377" +
-    "\056\u0108\057\u010c\060\361\061\371\062\u011b\063\352\064" +
-    "\u0107\065\u0114\066\356\104\u011c\107\u010f\110\u0116\111\u011e" +
-    "\112\360\113\u0112\114\347\001\002\000\006\002\uff68\006" +
-    "\uff68\001\002\000\014\025\u0183\042\054\111\u0127\112\u0126" +
-    "\114\u0124\001\002\000\006\002\uffdb\006\uffdb\001\002\000" +
-    "\004\033\u0184\001\002\000\004\007\u0185\001\002\000\006" +
-    "\002\uff69\006\uff69\001\002\000\166\003\u0187\004\u0105\005" +
-    "\364\006\u0188\007\u010b\010\353\011\343\012\u011f\013\u0118" +
+    "\114\uffa2\001\002\000\166\003\uffa8\004\uffa8\005\uffa8\006" +
+    "\uffa8\007\uffa8\010\uffa8\011\uffa8\012\uffa8\013\uffa8\014\uffa8" +
+    "\015\uffa8\016\uffa8\017\uffa8\020\uffa8\022\uffa8\023\uffa8\024" +
+    "\uffa8\025\uffa8\026\uffa8\027\uffa8\030\uffa8\031\uffa8\032\uffa8" +
+    "\033\uffa8\034\uffa8\035\uffa8\036\uffa8\037\uffa8\040\uffa8\041" +
+    "\uffa8\042\uffa8\043\uffa8\044\uffa8\045\uffa8\046\uffa8\047\uffa8" +
+    "\050\uffa8\051\uffa8\052\uffa8\053\uffa8\054\uffa8\055\uffa8\056" +
+    "\uffa8\057\uffa8\060\uffa8\061\uffa8\062\uffa8\063\uffa8\064\uffa8" +
+    "\065\uffa8\066\uffa8\104\uffa8\107\uffa8\110\uffa8\111\uffa8\112" +
+    "\uffa8\113\uffa8\114\uffa8\001\002\000\166\003\uffc4\004\uffc4" +
+    "\005\uffc4\006\uffc4\007\uffc4\010\uffc4\011\uffc4\012\uffc4\013" +
+    "\uffc4\014\uffc4\015\uffc4\016\uffc4\017\uffc4\020\uffc4\022\uffc4" +
+    "\023\uffc4\024\uffc4\025\uffc4\026\uffc4\027\uffc4\030\uffc4\031" +
+    "\uffc4\032\uffc4\033\uffc4\034\uffc4\035\uffc4\036\uffc4\037\uffc4" +
+    "\040\uffc4\041\uffc4\042\uffc4\043\uffc4\044\uffc4\045\uffc4\046" +
+    "\uffc4\047\uffc4\050\uffc4\051\uffc4\052\uffc4\053\uffc4\054\uffc4" +
+    "\055\uffc4\056\uffc4\057\uffc4\060\uffc4\061\uffc4\062\uffc4\063" +
+    "\uffc4\064\uffc4\065\uffc4\066\uffc4\104\uffc4\107\uffc4\110\uffc4" +
+    "\111\uffc4\112\uffc4\113\uffc4\114\uffc4\001\002\000\010\111" +
+    "\u0122\112\u0121\114\u0120\001\002\000\166\003\uffa1\004\uffa1" +
+    "\005\uffa1\006\uffa1\007\uffa1\010\uffa1\011\uffa1\012\uffa1\013" +
+    "\uffa1\014\uffa1\015\uffa1\016\uffa1\017\uffa1\020\uffa1\022\uffa1" +
+    "\023\uffa1\024\uffa1\025\uffa1\026\uffa1\027\uffa1\030\uffa1\031" +
+    "\uffa1\032\uffa1\033\uffa1\034\uffa1\035\uffa1\036\uffa1\037\uffa1" +
+    "\040\uffa1\041\uffa1\042\uffa1\043\uffa1\044\uffa1\045\uffa1\046" +
+    "\uffa1\047\uffa1\050\uffa1\051\uffa1\052\uffa1\053\uffa1\054\uffa1" +
+    "\055\uffa1\056\uffa1\057\uffa1\060\uffa1\061\uffa1\062\uffa1\063" +
+    "\uffa1\064\uffa1\065\uffa1\066\uffa1\104\uffa1\107\uffa1\110\uffa1" +
+    "\111\uffa1\112\uffa1\113\uffa1\114\uffa1\001\002\000\006\002" +
+    "\uffd7\006\uffd7\001\002\000\166\003\uffd4\004\uffd4\005\uffd4" +
+    "\006\uffd4\007\uffd4\010\uffd4\011\uffd4\012\uffd4\013\uffd4\014" +
+    "\uffd4\015\uffd4\016\uffd4\017\uffd4\020\uffd4\022\uffd4\023\uffd4" +
+    "\024\uffd4\025\uffd4\026\uffd4\027\uffd4\030\uffd4\031\uffd4\032" +
+    "\uffd4\033\uffd4\034\uffd4\035\uffd4\036\uffd4\037\uffd4\040\uffd4" +
+    "\041\uffd4\042\uffd4\043\uffd4\044\uffd4\045\uffd4\046\uffd4\047" +
+    "\uffd4\050\uffd4\051\uffd4\052\uffd4\053\uffd4\054\uffd4\055\uffd4" +
+    "\056\uffd4\057\uffd4\060\uffd4\061\uffd4\062\uffd4\063\uffd4\064" +
+    "\uffd4\065\uffd4\066\uffd4\104\uffd4\107\uffd4\110\uffd4\111\uffd4" +
+    "\112\uffd4\113\uffd4\114\uffd4\001\002\000\166\003\uff96\004" +
+    "\uff96\005\uff96\006\uff96\007\uff96\010\uff96\011\uff96\012\uff96" +
+    "\013\uff96\014\uff96\015\uff96\016\uff96\017\uff96\020\uff96\022" +
+    "\uff96\023\uff96\024\uff96\025\uff96\026\uff96\027\uff96\030\uff96" +
+    "\031\uff96\032\uff96\033\uff96\034\uff96\035\uff96\036\uff96\037" +
+    "\uff96\040\uff96\041\uff96\042\uff96\043\uff96\044\uff96\045\uff96" +
+    "\046\uff96\047\uff96\050\uff96\051\uff96\052\uff96\053\uff96\054" +
+    "\uff96\055\uff96\056\uff96\057\uff96\060\uff96\061\uff96\062\uff96" +
+    "\063\uff96\064\uff96\065\uff96\066\uff96\104\uff96\107\uff96\110" +
+    "\uff96\111\uff96\112\uff96\113\uff96\114\uff96\001\002\000\166" +
+    "\003\uffa6\004\uffa6\005\uffa6\006\uffa6\007\uffa6\010\uffa6\011" +
+    "\uffa6\012\uffa6\013\uffa6\014\uffa6\015\uffa6\016\uffa6\017\uffa6" +
+    "\020\uffa6\022\uffa6\023\uffa6\024\uffa6\025\uffa6\026\uffa6\027" +
+    "\uffa6\030\uffa6\031\uffa6\032\uffa6\033\uffa6\034\uffa6\035\uffa6" +
+    "\036\uffa6\037\uffa6\040\uffa6\041\uffa6\042\uffa6\043\uffa6\044" +
+    "\uffa6\045\uffa6\046\uffa6\047\uffa6\050\uffa6\051\uffa6\052\uffa6" +
+    "\053\uffa6\054\uffa6\055\uffa6\056\uffa6\057\uffa6\060\uffa6\061" +
+    "\uffa6\062\uffa6\063\uffa6\064\uffa6\065\uffa6\066\uffa6\104\uffa6" +
+    "\107\uffa6\110\uffa6\111\uffa6\112\uffa6\113\uffa6\114\uffa6\001" +
+    "\002\000\166\003\uffb1\004\uffb1\005\uffb1\006\uffb1\007\uffb1" +
+    "\010\uffb1\011\uffb1\012\uffb1\013\uffb1\014\uffb1\015\uffb1\016" +
+    "\uffb1\017\uffb1\020\uffb1\022\uffb1\023\uffb1\024\uffb1\025\uffb1" +
+    "\026\uffb1\027\uffb1\030\uffb1\031\uffb1\032\uffb1\033\uffb1\034" +
+    "\uffb1\035\uffb1\036\uffb1\037\uffb1\040\uffb1\041\uffb1\042\uffb1" +
+    "\043\uffb1\044\uffb1\045\uffb1\046\uffb1\047\uffb1\050\uffb1\051" +
+    "\uffb1\052\uffb1\053\uffb1\054\uffb1\055\uffb1\056\uffb1\057\uffb1" +
+    "\060\uffb1\061\uffb1\062\uffb1\063\uffb1\064\uffb1\065\uffb1\066" +
+    "\uffb1\104\uffb1\107\uffb1\110\uffb1\111\uffb1\112\uffb1\113\uffb1" +
+    "\114\uffb1\001\002\000\166\003\uffd0\004\uffd0\005\uffd0\006" +
+    "\uffd0\007\uffd0\010\uffd0\011\uffd0\012\uffd0\013\uffd0\014\uffd0" +
+    "\015\uffd0\016\uffd0\017\uffd0\020\uffd0\022\uffd0\023\uffd0\024" +
+    "\uffd0\025\uffd0\026\uffd0\027\uffd0\030\uffd0\031\uffd0\032\uffd0" +
+    "\033\uffd0\034\uffd0\035\uffd0\036\uffd0\037\uffd0\040\uffd0\041" +
+    "\uffd0\042\uffd0\043\uffd0\044\uffd0\045\uffd0\046\uffd0\047\uffd0" +
+    "\050\uffd0\051\uffd0\052\uffd0\053\uffd0\054\uffd0\055\uffd0\056" +
+    "\uffd0\057\uffd0\060\uffd0\061\uffd0\062\uffd0\063\uffd0\064\uffd0" +
+    "\065\uffd0\066\uffd0\104\uffd0\107\uffd0\110\uffd0\111\uffd0\112" +
+    "\uffd0\113\uffd0\114\uffd0\001\002\000\166\003\uffc3\004\uffc3" +
+    "\005\uffc3\006\uffc3\007\uffc3\010\uffc3\011\uffc3\012\uffc3\013" +
+    "\uffc3\014\uffc3\015\uffc3\016\uffc3\017\uffc3\020\uffc3\022\uffc3" +
+    "\023\uffc3\024\uffc3\025\uffc3\026\uffc3\027\uffc3\030\uffc3\031" +
+    "\uffc3\032\uffc3\033\uffc3\034\uffc3\035\uffc3\036\uffc3\037\uffc3" +
+    "\040\uffc3\041\uffc3\042\uffc3\043\uffc3\044\uffc3\045\uffc3\046" +
+    "\uffc3\047\uffc3\050\uffc3\051\uffc3\052\uffc3\053\uffc3\054\uffc3" +
+    "\055\uffc3\056\uffc3\057\uffc3\060\uffc3\061\uffc3\062\uffc3\063" +
+    "\uffc3\064\uffc3\065\uffc3\066\uffc3\104\uffc3\107\uffc3\110\uffc3" +
+    "\111\uffc3\112\uffc3\113\uffc3\114\uffc3\001\002\000\166\003" +
+    "\uff9b\004\uff9b\005\uff9b\006\uff9b\007\uff9b\010\uff9b\011\uff9b" +
+    "\012\uff9b\013\uff9b\014\uff9b\015\uff9b\016\uff9b\017\uff9b\020" +
+    "\uff9b\022\uff9b\023\uff9b\024\uff9b\025\uff9b\026\uff9b\027\uff9b" +
+    "\030\uff9b\031\uff9b\032\uff9b\033\uff9b\034\uff9b\035\uff9b\036" +
+    "\uff9b\037\uff9b\040\uff9b\041\uff9b\042\uff9b\043\uff9b\044\uff9b" +
+    "\045\uff9b\046\uff9b\047\uff9b\050\uff9b\051\uff9b\052\uff9b\053" +
+    "\uff9b\054\uff9b\055\uff9b\056\uff9b\057\uff9b\060\uff9b\061\uff9b" +
+    "\062\uff9b\063\uff9b\064\uff9b\065\uff9b\066\uff9b\104\uff9b\107" +
+    "\uff9b\110\uff9b\111\uff9b\112\uff9b\113\uff9b\114\uff9b\001\002" +
+    "\000\166\003\uffaa\004\uffaa\005\uffaa\006\uffaa\007\uffaa\010" +
+    "\uffaa\011\uffaa\012\uffaa\013\uffaa\014\uffaa\015\uffaa\016\uffaa" +
+    "\017\uffaa\020\uffaa\022\uffaa\023\uffaa\024\uffaa\025\uffaa\026" +
+    "\uffaa\027\uffaa\030\uffaa\031\uffaa\032\uffaa\033\uffaa\034\uffaa" +
+    "\035\uffaa\036\uffaa\037\uffaa\040\uffaa\041\uffaa\042\uffaa\043" +
+    "\uffaa\044\uffaa\045\uffaa\046\uffaa\047\uffaa\050\uffaa\051\uffaa" +
+    "\052\uffaa\053\uffaa\054\uffaa\055\uffaa\056\uffaa\057\uffaa\060" +
+    "\uffaa\061\uffaa\062\uffaa\063\uffaa\064\uffaa\065\uffaa\066\uffaa" +
+    "\104\uffaa\107\uffaa\110\uffaa\111\uffaa\112\uffaa\113\uffaa\114" +
+    "\uffaa\001\002\000\166\003\uff97\004\uff97\005\uff97\006\uff97" +
+    "\007\uff97\010\uff97\011\uff97\012\uff97\013\uff97\014\uff97\015" +
+    "\uff97\016\uff97\017\uff97\020\uff97\022\uff97\023\uff97\024\uff97" +
+    "\025\uff97\026\uff97\027\uff97\030\uff97\031\uff97\032\uff97\033" +
+    "\uff97\034\uff97\035\uff97\036\uff97\037\uff97\040\uff97\041\uff97" +
+    "\042\uff97\043\uff97\044\uff97\045\uff97\046\uff97\047\uff97\050" +
+    "\uff97\051\uff97\052\uff97\053\uff97\054\uff97\055\uff97\056\uff97" +
+    "\057\uff97\060\uff97\061\uff97\062\uff97\063\uff97\064\uff97\065" +
+    "\uff97\066\uff97\104\uff97\107\uff97\110\uff97\111\uff97\112\uff97" +
+    "\113\uff97\114\uff97\001\002\000\166\003\uffb2\004\uffb2\005" +
+    "\uffb2\006\uffb2\007\uffb2\010\uffb2\011\uffb2\012\uffb2\013\uffb2" +
+    "\014\uffb2\015\uffb2\016\uffb2\017\uffb2\020\uffb2\022\uffb2\023" +
+    "\uffb2\024\uffb2\025\uffb2\026\uffb2\027\uffb2\030\uffb2\031\uffb2" +
+    "\032\uffb2\033\uffb2\034\uffb2\035\uffb2\036\uffb2\037\uffb2\040" +
+    "\uffb2\041\uffb2\042\uffb2\043\uffb2\044\uffb2\045\uffb2\046\uffb2" +
+    "\047\uffb2\050\uffb2\051\uffb2\052\uffb2\053\uffb2\054\uffb2\055" +
+    "\uffb2\056\uffb2\057\uffb2\060\uffb2\061\uffb2\062\uffb2\063\uffb2" +
+    "\064\uffb2\065\uffb2\066\uffb2\104\uffb2\107\uffb2\110\uffb2\111" +
+    "\uffb2\112\uffb2\113\uffb2\114\uffb2\001\002\000\166\003\uffca" +
+    "\004\uffca\005\uffca\006\uffca\007\uffca\010\uffca\011\uffca\012" +
+    "\uffca\013\uffca\014\uffca\015\uffca\016\uffca\017\uffca\020\uffca" +
+    "\022\uffca\023\uffca\024\uffca\025\uffca\026\uffca\027\uffca\030" +
+    "\uffca\031\uffca\032\uffca\033\uffca\034\uffca\035\uffca\036\uffca" +
+    "\037\uffca\040\uffca\041\uffca\042\uffca\043\uffca\044\uffca\045" +
+    "\uffca\046\uffca\047\uffca\050\uffca\051\uffca\052\uffca\053\uffca" +
+    "\054\uffca\055\uffca\056\uffca\057\uffca\060\uffca\061\uffca\062" +
+    "\uffca\063\uffca\064\uffca\065\uffca\066\uffca\104\uffca\107\uffca" +
+    "\110\uffca\111\uffca\112\uffca\113\uffca\114\uffca\001\002\000" +
+    "\166\003\uffc2\004\uffc2\005\uffc2\006\uffc2\007\uffc2\010\uffc2" +
+    "\011\uffc2\012\uffc2\013\uffc2\014\uffc2\015\uffc2\016\uffc2\017" +
+    "\uffc2\020\uffc2\022\uffc2\023\uffc2\024\uffc2\025\uffc2\026\uffc2" +
+    "\027\uffc2\030\uffc2\031\uffc2\032\uffc2\033\uffc2\034\uffc2\035" +
+    "\uffc2\036\uffc2\037\uffc2\040\uffc2\041\uffc2\042\uffc2\043\uffc2" +
+    "\044\uffc2\045\uffc2\046\uffc2\047\uffc2\050\uffc2\051\uffc2\052" +
+    "\uffc2\053\uffc2\054\uffc2\055\uffc2\056\uffc2\057\uffc2\060\uffc2" +
+    "\061\uffc2\062\uffc2\063\uffc2\064\uffc2\065\uffc2\066\uffc2\104" +
+    "\uffc2\107\uffc2\110\uffc2\111\uffc2\112\uffc2\113\uffc2\114\uffc2" +
+    "\001\002\000\166\003\uffb8\004\uffb8\005\uffb8\006\uffb8\007" +
+    "\uffb8\010\uffb8\011\uffb8\012\uffb8\013\uffb8\014\uffb8\015\uffb8" +
+    "\016\uffb8\017\uffb8\020\uffb8\022\uffb8\023\uffb8\024\uffb8\025" +
+    "\uffb8\026\uffb8\027\uffb8\030\uffb8\031\uffb8\032\uffb8\033\uffb8" +
+    "\034\uffb8\035\uffb8\036\uffb8\037\uffb8\040\uffb8\041\uffb8\042" +
+    "\uffb8\043\uffb8\044\uffb8\045\uffb8\046\uffb8\047\uffb8\050\uffb8" +
+    "\051\uffb8\052\uffb8\053\uffb8\054\uffb8\055\uffb8\056\uffb8\057" +
+    "\uffb8\060\uffb8\061\uffb8\062\uffb8\063\uffb8\064\uffb8\065\uffb8" +
+    "\066\uffb8\104\uffb8\107\uffb8\110\uffb8\111\uffb8\112\uffb8\113" +
+    "\uffb8\114\uffb8\001\002\000\166\003\uff9e\004\uff9e\005\uff9e" +
+    "\006\uff9e\007\uff9e\010\uff9e\011\uff9e\012\uff9e\013\uff9e\014" +
+    "\uff9e\015\uff9e\016\uff9e\017\uff9e\020\uff9e\022\uff9e\023\uff9e" +
+    "\024\uff9e\025\uff9e\026\uff9e\027\uff9e\030\uff9e\031\uff9e\032" +
+    "\uff9e\033\uff9e\034\uff9e\035\uff9e\036\uff9e\037\uff9e\040\uff9e" +
+    "\041\uff9e\042\uff9e\043\uff9e\044\uff9e\045\uff9e\046\uff9e\047" +
+    "\uff9e\050\uff9e\051\uff9e\052\uff9e\053\uff9e\054\uff9e\055\uff9e" +
+    "\056\uff9e\057\uff9e\060\uff9e\061\uff9e\062\uff9e\063\uff9e\064" +
+    "\uff9e\065\uff9e\066\uff9e\104\uff9e\107\uff9e\110\uff9e\111\uff9e" +
+    "\112\uff9e\113\uff9e\114\uff9e\001\002\000\166\003\uff95\004" +
+    "\uff95\005\uff95\006\uff95\007\uff95\010\uff95\011\uff95\012\uff95" +
+    "\013\uff95\014\uff95\015\uff95\016\uff95\017\uff95\020\uff95\022" +
+    "\uff95\023\uff95\024\uff95\025\uff95\026\uff95\027\uff95\030\uff95" +
+    "\031\uff95\032\uff95\033\uff95\034\uff95\035\uff95\036\uff95\037" +
+    "\uff95\040\uff95\041\uff95\042\uff95\043\uff95\044\uff95\045\uff95" +
+    "\046\uff95\047\uff95\050\uff95\051\uff95\052\uff95\053\uff95\054" +
+    "\uff95\055\uff95\056\uff95\057\uff95\060\uff95\061\uff95\062\uff95" +
+    "\063\uff95\064\uff95\065\uff95\066\uff95\104\uff95\107\uff95\110" +
+    "\uff95\111\uff95\112\uff95\113\uff95\114\uff95\001\002\000\166" +
+    "\003\uffa5\004\uffa5\005\uffa5\006\uffa5\007\uffa5\010\uffa5\011" +
+    "\uffa5\012\uffa5\013\uffa5\014\uffa5\015\uffa5\016\uffa5\017\uffa5" +
+    "\020\uffa5\022\uffa5\023\uffa5\024\uffa5\025\uffa5\026\uffa5\027" +
+    "\uffa5\030\uffa5\031\uffa5\032\uffa5\033\uffa5\034\uffa5\035\uffa5" +
+    "\036\uffa5\037\uffa5\040\uffa5\041\uffa5\042\uffa5\043\uffa5\044" +
+    "\uffa5\045\uffa5\046\uffa5\047\uffa5\050\uffa5\051\uffa5\052\uffa5" +
+    "\053\uffa5\054\uffa5\055\uffa5\056\uffa5\057\uffa5\060\uffa5\061" +
+    "\uffa5\062\uffa5\063\uffa5\064\uffa5\065\uffa5\066\uffa5\104\uffa5" +
+    "\107\uffa5\110\uffa5\111\uffa5\112\uffa5\113\uffa5\114\uffa5\001" +
+    "\002\000\166\003\uff99\004\uff99\005\uff99\006\uff99\007\uff99" +
+    "\010\uff99\011\uff99\012\uff99\013\uff99\014\uff99\015\uff99\016" +
+    "\uff99\017\uff99\020\uff99\022\uff99\023\uff99\024\uff99\025\uff99" +
+    "\026\uff99\027\uff99\030\uff99\031\uff99\032\uff99\033\uff99\034" +
+    "\uff99\035\uff99\036\uff99\037\uff99\040\uff99\041\uff99\042\uff99" +
+    "\043\uff99\044\uff99\045\uff99\046\uff99\047\uff99\050\uff99\051" +
+    "\uff99\052\uff99\053\uff99\054\uff99\055\uff99\056\uff99\057\uff99" +
+    "\060\uff99\061\uff99\062\uff99\063\uff99\064\uff99\065\uff99\066" +
+    "\uff99\104\uff99\107\uff99\110\uff99\111\uff99\112\uff99\113\uff99" +
+    "\114\uff99\001\002\000\166\003\uffcb\004\uffcb\005\uffcb\006" +
+    "\uffcb\007\uffcb\010\uffcb\011\uffcb\012\uffcb\013\uffcb\014\uffcb" +
+    "\015\uffcb\016\uffcb\017\uffcb\020\uffcb\022\uffcb\023\uffcb\024" +
+    "\uffcb\025\uffcb\026\uffcb\027\uffcb\030\uffcb\031\uffcb\032\uffcb" +
+    "\033\uffcb\034\uffcb\035\uffcb\036\uffcb\037\uffcb\040\uffcb\041" +
+    "\uffcb\042\uffcb\043\uffcb\044\uffcb\045\uffcb\046\uffcb\047\uffcb" +
+    "\050\uffcb\051\uffcb\052\uffcb\053\uffcb\054\uffcb\055\uffcb\056" +
+    "\uffcb\057\uffcb\060\uffcb\061\uffcb\062\uffcb\063\uffcb\064\uffcb" +
+    "\065\uffcb\066\uffcb\104\uffcb\107\uffcb\110\uffcb\111\uffcb\112" +
+    "\uffcb\113\uffcb\114\uffcb\001\002\000\166\003\uffc1\004\uffc1" +
+    "\005\uffc1\006\uffc1\007\uffc1\010\uffc1\011\uffc1\012\uffc1\013" +
+    "\uffc1\014\uffc1\015\uffc1\016\uffc1\017\uffc1\020\uffc1\022\uffc1" +
+    "\023\uffc1\024\uffc1\025\uffc1\026\uffc1\027\uffc1\030\uffc1\031" +
+    "\uffc1\032\uffc1\033\uffc1\034\uffc1\035\uffc1\036\uffc1\037\uffc1" +
+    "\040\uffc1\041\uffc1\042\uffc1\043\uffc1\044\uffc1\045\uffc1\046" +
+    "\uffc1\047\uffc1\050\uffc1\051\uffc1\052\uffc1\053\uffc1\054\uffc1" +
+    "\055\uffc1\056\uffc1\057\uffc1\060\uffc1\061\uffc1\062\uffc1\063" +
+    "\uffc1\064\uffc1\065\uffc1\066\uffc1\104\uffc1\107\uffc1\110\uffc1" +
+    "\111\uffc1\112\uffc1\113\uffc1\114\uffc1\001\002\000\166\003" +
+    "\uffbe\004\uffbe\005\uffbe\006\uffbe\007\uffbe\010\uffbe\011\uffbe" +
+    "\012\uffbe\013\uffbe\014\uffbe\015\uffbe\016\uffbe\017\uffbe\020" +
+    "\uffbe\022\uffbe\023\uffbe\024\uffbe\025\uffbe\026\uffbe\027\uffbe" +
+    "\030\uffbe\031\uffbe\032\uffbe\033\uffbe\034\uffbe\035\uffbe\036" +
+    "\uffbe\037\uffbe\040\uffbe\041\uffbe\042\uffbe\043\uffbe\044\uffbe" +
+    "\045\uffbe\046\uffbe\047\uffbe\050\uffbe\051\uffbe\052\uffbe\053" +
+    "\uffbe\054\uffbe\055\uffbe\056\uffbe\057\uffbe\060\uffbe\061\uffbe" +
+    "\062\uffbe\063\uffbe\064\uffbe\065\uffbe\066\uffbe\104\uffbe\107" +
+    "\uffbe\110\uffbe\111\uffbe\112\uffbe\113\uffbe\114\uffbe\001\002" +
+    "\000\166\003\uffbf\004\uffbf\005\uffbf\006\uffbf\007\uffbf\010" +
+    "\uffbf\011\uffbf\012\uffbf\013\uffbf\014\uffbf\015\uffbf\016\uffbf" +
+    "\017\uffbf\020\uffbf\022\uffbf\023\uffbf\024\uffbf\025\uffbf\026" +
+    "\uffbf\027\uffbf\030\uffbf\031\uffbf\032\uffbf\033\uffbf\034\uffbf" +
+    "\035\uffbf\036\uffbf\037\uffbf\040\uffbf\041\uffbf\042\uffbf\043" +
+    "\uffbf\044\uffbf\045\uffbf\046\uffbf\047\uffbf\050\uffbf\051\uffbf" +
+    "\052\uffbf\053\uffbf\054\uffbf\055\uffbf\056\uffbf\057\uffbf\060" +
+    "\uffbf\061\uffbf\062\uffbf\063\uffbf\064\uffbf\065\uffbf\066\uffbf" +
+    "\104\uffbf\107\uffbf\110\uffbf\111\uffbf\112\uffbf\113\uffbf\114" +
+    "\uffbf\001\002\000\166\003\uffc0\004\uffc0\005\uffc0\006\uffc0" +
+    "\007\uffc0\010\uffc0\011\uffc0\012\uffc0\013\uffc0\014\uffc0\015" +
+    "\uffc0\016\uffc0\017\uffc0\020\uffc0\022\uffc0\023\uffc0\024\uffc0" +
+    "\025\uffc0\026\uffc0\027\uffc0\030\uffc0\031\uffc0\032\uffc0\033" +
+    "\uffc0\034\uffc0\035\uffc0\036\uffc0\037\uffc0\040\uffc0\041\uffc0" +
+    "\042\uffc0\043\uffc0\044\uffc0\045\uffc0\046\uffc0\047\uffc0\050" +
+    "\uffc0\051\uffc0\052\uffc0\053\uffc0\054\uffc0\055\uffc0\056\uffc0" +
+    "\057\uffc0\060\uffc0\061\uffc0\062\uffc0\063\uffc0\064\uffc0\065" +
+    "\uffc0\066\uffc0\104\uffc0\107\uffc0\110\uffc0\111\uffc0\112\uffc0" +
+    "\113\uffc0\114\uffc0\001\002\000\004\043\u0127\001\002\000" +
+    "\166\003\uffbc\004\uffbc\005\uffbc\006\uffbc\007\uffbc\010\uffbc" +
+    "\011\uffbc\012\uffbc\013\uffbc\014\uffbc\015\uffbc\016\uffbc\017" +
+    "\uffbc\020\uffbc\022\uffbc\023\uffbc\024\uffbc\025\uffbc\026\uffbc" +
+    "\027\uffbc\030\uffbc\031\uffbc\032\uffbc\033\uffbc\034\uffbc\035" +
+    "\uffbc\036\uffbc\037\uffbc\040\uffbc\041\uffbc\042\uffbc\043\uffbc" +
+    "\044\uffbc\045\uffbc\046\uffbc\047\uffbc\050\uffbc\051\uffbc\052" +
+    "\uffbc\053\uffbc\054\uffbc\055\uffbc\056\uffbc\057\uffbc\060\uffbc" +
+    "\061\uffbc\062\uffbc\063\uffbc\064\uffbc\065\uffbc\066\uffbc\104" +
+    "\uffbc\107\uffbc\110\uffbc\111\uffbc\112\uffbc\113\uffbc\114\uffbc" +
+    "\001\002\000\166\003\uffbd\004\uffbd\005\uffbd\006\uffbd\007" +
+    "\uffbd\010\uffbd\011\uffbd\012\uffbd\013\uffbd\014\uffbd\015\uffbd" +
+    "\016\uffbd\017\uffbd\020\uffbd\022\uffbd\023\uffbd\024\uffbd\025" +
+    "\uffbd\026\uffbd\027\uffbd\030\uffbd\031\uffbd\032\uffbd\033\uffbd" +
+    "\034\uffbd\035\uffbd\036\uffbd\037\uffbd\040\uffbd\041\uffbd\042" +
+    "\uffbd\043\uffbd\044\uffbd\045\uffbd\046\uffbd\047\uffbd\050\uffbd" +
+    "\051\uffbd\052\uffbd\053\uffbd\054\uffbd\055\uffbd\056\uffbd\057" +
+    "\uffbd\060\uffbd\061\uffbd\062\uffbd\063\uffbd\064\uffbd\065\uffbd" +
+    "\066\uffbd\104\uffbd\107\uffbd\110\uffbd\111\uffbd\112\uffbd\113" +
+    "\uffbd\114\uffbd\001\002\000\004\007\u0128\001\002\000\006" +
+    "\002\uff5c\006\uff5c\001\002\000\166\003\u012b\004\u0105\005" +
+    "\364\006\u012c\007\u010b\010\353\011\343\012\u011f\013\u0118" +
     "\014\363\015\357\016\u0104\017\u0100\020\354\022\u010a\023" +
     "\u0119\024\u0113\025\362\026\374\027\355\030\u011a\031\345" +
     "\032\372\033\367\034\365\035\u0103\036\u0117\037\u0111\040" +
@@ -1317,16 +1132,116 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\047\376\050\u0109\051\346\052\u0110\053\u011d\054\370\055" +
     "\377\056\u0108\057\u010c\060\361\061\371\062\u011b\063\352" +
     "\064\u0107\065\u0114\066\356\104\u011c\107\u010f\110\u0116\111" +
-    "\u011e\112\360\113\u0112\114\347\001\002\000\006\002\uff64" +
-    "\006\uff64\001\002\000\014\025\u018a\042\054\111\u0127\112" +
-    "\u0126\114\u0124\001\002\000\006\002\uffd9\006\uffd9\001\002" +
-    "\000\004\035\u018b\001\002\000\004\007\u018c\001\002\000" +
-    "\006\002\uff65\006\uff65\001\002\000\004\006\u018e\001\002" +
-    "\000\030\025\u0190\033\057\034\056\035\053\036\050\040" +
-    "\046\041\052\042\054\043\055\044\060\045\047\001\002" +
-    "\000\006\002\ufffa\006\ufffa\001\002\000\004\040\u0191\001" +
-    "\002\000\004\007\u0192\001\002\000\006\002\uff5f\006\uff5f" +
-    "\001\002\000\166\003\u0195\004\u0105\005\364\006\u0196\007" +
+    "\u011e\112\360\113\u0112\114\347\001\002\000\006\002\uffd5" +
+    "\006\uffd5\001\002\000\006\002\uff57\006\uff57\001\002\000" +
+    "\014\025\u012d\042\054\111\u0126\112\u0125\114\u0123\001\002" +
+    "\000\004\045\u012e\001\002\000\004\007\u012f\001\002\000" +
+    "\006\002\uff58\006\uff58\001\002\000\006\003\u0132\006\u0135" +
+    "\001\002\000\006\003\ufff0\006\ufff0\001\002\000\006\003" +
+    "\uffef\006\uffef\001\002\000\166\003\uffd2\004\uffd2\005\uffd2" +
+    "\006\uffd2\007\uffd2\010\uffd2\011\uffd2\012\uffd2\013\uffd2\014" +
+    "\uffd2\015\uffd2\016\uffd2\017\uffd2\020\uffd2\022\uffd2\023\uffd2" +
+    "\024\uffd2\025\uffd2\026\uffd2\027\uffd2\030\uffd2\031\uffd2\032" +
+    "\uffd2\033\uffd2\034\uffd2\035\uffd2\036\uffd2\037\uffd2\040\uffd2" +
+    "\041\uffd2\042\uffd2\043\uffd2\044\uffd2\045\uffd2\046\uffd2\047" +
+    "\uffd2\050\uffd2\051\uffd2\052\uffd2\053\uffd2\054\uffd2\055\uffd2" +
+    "\056\uffd2\057\uffd2\060\uffd2\061\uffd2\062\uffd2\063\uffd2\064" +
+    "\uffd2\065\uffd2\066\uffd2\104\uffd2\107\uffd2\110\uffd2\111\uffd2" +
+    "\112\uffd2\113\uffd2\114\uffd2\001\002\000\006\003\ufff3\006" +
+    "\ufff3\001\002\000\010\025\u0140\030\u0141\031\u0142\001\002" +
+    "\000\006\002\ufffc\006\ufffc\001\002\000\006\003\ufff1\006" +
+    "\ufff1\001\002\000\166\003\uffd2\004\uffd2\005\uffd2\006\uffd2" +
+    "\007\uffd2\010\uffd2\011\uffd2\012\uffd2\013\uffd2\014\uffd2\015" +
+    "\uffd2\016\uffd2\017\uffd2\020\uffd2\022\uffd2\023\uffd2\024\uffd2" +
+    "\025\uffd2\026\uffd2\027\uffd2\030\uffd2\031\uffd2\032\uffd2\033" +
+    "\uffd2\034\uffd2\035\uffd2\036\uffd2\037\uffd2\040\uffd2\041\uffd2" +
+    "\042\uffd2\043\uffd2\044\uffd2\045\uffd2\046\uffd2\047\uffd2\050" +
+    "\uffd2\051\uffd2\052\uffd2\053\uffd2\054\uffd2\055\uffd2\056\uffd2" +
+    "\057\uffd2\060\uffd2\061\uffd2\062\uffd2\063\uffd2\064\uffd2\065" +
+    "\uffd2\066\uffd2\104\uffd2\107\uffd2\110\uffd2\111\uffd2\112\uffd2" +
+    "\113\uffd2\114\uffd2\001\002\000\166\003\u013b\004\u0105\005" +
+    "\364\006\u013c\007\u010b\010\353\011\343\012\u011f\013\u0118" +
+    "\014\363\015\357\016\u0104\017\u0100\020\354\022\u010a\023" +
+    "\u0119\024\u0113\025\362\026\374\027\355\030\u011a\031\345" +
+    "\032\372\033\367\034\365\035\u0103\036\u0117\037\u0111\040" +
+    "\344\041\366\042\351\043\375\044\u0101\045\373\046\u0115" +
+    "\047\376\050\u0109\051\346\052\u0110\053\u011d\054\370\055" +
+    "\377\056\u0108\057\u010c\060\361\061\371\062\u011b\063\352" +
+    "\064\u0107\065\u0114\066\356\104\u011c\107\u010f\110\u0116\111" +
+    "\u011e\112\360\113\u0112\114\347\001\002\000\006\003\uffdc" +
+    "\006\uffdc\001\002\000\006\003\uff6b\006\uff6b\001\002\000" +
+    "\014\025\u013d\042\054\111\u0126\112\u0125\114\u0123\001\002" +
+    "\000\004\031\u013e\001\002\000\004\007\u013f\001\002\000" +
+    "\006\003\uff6c\006\uff6c\001\002\000\004\027\u0153\001\002" +
+    "\000\006\003\uff90\007\uff90\001\002\000\010\003\uff8e\007" +
+    "\uff8e\010\uff8e\001\002\000\010\003\u0145\007\uff38\010\uff38" +
+    "\001\002\000\166\003\uff8d\004\uff8d\005\uff8d\006\uff8d\007" +
+    "\uff8d\010\uff8d\011\uff8d\012\uff8d\013\uff8d\014\uff8d\015\uff8d" +
+    "\016\uff8d\017\uff8d\020\uff8d\022\uff8d\023\uff8d\024\uff8d\025" +
+    "\uff8d\026\uff8d\027\uff8d\030\uff8d\031\uff8d\032\uff8d\033\uff8d" +
+    "\034\uff8d\035\uff8d\036\uff8d\037\uff8d\040\uff8d\041\uff8d\042" +
+    "\uff8d\043\uff8d\044\uff8d\045\uff8d\046\uff8d\047\uff8d\050\uff8d" +
+    "\051\uff8d\052\uff8d\053\uff8d\054\uff8d\055\uff8d\056\uff8d\057" +
+    "\uff8d\060\uff8d\061\uff8d\062\uff8d\063\uff8d\064\uff8d\065\uff8d" +
+    "\066\uff8d\104\uff8d\107\uff8d\110\uff8d\111\uff8d\112\uff8d\113" +
+    "\uff8d\114\uff8d\001\002\000\010\003\u0145\007\u0150\010\uff38" +
+    "\001\002\000\006\007\u014a\010\u0148\001\002\000\006\007" +
+    "\uff39\010\uff39\001\002\000\004\046\u014b\001\002\000\006" +
+    "\007\uff27\010\uff27\001\002\000\166\003\uff53\004\uff53\005" +
+    "\uff53\006\uff53\007\uff53\010\uff53\011\uff53\012\uff53\013\uff53" +
+    "\014\uff53\015\uff53\016\uff53\017\uff53\020\uff53\022\uff53\023" +
+    "\uff53\024\uff53\025\uff53\026\uff53\027\uff53\030\uff53\031\uff53" +
+    "\032\uff53\033\uff53\034\uff53\035\uff53\036\uff53\037\uff53\040" +
+    "\uff53\041\uff53\042\uff53\043\uff53\044\uff53\045\uff53\046\uff53" +
+    "\047\uff53\050\uff53\051\uff53\052\uff53\053\uff53\054\uff53\055" +
+    "\uff53\056\uff53\057\uff53\060\uff53\061\uff53\062\uff53\063\uff53" +
+    "\064\uff53\065\uff53\066\uff53\104\uff53\107\uff53\110\uff53\111" +
+    "\uff53\112\uff53\113\uff53\114\uff53\001\002\000\004\005\u014c" +
+    "\001\002\000\004\110\u014d\001\002\000\004\011\u014e\001" +
+    "\002\000\006\007\uff10\010\uff10\001\002\000\166\003\uff52" +
+    "\004\uff52\005\uff52\006\uff52\007\uff52\010\uff52\011\uff52\012" +
+    "\uff52\013\uff52\014\uff52\015\uff52\016\uff52\017\uff52\020\uff52" +
+    "\022\uff52\023\uff52\024\uff52\025\uff52\026\uff52\027\uff52\030" +
+    "\uff52\031\uff52\032\uff52\033\uff52\034\uff52\035\uff52\036\uff52" +
+    "\037\uff52\040\uff52\041\uff52\042\uff52\043\uff52\044\uff52\045" +
+    "\uff52\046\uff52\047\uff52\050\uff52\051\uff52\052\uff52\053\uff52" +
+    "\054\uff52\055\uff52\056\uff52\057\uff52\060\uff52\061\uff52\062" +
+    "\uff52\063\uff52\064\uff52\065\uff52\066\uff52\104\uff52\107\uff52" +
+    "\110\uff52\111\uff52\112\uff52\113\uff52\114\uff52\001\002\000" +
+    "\166\003\uff51\004\uff51\005\uff51\006\uff51\007\uff51\010\uff51" +
+    "\011\uff51\012\uff51\013\uff51\014\uff51\015\uff51\016\uff51\017" +
+    "\uff51\020\uff51\022\uff51\023\uff51\024\uff51\025\uff51\026\uff51" +
+    "\027\uff51\030\uff51\031\uff51\032\uff51\033\uff51\034\uff51\035" +
+    "\uff51\036\uff51\037\uff51\040\uff51\041\uff51\042\uff51\043\uff51" +
+    "\044\uff51\045\uff51\046\uff51\047\uff51\050\uff51\051\uff51\052" +
+    "\uff51\053\uff51\054\uff51\055\uff51\056\uff51\057\uff51\060\uff51" +
+    "\061\uff51\062\uff51\063\uff51\064\uff51\065\uff51\066\uff51\104" +
+    "\uff51\107\uff51\110\uff51\111\uff51\112\uff51\113\uff51\114\uff51" +
+    "\001\002\000\006\003\217\007\221\001\002\000\166\003" +
+    "\uff8f\004\uff8f\005\uff8f\006\uff8f\007\uff8f\010\uff8f\011\uff8f" +
+    "\012\uff8f\013\uff8f\014\uff8f\015\uff8f\016\uff8f\017\uff8f\020" +
+    "\uff8f\022\uff8f\023\uff8f\024\uff8f\025\uff8f\026\uff8f\027\uff8f" +
+    "\030\uff8f\031\uff8f\032\uff8f\033\uff8f\034\uff8f\035\uff8f\036" +
+    "\uff8f\037\uff8f\040\uff8f\041\uff8f\042\uff8f\043\uff8f\044\uff8f" +
+    "\045\uff8f\046\uff8f\047\uff8f\050\uff8f\051\uff8f\052\uff8f\053" +
+    "\uff8f\054\uff8f\055\uff8f\056\uff8f\057\uff8f\060\uff8f\061\uff8f" +
+    "\062\uff8f\063\uff8f\064\uff8f\065\uff8f\066\uff8f\104\uff8f\107" +
+    "\uff8f\110\uff8f\111\uff8f\112\uff8f\113\uff8f\114\uff8f\001\002" +
+    "\000\004\007\u0154\001\002\000\006\002\uff6f\006\uff6f\001" +
+    "\002\000\166\003\u0156\004\u0105\005\364\006\u0157\007\u010b" +
+    "\010\353\011\343\012\u011f\013\u0118\014\363\015\357\016" +
+    "\u0104\017\u0100\020\354\022\u010a\023\u0119\024\u0113\025\362" +
+    "\026\374\027\355\030\u011a\031\345\032\372\033\367\034" +
+    "\365\035\u0103\036\u0117\037\u0111\040\344\041\366\042\351" +
+    "\043\375\044\u0101\045\373\046\u0115\047\376\050\u0109\051" +
+    "\346\052\u0110\053\u011d\054\370\055\377\056\u0108\057\u010c" +
+    "\060\361\061\371\062\u011b\063\352\064\u0107\065\u0114\066" +
+    "\356\104\u011c\107\u010f\110\u0116\111\u011e\112\360\113\u0112" +
+    "\114\347\001\002\000\006\003\uff6d\006\uff6d\001\002\000" +
+    "\014\025\u0159\042\054\111\u0126\112\u0125\114\u0123\001\002" +
+    "\000\006\003\uffdd\006\uffdd\001\002\000\004\030\u015a\001" +
+    "\002\000\004\007\u015b\001\002\000\006\003\uff6e\006\uff6e" +
+    "\001\002\000\166\003\u015d\004\u0105\005\364\006\u015e\007" +
     "\u010b\010\353\011\343\012\u011f\013\u0118\014\363\015\357" +
     "\016\u0104\017\u0100\020\354\022\u010a\023\u0119\024\u0113\025" +
     "\362\026\374\027\355\030\u011a\031\345\032\372\033\367" +
@@ -1335,18 +1250,104 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\051\346\052\u0110\053\u011d\054\370\055\377\056\u0108\057" +
     "\u010c\060\361\061\371\062\u011b\063\352\064\u0107\065\u0114" +
     "\066\356\104\u011c\107\u010f\110\u0116\111\u011e\112\360\113" +
-    "\u0112\114\347\001\002\000\006\002\uffda\006\uffda\001\002" +
-    "\000\006\002\uff66\006\uff66\001\002\000\014\025\u0197\042" +
-    "\054\111\u0127\112\u0126\114\u0124\001\002\000\004\034\u0198" +
-    "\001\002\000\004\007\u0199\001\002\000\006\002\uff67\006" +
-    "\uff67\001\002\000\010\003\uff8c\007\uff8c\010\uff8c\001\002" +
-    "\000\006\003\uff92\007\uff92\001\002\000\006\003\217\007" +
-    "\221\001\002\000\006\003\uff91\006\uff91\001\002\000\010" +
-    "\003\u01a0\007\uff36\010\uff36\001\002\000\006\007\u01a5\010" +
-    "\u01a4\001\002\000\010\003\u01a0\007\u01a3\010\uff36\001\002" +
-    "\000\004\006\uff8b\001\002\000\004\006\uff4f\001\002\000" +
-    "\004\006\uff4e\001\002\000\004\047\204\001\002\000\004" +
-    "\006\uff50\001\002\000\006\007\uff37\010\uff37\001\002" });
+    "\u0112\114\347\001\002\000\006\002\uff59\006\uff59\001\002" +
+    "\000\014\025\u0160\042\054\111\u0126\112\u0125\114\u0123\001" +
+    "\002\000\006\002\uffd6\006\uffd6\001\002\000\004\044\u0161" +
+    "\001\002\000\004\007\u0162\001\002\000\006\002\uff5a\006" +
+    "\uff5a\001\002\000\006\002\uff5d\006\uff5d\001\002\000\004" +
+    "\025\u0166\001\002\000\006\002\uffde\006\uffde\001\002\000" +
+    "\004\041\u0167\001\002\000\004\007\u0168\001\002\000\006" +
+    "\002\uff5e\006\uff5e\001\002\000\006\003\u016a\006\u016c\001" +
+    "\002\000\006\002\uff62\006\uff62\001\002\000\006\002\uffe2" +
+    "\006\uffe2\001\002\000\006\025\u0176\037\u0177\001\002\000" +
+    "\006\003\uffe1\006\uffe1\001\002\000\166\003\uffd2\004\uffd2" +
+    "\005\uffd2\006\uffd2\007\uffd2\010\uffd2\011\uffd2\012\uffd2\013" +
+    "\uffd2\014\uffd2\015\uffd2\016\uffd2\017\uffd2\020\uffd2\022\uffd2" +
+    "\023\uffd2\024\uffd2\025\uffd2\026\uffd2\027\uffd2\030\uffd2\031" +
+    "\uffd2\032\uffd2\033\uffd2\034\uffd2\035\uffd2\036\uffd2\037\uffd2" +
+    "\040\uffd2\041\uffd2\042\uffd2\043\uffd2\044\uffd2\045\uffd2\046" +
+    "\uffd2\047\uffd2\050\uffd2\051\uffd2\052\uffd2\053\uffd2\054\uffd2" +
+    "\055\uffd2\056\uffd2\057\uffd2\060\uffd2\061\uffd2\062\uffd2\063" +
+    "\uffd2\064\uffd2\065\uffd2\066\uffd2\104\uffd2\107\uffd2\110\uffd2" +
+    "\111\uffd2\112\uffd2\113\uffd2\114\uffd2\001\002\000\166\003" +
+    "\u0171\004\u0105\005\364\006\u0172\007\u010b\010\353\011\343" +
+    "\012\u011f\013\u0118\014\363\015\357\016\u0104\017\u0100\020" +
+    "\354\022\u010a\023\u0119\024\u0113\025\362\026\374\027\355" +
+    "\030\u011a\031\345\032\372\033\367\034\365\035\u0103\036" +
+    "\u0117\037\u0111\040\344\041\366\042\351\043\375\044\u0101" +
+    "\045\373\046\u0115\047\376\050\u0109\051\346\052\u0110\053" +
+    "\u011d\054\370\055\377\056\u0108\057\u010c\060\361\061\371" +
+    "\062\u011b\063\352\064\u0107\065\u0114\066\356\104\u011c\107" +
+    "\u010f\110\u0116\111\u011e\112\360\113\u0112\114\347\001\002" +
+    "\000\006\003\uffd8\006\uffd8\001\002\000\006\003\uff60\006" +
+    "\uff60\001\002\000\014\025\u0173\042\054\111\u0126\112\u0125" +
+    "\114\u0123\001\002\000\004\037\u0174\001\002\000\004\007" +
+    "\u0175\001\002\000\006\003\uff61\006\uff61\001\002\000\004" +
+    "\036\u017a\001\002\000\006\003\uff82\007\uff82\001\002\000" +
+    "\006\003\217\007\221\001\002\000\166\003\uff81\004\uff81" +
+    "\005\uff81\006\uff81\007\uff81\010\uff81\011\uff81\012\uff81\013" +
+    "\uff81\014\uff81\015\uff81\016\uff81\017\uff81\020\uff81\022\uff81" +
+    "\023\uff81\024\uff81\025\uff81\026\uff81\027\uff81\030\uff81\031" +
+    "\uff81\032\uff81\033\uff81\034\uff81\035\uff81\036\uff81\037\uff81" +
+    "\040\uff81\041\uff81\042\uff81\043\uff81\044\uff81\045\uff81\046" +
+    "\uff81\047\uff81\050\uff81\051\uff81\052\uff81\053\uff81\054\uff81" +
+    "\055\uff81\056\uff81\057\uff81\060\uff81\061\uff81\062\uff81\063" +
+    "\uff81\064\uff81\065\uff81\066\uff81\104\uff81\107\uff81\110\uff81" +
+    "\111\uff81\112\uff81\113\uff81\114\uff81\001\002\000\004\007" +
+    "\u017b\001\002\000\006\002\uff63\006\uff63\001\002\000\004" +
+    "\002\001\001\002\000\006\002\ufff8\006\ufff8\001\002\000" +
+    "\166\003\u017f\004\u0105\005\364\006\u0180\007\u010b\010\353" +
+    "\011\343\012\u011f\013\u0118\014\363\015\357\016\u0104\017" +
+    "\u0100\020\354\022\u010a\023\u0119\024\u0113\025\362\026\374" +
+    "\027\355\030\u011a\031\345\032\372\033\367\034\365\035" +
+    "\u0103\036\u0117\037\u0111\040\344\041\366\042\351\043\375" +
+    "\044\u0101\045\373\046\u0115\047\376\050\u0109\051\346\052" +
+    "\u0110\053\u011d\054\370\055\377\056\u0108\057\u010c\060\361" +
+    "\061\371\062\u011b\063\352\064\u0107\065\u0114\066\356\104" +
+    "\u011c\107\u010f\110\u0116\111\u011e\112\360\113\u0112\114\347" +
+    "\001\002\000\006\002\uff68\006\uff68\001\002\000\014\025" +
+    "\u0182\042\054\111\u0126\112\u0125\114\u0123\001\002\000\006" +
+    "\002\uffdb\006\uffdb\001\002\000\004\033\u0183\001\002\000" +
+    "\004\007\u0184\001\002\000\006\002\uff69\006\uff69\001\002" +
+    "\000\166\003\u0186\004\u0105\005\364\006\u0187\007\u010b\010" +
+    "\353\011\343\012\u011f\013\u0118\014\363\015\357\016\u0104" +
+    "\017\u0100\020\354\022\u010a\023\u0119\024\u0113\025\362\026" +
+    "\374\027\355\030\u011a\031\345\032\372\033\367\034\365" +
+    "\035\u0103\036\u0117\037\u0111\040\344\041\366\042\351\043" +
+    "\375\044\u0101\045\373\046\u0115\047\376\050\u0109\051\346" +
+    "\052\u0110\053\u011d\054\370\055\377\056\u0108\057\u010c\060" +
+    "\361\061\371\062\u011b\063\352\064\u0107\065\u0114\066\356" +
+    "\104\u011c\107\u010f\110\u0116\111\u011e\112\360\113\u0112\114" +
+    "\347\001\002\000\006\002\uff64\006\uff64\001\002\000\014" +
+    "\025\u0189\042\054\111\u0126\112\u0125\114\u0123\001\002\000" +
+    "\006\002\uffd9\006\uffd9\001\002\000\004\035\u018a\001\002" +
+    "\000\004\007\u018b\001\002\000\006\002\uff65\006\uff65\001" +
+    "\002\000\004\006\u018d\001\002\000\030\025\u018f\033\057" +
+    "\034\056\035\053\036\050\040\046\041\052\042\054\043" +
+    "\055\044\060\045\047\001\002\000\006\002\ufffa\006\ufffa" +
+    "\001\002\000\004\040\u0190\001\002\000\004\007\u0191\001" +
+    "\002\000\006\002\uff5f\006\uff5f\001\002\000\166\003\u0194" +
+    "\004\u0105\005\364\006\u0195\007\u010b\010\353\011\343\012" +
+    "\u011f\013\u0118\014\363\015\357\016\u0104\017\u0100\020\354" +
+    "\022\u010a\023\u0119\024\u0113\025\362\026\374\027\355\030" +
+    "\u011a\031\345\032\372\033\367\034\365\035\u0103\036\u0117" +
+    "\037\u0111\040\344\041\366\042\351\043\375\044\u0101\045" +
+    "\373\046\u0115\047\376\050\u0109\051\346\052\u0110\053\u011d" +
+    "\054\370\055\377\056\u0108\057\u010c\060\361\061\371\062" +
+    "\u011b\063\352\064\u0107\065\u0114\066\356\104\u011c\107\u010f" +
+    "\110\u0116\111\u011e\112\360\113\u0112\114\347\001\002\000" +
+    "\006\002\uffda\006\uffda\001\002\000\006\002\uff66\006\uff66" +
+    "\001\002\000\014\025\u0196\042\054\111\u0126\112\u0125\114" +
+    "\u0123\001\002\000\004\034\u0197\001\002\000\004\007\u0198" +
+    "\001\002\000\006\002\uff67\006\uff67\001\002\000\010\003" +
+    "\uff8c\007\uff8c\010\uff8c\001\002\000\006\003\uff92\007\uff92" +
+    "\001\002\000\006\003\217\007\221\001\002\000\006\003" +
+    "\uff91\006\uff91\001\002\000\010\003\u019f\007\uff36\010\uff36" +
+    "\001\002\000\006\007\u01a4\010\u01a3\001\002\000\010\003" +
+    "\u019f\007\u01a2\010\uff36\001\002\000\004\006\uff8b\001\002" +
+    "\000\004\006\uff4f\001\002\000\004\006\uff4e\001\002\000" +
+    "\004\047\204\001\002\000\004\006\uff50\001\002\000\006" +
+    "\007\uff37\010\uff37\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -1354,25 +1355,25 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\u01a4\000\072\002\023\003\021\004\020\006\007\011" +
+    "\000\u01a3\000\072\002\023\003\021\004\020\006\007\011" +
     "\016\012\032\013\031\014\017\015\005\017\025\020\003" +
     "\021\030\022\022\023\006\024\035\034\014\036\034\041" +
     "\040\042\015\043\010\044\013\045\024\047\011\050\026" +
     "\051\012\052\037\053\027\054\036\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\025\u0192\001\001\000\004\033" +
-    "\u018c\001\001\000\002\001\001\000\004\025\u0185\001\001" +
-    "\000\002\001\001\000\004\025\u017e\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\066\004\u017d" +
+    "\000\002\001\001\000\004\025\u0191\001\001\000\004\033" +
+    "\u018b\001\001\000\002\001\001\000\004\025\u0184\001\001" +
+    "\000\002\001\001\000\004\025\u017d\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\066\004\u017c" +
     "\006\007\011\016\012\032\013\031\014\017\015\005\017" +
     "\025\020\003\021\030\022\022\023\006\024\035\034\014" +
     "\036\034\041\040\042\015\043\010\044\013\045\024\047" +
     "\011\050\026\051\012\052\037\053\027\054\036\001\001" +
-    "\000\002\001\001\000\002\001\001\000\004\030\u0169\001" +
-    "\001\000\002\001\001\000\004\071\u0165\001\001\000\004" +
-    "\025\u015c\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\004\031\u0130\001\001" +
-    "\000\002\001\001\000\004\025\u0129\001\001\000\004\025" +
+    "\000\002\001\001\000\002\001\001\000\004\030\u0168\001" +
+    "\001\000\002\001\001\000\004\071\u0164\001\001\000\004" +
+    "\025\u015b\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\031\u012f\001\001" +
+    "\000\002\001\001\000\004\025\u0128\001\001\000\004\025" +
     "\341\001\001\000\004\033\041\001\001\000\056\012\032" +
     "\013\031\014\017\015\005\017\025\020\003\021\030\022" +
     "\022\023\006\024\035\034\043\042\015\043\010\044\013" +
@@ -1474,59 +1475,58 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\012\021\347\026\u010d\051" +
-    "\012\074\u012a\001\001\000\002\001\001\000\002\001\001" +
+    "\001\001\000\012\021\347\026\u010d\051\012\074\u0129\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\016\007\u0137\010\u0131\032\u0134\037\u0133" +
-    "\040\u0138\057\u0136\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\025\u0155\001\001\000\002\001\001\000\002" +
+    "\016\007\u0136\010\u0130\032\u0133\037\u0132\040\u0137\057\u0135" +
     "\001\001\000\002\001\001\000\002\001\001\000\004\025" +
-    "\u0139\001\001\000\012\021\347\026\u010d\051\012\061\u013a" +
+    "\u0154\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\004\025\u0138\001\001\000" +
+    "\012\021\347\026\u010d\051\012\061\u0139\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\164\u0151\001\001\000\004\165" +
-    "\u0143\001\001\000\006\100\u0144\111\u0146\001\001\000\002" +
-    "\001\001\000\006\100\u014f\111\u0146\001\001\000\006\122" +
-    "\u0147\132\u0149\001\001\000\002\001\001\000\002\001\001" +
+    "\000\004\164\u0150\001\001\000\004\165\u0142\001\001\000" +
+    "\006\100\u0143\111\u0145\001\001\000\002\001\001\000\006" +
+    "\100\u014e\111\u0145\001\001\000\006\122\u0146\132\u0148\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\076\u0152\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\012" +
-    "\021\347\026\u010d\051\012\060\u0158\001\001\000\002\001" +
+    "\001\001\000\004\076\u0151\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\012\021\347\026\u010d" +
+    "\051\012\060\u0157\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\012\021\347\026" +
-    "\u010d\051\012\073\u015f\001\001\000\002\001\001\000\002" +
+    "\000\002\001\001\000\012\021\347\026\u010d\051\012\073" +
+    "\u015e\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\010\016\u016d\046\u016e\066\u016b\001\001" +
+    "\010\016\u016c\046\u016d\066\u016a\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\025\u016f\001\001\000\012\021\347" +
-    "\026\u010d\051\012\067\u0170\001\001\000\002\001\001\000" +
+    "\004\025\u016e\001\001\000\012\021\347\026\u010d\051\012" +
+    "\067\u016f\001\001\000\002\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\173" +
-    "\u0178\001\001\000\004\076\u0179\001\001\000\002\001\001" +
+    "\001\001\000\002\001\001\000\004\173\u0177\001\001\000" +
+    "\004\076\u0178\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\012\021\347\026\u010d\051\012\063\u0181" +
+    "\012\021\347\026\u010d\051\012\063\u0180\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\012\021\347\026\u010d\051\012\065\u0188\001\001\000" +
+    "\001\000\002\001\001\000\002\001\001\000\012\021\347" +
+    "\026\u010d\051\012\065\u0187\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\056\012" +
-    "\032\013\031\014\017\015\005\017\025\020\003\021\030" +
-    "\022\022\023\006\024\035\034\043\042\015\043\010\044" +
-    "\013\045\024\047\011\050\026\051\012\052\037\053\027" +
-    "\054\036\070\u018e\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\012\021\347\026\u010d\051\012\064\u0193\001\001\000" +
+    "\001\001\000\002\001\001\000\056\012\032\013\031\014" +
+    "\017\015\005\017\025\020\003\021\030\022\022\023\006" +
+    "\024\035\034\043\042\015\043\010\044\013\045\024\047" +
+    "\011\050\026\051\012\052\037\053\027\054\036\070\u018d" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\012\021\347" +
+    "\026\u010d\051\012\064\u0192\001\001\000\002\001\001\000" +
     "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\004\166" +
-    "\u019d\001\001\000\004\163\u019b\001\001\000\004\076\u019c" +
-    "\001\001\000\002\001\001\000\006\101\u01a0\112\u019e\001" +
-    "\001\000\006\126\u01a5\133\177\001\001\000\006\101\u01a1" +
-    "\112\u019e\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001" });
+    "\001\001\000\002\001\001\000\004\166\u019c\001\001\000" +
+    "\004\163\u019a\001\001\000\004\076\u019b\001\001\000\002" +
+    "\001\001\000\006\101\u019f\112\u019d\001\001\000\006\126" +
+    "\u01a4\133\177\001\001\000\006\101\u01a0\112\u019d\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -1574,6 +1574,8 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
 	int numeroEtiqueta = 0;
 	String etiqueta = "";
 	String bloqueHTML = "";
+
+	ArrayList<Etiqueta> listadoEtiquetas;
 	
 	@Override
 	public void syntax_error(Symbol a){
@@ -1657,7 +1659,31 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
 
 	}
 
-    public ParserInsert(LexerGCICInsert lex, ArrayList<TokenError> listadoErroresSintacticos, TablaSimbolos tablaSimbolos, TablaSimbolosEtiquetas tablaSimbolosEtiquetas, int filaInicial, int columnaInicial, String bloqueHTML, int numeroEtiqueta){
+	public ArrayList<ParametroEtiquetaInterno> agregarParametroEtiqueta(ArrayList<ParametroEtiquetaInterno> listadoParametros, ParametroEtiquetaInterno parametro){
+		if(listadoParametros == null){
+			listadoParametros = new ArrayList();//si es nulo lo inicializamos
+		}
+		//agregamos el parametro si existe
+		if(parametro != null){//hay un param
+			listadoParametros.add(parametro);
+		}
+
+		return listadoParametros;//retornamos el listado
+	}
+
+	public ArrayList<Etiqueta> agregarEtiquetaAuxiliar(ArrayList<Etiqueta> listadoEtiqueta, Etiqueta etiqueta){
+		if(listadoEtiqueta == null){
+			listadoEtiqueta = new ArrayList();//si es nulo lo inicializamos
+		}
+		//agregamos el parametro si existe
+		if(etiqueta != null){//hay un param
+			listadoEtiqueta.add(etiqueta);
+		}
+
+		return listadoEtiqueta;//retornamos el listado
+	}
+
+    public ParserInsert(LexerGCICInsert lex, ArrayList<TokenError> listadoErroresSintacticos, TablaSimbolos tablaSimbolos, TablaSimbolosEtiquetas tablaSimbolosEtiquetas, int filaInicial, int columnaInicial, String bloqueHTML, int numeroEtiqueta, ArrayList<Etiqueta> listadoEtiquetas){
         super(lex);
 		this.listadoErroresSintacticos = listadoErroresSintacticos;
 		this.tablaSimbolos = tablaSimbolos;
@@ -1666,6 +1692,7 @@ public class ParserInsert extends java_cup.runtime.lr_parser {
 		this.columnaInicial = columnaInicial;
 		this.bloqueHTML = bloqueHTML;//C_GCIC, C_BODY, C_HEAD
 		this.numeroEtiqueta = numeroEtiqueta;
+		this.listadoEtiquetas = listadoEtiquetas;
     }
 
 
@@ -1737,8 +1764,17 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // etiqueta_gcic ::= etiqueta_apertura_gcic bloque_elements_gcic etiqueta_cierre_gcic 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_gcic",3, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1746,8 +1782,17 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // etiqueta_head ::= etiqueta_apertura_head bloque_elements_head etiqueta_cierre_head 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;	 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_head",4, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1755,8 +1800,17 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // etiqueta_body ::= etiqueta_apertura_body bloque_elements_body etiqueta_cierre_body 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;	 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_body",7, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1764,8 +1818,17 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // etiqueta_div ::= etiqueta_apertura_div bloque_elements_body etiqueta_cierre_div 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;	 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_div",13, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1773,8 +1836,23 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // bloque_elements_gcic ::= etiqueta_head etiqueta_body 
             {
-              Object RESULT =null;
-
+              ArrayList<Etiqueta> RESULT =null;
+		int etiquetaAux1left = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int etiquetaAux1right = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		Etiqueta etiquetaAux1 = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int etiquetaAux2left = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAux2right = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux2 = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		
+			ArrayList<Etiqueta> listadoEtiquetaGCIC = new ArrayList();
+			if(etiquetaAux1 != null){
+				listadoEtiquetaGCIC.add(etiquetaAux1);
+			}
+			if(etiquetaAux2 != null){
+				listadoEtiquetaGCIC.add(etiquetaAux2);
+			}
+			RESULT = listadoEtiquetaGCIC;
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_elements_gcic",21, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1782,8 +1860,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // bloque_etiquetas ::= bloque_etiquetas etiquetas_gen 
             {
-              Object RESULT =null;
-
+              ArrayList<Etiqueta> RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_etiquetas",1, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1791,8 +1872,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // bloque_etiquetas ::= etiquetas_gen 
             {
-              Object RESULT =null;
-
+              ArrayList<Etiqueta> RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_etiquetas",1, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1800,8 +1884,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // etiquetas_gen ::= etiqueta_head 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiquetas_gen",2, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1809,8 +1896,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // etiquetas_gen ::= etiqueta_body 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiquetas_gen",2, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1818,8 +1908,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // etiquetas_gen ::= elements_body 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiquetas_gen",2, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1827,8 +1920,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // bloque_elements_head ::= bloque_elements_head elements_head 
             {
-              Object RESULT =null;
-
+              ArrayList<Etiqueta> RESULT =null;
+		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_elements_head",23, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1836,7 +1935,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // bloque_elements_head ::= 
             {
-              Object RESULT =null;
+              ArrayList<Etiqueta> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_elements_head",23, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -1845,8 +1944,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // elements_head ::= etiqueta_title 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_head",24, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1854,8 +1956,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // elements_head ::= etiqueta_link 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_head",24, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1863,7 +1968,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // elements_head ::= error 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
 		 System.out.println("Error etiqueta del head"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_head",24, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -1872,8 +1977,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // bloque_elements_body ::= bloque_elements_body elements_body 
             {
-              Object RESULT =null;
-
+              ArrayList<Etiqueta> RESULT =null;
+		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_elements_body",25, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1881,7 +1992,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // bloque_elements_body ::= 
             {
-              Object RESULT =null;
+              ArrayList<Etiqueta> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_elements_body",25, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -1890,8 +2001,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // elements_body ::= etiqueta_spam 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1899,8 +2013,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // elements_body ::= etiqueta_input 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1908,8 +2025,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // elements_body ::= etiqueta_textarea 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1917,8 +2037,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // elements_body ::= etiqueta_select 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1926,8 +2049,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // elements_body ::= etiqueta_div 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1935,8 +2061,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // elements_body ::= etiqueta_img 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1944,8 +2073,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // elements_body ::= etiqueta_br 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1953,8 +2085,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 28: // elements_body ::= etiqueta_button 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1962,8 +2097,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // elements_body ::= etiqueta_h1 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1971,8 +2109,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // elements_body ::= etiqueta_p 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("elements_body",26, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1980,8 +2121,18 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // etiqueta_select ::= etiqueta_apertura_select bloque_options etiqueta_cierre_select 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaSelectleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaSelectright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaSelect = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoOpcionesleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoOpcionesright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoOpciones = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		
+					  	//agregamos las etiquetas al select
+						  etiquetaSelect.setListadoEtiquetas(listadoOpciones);
+						  RESULT = etiquetaSelect;				  
+					  
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_select",11, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1989,8 +2140,16 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // bloque_options ::= bloque_options etiqueta_option 
             {
-              Object RESULT =null;
-
+              ArrayList<Etiqueta> RESULT =null;
+		int listadoOpcionesleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoOpcionesright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<Etiqueta> listadoOpciones = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int opcionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int opcionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta opcion = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		
+			RESULT = agregarEtiquetaAuxiliar(listadoOpciones, opcion);
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_options",22, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -1998,7 +2157,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // bloque_options ::= 
             {
-              Object RESULT =null;
+              ArrayList<Etiqueta> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_options",22, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -2007,8 +2166,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // etiqueta_br ::= etiqueta_apertura_br 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_br",15, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2016,8 +2178,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // etiqueta_img ::= etiqueta_apertura_img etiqueta_cierre_img 
             {
-              Object RESULT =null;
-
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_img",14, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2025,11 +2190,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 36: // etiqueta_title ::= etiqueta_apertura_title contenido_texto etiqueta_cierre_title 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_title",5, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2037,11 +2205,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // etiqueta_link ::= etiqueta_apertura_link contenido_texto etiqueta_cierre_link 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_link",6, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2049,11 +2220,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 38: // etiqueta_spam ::= etiqueta_apertura_spam contenido_texto etiqueta_cierre_spam 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_spam",8, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2061,11 +2235,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 39: // etiqueta_input ::= etiqueta_apertura_input contenido_texto etiqueta_cierre_input 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_input",9, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2073,11 +2250,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto etiqueta_cierre_textarea 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_textarea",10, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2085,11 +2265,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // etiqueta_option ::= etiqueta_apertura_option contenido_texto etiqueta_cierre_option 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_option",12, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2097,11 +2280,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 42: // etiqueta_button ::= etiqueta_apertura_button contenido_texto etiqueta_cierre_button 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_button",16, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2109,11 +2295,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 43: // etiqueta_h1 ::= etiqueta_apertura_h1 contenido_texto etiqueta_cierre_h1 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_h1",17, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2121,11 +2310,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 44: // etiqueta_p ::= etiqueta_apertura_p contenido_texto etiqueta_cierre_p 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
+		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		 System.out.println(" ---> TEXTO --->: "+a); 
+		 System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_p",18, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2683,14 +2875,14 @@ class CUP$ParserInsert$actions {
           return CUP$ParserInsert$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 89: // contenido_texto_unidad ::= COLOR C_H1 
+          case 89: // contenido_texto_unidad ::= COLOR 
             {
               String RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
 		 RESULT = a.getLexema(); 
-              CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("contenido_texto_unidad",20, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
+              CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("contenido_texto_unidad",20, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
 
@@ -2925,10 +3117,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 109: // NT$0 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_GCIC"    ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$0",112, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -2937,13 +3129,18 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 110: // etiqueta_apertura_gcic ::= MENOR C_GCIC NT$0 bloque_parametros_gcic 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$0
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_gcic",27, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2951,10 +3148,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 111: // NT$1 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_HEAD"    ; numeroEtiqueta++; bloqueHTML = "C_HEAD"; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$1",113, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -2963,13 +3160,16 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 112: // etiqueta_apertura_head ::= MENOR C_HEAD NT$1 etiqueta_cierre_general 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$1
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_GCIC", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+			
+			verificarPermisividadEtiqueta("C_GCIC", tipo); 
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_head",28, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -2977,10 +3177,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 113: // NT$2 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_TITLE"   ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$2",114, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -2989,13 +3189,16 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 114: // etiqueta_apertura_title ::= MENOR C_TITLE NT$2 etiqueta_cierre_general 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$2
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_HEAD", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+			
+			verificarPermisividadEtiqueta("C_HEAD", tipo); 
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_title",29, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3003,10 +3206,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 115: // NT$3 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_LINK"    ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$3",115, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3015,13 +3218,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 116: // etiqueta_apertura_link ::= MENOR C_LINK NT$3 bloque_parametros_link 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$3
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_HEAD", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_HEAD", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_link",30, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3029,10 +3238,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 117: // NT$4 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_BODY"    ; numeroEtiqueta++; bloqueHTML = "C_BODY"; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$4",116, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3041,13 +3250,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 118: // etiqueta_apertura_body ::= MENOR C_BODY NT$4 bloque_parametros_body 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$4
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_GCIC", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_GCIC", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_body",31, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3055,10 +3270,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 119: // NT$5 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_SPAM"    ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$5",117, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3067,13 +3282,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 120: // etiqueta_apertura_spam ::= MENOR C_SPAM NT$5 bloque_parametros_label 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$5
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_spam",32, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3081,10 +3302,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 121: // NT$6 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_INPUT"   ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$6",118, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3093,13 +3314,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 122: // etiqueta_apertura_input ::= MENOR C_INPUT NT$6 bloque_parametros_input 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$6
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_input",33, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3107,10 +3334,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 123: // NT$7 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_TEXTAREA"; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$7",119, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3119,13 +3346,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 124: // etiqueta_apertura_textarea ::= MENOR C_TEXTAREA NT$7 bloque_parametros_textarea 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$7
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_textarea",34, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3133,10 +3366,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 125: // NT$8 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_SELECT"  ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$8",120, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3145,13 +3378,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 126: // etiqueta_apertura_select ::= MENOR C_SELECT NT$8 bloque_parametros_label 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$8
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_select",35, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3159,10 +3398,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 127: // NT$9 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_OPTION"  ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$9",121, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3171,13 +3410,16 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 128: // etiqueta_apertura_option ::= MENOR C_OPTION NT$9 etiqueta_cierre_general 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$9
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_option",36, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3185,10 +3427,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 129: // NT$10 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_DIV"     ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$10",122, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3197,13 +3439,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 130: // etiqueta_apertura_div ::= MENOR C_DIV NT$10 bloque_parametros_div 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$10
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_div",37, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3211,10 +3459,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 131: // NT$11 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_IMG"     ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$11",123, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3223,13 +3471,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 132: // etiqueta_apertura_img ::= MENOR C_IMG NT$11 bloque_parametros_img 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$11
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_img",38, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3237,10 +3491,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 133: // NT$12 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_BR"      ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$12",124, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3249,13 +3503,16 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 134: // etiqueta_apertura_br ::= MENOR C_BR NT$12 etiqueta_cierre_general 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$12
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_br",39, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3263,10 +3520,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 135: // NT$13 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_BUTTON"  ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$13",125, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3275,13 +3532,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 136: // etiqueta_apertura_button ::= MENOR C_BUTTON NT$13 bloque_parametros_button 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$13
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_button",40, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3289,10 +3552,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 137: // NT$14 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_H1"      ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$14",126, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3301,13 +3564,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 138: // etiqueta_apertura_h1 ::= MENOR C_H1 NT$14 bloque_parametros_label 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$14
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_h1",41, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3315,10 +3584,10 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 139: // NT$15 ::= 
             {
-              Object RESULT =null;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+              Etiqueta RESULT =null;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
  etiqueta = "C_P"       ; numeroEtiqueta++; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("NT$15",127, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3327,13 +3596,19 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 140: // etiqueta_apertura_p ::= MENOR C_P NT$15 bloque_parametros_label 
             {
-              Object RESULT =null;
+              Etiqueta RESULT =null;
               // propagate RESULT from NT$15
-                RESULT = (Object) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
-		int aleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
-		int aright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
-		Token a = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
-		 verificarPermisividadEtiqueta("C_BODY", a); 
+                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int tipoleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).left;
+		int tiporight = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).right;
+		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-2)).value;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+			
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_p",42, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3611,8 +3886,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 171: // bloque_parametros_gcic ::= bloque_parametros_contenido_gcic MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_gcic",61, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3620,7 +3898,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 172: // bloque_parametros_gcic ::= error bloque_parametros_gcic 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros gcic"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_gcic",61, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3629,7 +3907,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 173: // bloque_parametros_gcic ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_gcic",61, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3638,8 +3916,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 174: // bloque_parametros_link ::= bloque_parametros_contenido_link MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_link",62, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3647,7 +3928,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 175: // bloque_parametros_link ::= error bloque_parametros_link 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros link"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_link",62, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3656,7 +3937,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 176: // bloque_parametros_link ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_link",62, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3665,8 +3946,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 177: // bloque_parametros_body ::= bloque_parametros_contenido_body MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_body",63, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3674,7 +3958,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 178: // bloque_parametros_body ::= error bloque_parametros_body 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros body"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_body",63, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3683,7 +3967,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 179: // bloque_parametros_body ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_body",63, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3692,8 +3976,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 180: // bloque_parametros_input ::= bloque_parametros_contenido_input MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_input",64, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3701,7 +3988,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 181: // bloque_parametros_input ::= error bloque_parametros_input 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros input"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_input",64, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3710,7 +3997,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 182: // bloque_parametros_input ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_input",64, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3719,8 +4006,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 183: // bloque_parametros_textarea ::= bloque_parametros_contenido_textarea MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_textarea",65, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3728,7 +4018,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 184: // bloque_parametros_textarea ::= error bloque_parametros_textarea 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros textarea"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_textarea",65, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3737,7 +4027,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 185: // bloque_parametros_textarea ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_textarea",65, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3746,8 +4036,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 186: // bloque_parametros_div ::= bloque_parametros_contenido_div MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_div",66, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3755,7 +4048,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 187: // bloque_parametros_div ::= error bloque_parametros_div 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros div"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_div",66, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3764,7 +4057,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 188: // bloque_parametros_div ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_div",66, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3773,8 +4066,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 189: // bloque_parametros_img ::= bloque_parametros_contenido_img MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_img",67, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3782,7 +4078,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 190: // bloque_parametros_img ::= error bloque_parametros_img 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros img"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_img",67, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3791,7 +4087,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 191: // bloque_parametros_img ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_img",67, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3800,8 +4096,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 192: // bloque_parametros_label ::= bloque_parametros_contenido_label MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_label",68, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3809,7 +4108,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 193: // bloque_parametros_label ::= error bloque_parametros_label 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros label"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_label",68, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3818,7 +4117,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 194: // bloque_parametros_label ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_label",68, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3827,8 +4126,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 195: // bloque_parametros_button ::= bloque_parametros_contenido_button MAYOR 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		 RESULT = listadoParametros; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_button",69, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3836,7 +4138,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 196: // bloque_parametros_button ::= error bloque_parametros_button 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 		 System.out.println("Error parametros button"); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_button",69, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3845,7 +4147,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 197: // bloque_parametros_button ::= error MAYOR 
             {
-              Object RESULT =null;
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_button",69, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -3854,8 +4156,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 198: // bloque_parametros_contenido_gcic ::= bloque_parametros_contenido_gcic parametros_gcic 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_gcic",70, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3863,8 +4171,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 199: // bloque_parametros_contenido_gcic ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_gcic",70, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3872,8 +4180,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 200: // bloque_parametros_contenido_link ::= bloque_parametros_contenido_link parametros_link 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_link",71, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3881,8 +4195,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 201: // bloque_parametros_contenido_link ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_link",71, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3890,8 +4204,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 202: // bloque_parametros_contenido_body ::= bloque_parametros_contenido_body parametros_background 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_body",72, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3899,8 +4219,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 203: // bloque_parametros_contenido_body ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_body",72, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3908,8 +4228,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 204: // bloque_parametros_contenido_input ::= bloque_parametros_contenido_input parametros_input 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_input",73, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3917,8 +4243,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 205: // bloque_parametros_contenido_input ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_input",73, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3926,8 +4252,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 206: // bloque_parametros_contenido_textarea ::= bloque_parametros_contenido_textarea parametros_textarea 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_textarea",74, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3935,8 +4267,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 207: // bloque_parametros_contenido_textarea ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_textarea",74, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3944,8 +4276,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 208: // bloque_parametros_contenido_div ::= bloque_parametros_contenido_div parametros_div 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_div",75, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3953,8 +4291,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 209: // bloque_parametros_contenido_div ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_div",75, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3962,8 +4300,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 210: // bloque_parametros_contenido_img ::= bloque_parametros_contenido_img parametros_img 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_img",76, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3971,8 +4315,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 211: // bloque_parametros_contenido_img ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_img",76, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3980,8 +4324,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 212: // bloque_parametros_contenido_label ::= bloque_parametros_contenido_label parametros_letras 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_label",77, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3989,8 +4339,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 213: // bloque_parametros_contenido_label ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_label",77, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -3998,8 +4348,14 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 214: // bloque_parametros_contenido_button ::= bloque_parametros_contenido_button parametros_button 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).left;
+		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).right;
+		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)).value;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = agregarParametroEtiqueta(listadoParametros, parametro); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_button",78, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-1)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4007,8 +4363,8 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 215: // bloque_parametros_contenido_button ::= 
             {
-              Object RESULT =null;
-
+              ArrayList<ParametroEtiquetaInterno> RESULT =null;
+		 RESULT = agregarParametroEtiqueta(null, null); 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("bloque_parametros_contenido_button",78, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4016,8 +4372,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 216: // parametros_gcic ::= parametro_unidad_id 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_gcic",79, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4025,8 +4384,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 217: // parametros_gcic ::= parametro_unidad_name 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_gcic",79, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4034,8 +4396,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 218: // parametros_link ::= parametro_unidad_href 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_link",80, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4043,8 +4408,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 219: // parametros_input ::= parametro_unidad_type 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_input",81, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4052,8 +4420,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 220: // parametros_input ::= parametros_letras 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_input",81, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4061,8 +4432,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 221: // parametros_textarea ::= parametro_unidad_cols 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_textarea",82, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4070,8 +4444,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 222: // parametros_textarea ::= parametro_unidad_rows 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_textarea",82, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4079,8 +4456,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 223: // parametros_textarea ::= parametros_letras 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_textarea",82, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4088,8 +4468,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 224: // parametros_div ::= parametro_unidad_class 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_div",83, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4097,8 +4480,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 225: // parametros_div ::= parametros_letras 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_div",83, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4106,8 +4492,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 226: // parametros_div ::= parametros_background 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_div",83, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4115,8 +4504,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 227: // parametros_img ::= parametro_unidad_src 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_img",87, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4124,8 +4516,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 228: // parametros_img ::= parametro_unidad_width 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_img",87, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4133,8 +4528,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 229: // parametros_img ::= parametro_unidad_height 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_img",87, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4142,8 +4540,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 230: // parametros_img ::= parametro_unidad_alt 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_img",87, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4151,8 +4552,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 231: // parametros_img ::= parametro_unidad_id 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_img",87, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4160,8 +4564,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 232: // parametros_letras ::= parametro_unidad_font_size 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_letras",86, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4169,8 +4576,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 233: // parametros_letras ::= parametro_unidad_font_family 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_letras",86, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4178,8 +4588,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 234: // parametros_letras ::= parametro_unidad_text_align 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_letras",86, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4187,8 +4600,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 235: // parametros_letras ::= parametro_unidad_id 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_letras",86, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4196,8 +4612,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 236: // parametros_letras ::= parametro_unidad_color 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_letras",86, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4205,8 +4624,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 237: // parametros_button ::= parametro_unidad_onclick 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_button",85, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4214,8 +4636,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 238: // parametros_button ::= parametros_letras 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_button",85, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4223,8 +4648,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 239: // parametros_button ::= parametros_background 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_button",85, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4232,8 +4660,11 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 240: // parametros_background ::= parametro_unidad_background 
             {
-              Object RESULT =null;
-
+              ParametroEtiquetaInterno RESULT =null;
+		int parametroleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).left;
+		int parametroright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()).right;
+		ParametroEtiquetaInterno parametro = (ParametroEtiquetaInterno)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.peek()).value;
+		 RESULT = parametro; 
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametros_background",84, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
           return CUP$ParserInsert$result;
@@ -4241,7 +4672,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 241: // parametro_unidad_href ::= CORCH_INI HREF IGUAL TEXT_VALUE CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4251,6 +4682,8 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "href", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						  		analizarParametroEtiqueta(posicion);
+								//direccionRedirect = valor.getLexema().replaceAll("“","\"").replaceAll("�?","\"").replaceAll("‘","\'").replaceAll("’","\'");
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 						 	
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_href",88, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4259,7 +4692,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 242: // parametro_unidad_background ::= CORCH_INI BACKGROUND IGUAL parametro_valor_color CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4269,6 +4702,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "background", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						   		analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 						    
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_background",89, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4277,7 +4711,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 243: // parametro_unidad_color ::= CORCH_INI COLOR IGUAL parametro_valor_color CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4287,6 +4721,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "color", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						   		analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 						    
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_color",90, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4295,7 +4730,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 244: // parametro_unidad_font_size ::= CORCH_INI FONT_SIZE IGUAL parametro_valor_size CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4305,6 +4740,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "font-size", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						    	analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_font_size",91, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4313,7 +4749,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 245: // parametro_unidad_font_family ::= CORCH_INI FONT_FAMILY IGUAL FONT_VALUE CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4323,6 +4759,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "font-family", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						    	analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_font_family",92, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4331,7 +4768,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 246: // parametro_unidad_text_align ::= CORCH_INI TEXT_ALIGN IGUAL ALIGN_VALUE CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4341,6 +4778,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "text-align", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						    	analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_text_align",93, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4349,7 +4787,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 247: // parametro_unidad_type ::= CORCH_INI TYPE IGUAL parametro_valor_type CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4359,6 +4797,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "type", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_type",94, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4367,7 +4806,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 248: // parametro_unidad_id ::= CORCH_INI ID IGUAL parametro_valor_id CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4377,6 +4816,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "id", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_id",95, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4385,7 +4825,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 249: // parametro_unidad_name ::= CORCH_INI NAME IGUAL parametro_valor_name CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4395,6 +4835,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "name", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_name",96, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4403,7 +4844,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 250: // parametro_unidad_cols ::= CORCH_INI COLS IGUAL DIGIT_VALUE CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4413,6 +4854,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "cols", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_cols",97, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4421,7 +4863,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 251: // parametro_unidad_rows ::= CORCH_INI ROWS IGUAL DIGIT_VALUE CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4431,6 +4873,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "rows", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_rows",98, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4439,7 +4882,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 252: // parametro_unidad_class ::= CORCH_INI CLASS IGUAL parametro_valor_class CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4449,6 +4892,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "class", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_class",99, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4457,7 +4901,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 253: // parametro_unidad_src ::= CORCH_INI SRC IGUAL TEXT_VALUE CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4467,6 +4911,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "src", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_src",100, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4475,7 +4920,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 254: // parametro_unidad_width ::= CORCH_INI WIDTH IGUAL parametro_valor_size CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4485,6 +4930,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "width", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_width",101, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4493,7 +4939,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 255: // parametro_unidad_height ::= CORCH_INI HEIGHT IGUAL parametro_valor_size CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4503,6 +4949,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "height", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_height",102, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4511,7 +4958,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 256: // parametro_unidad_alt ::= CORCH_INI ALT IGUAL parametro_valor_name CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4521,6 +4968,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "alt", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_alt",103, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }
@@ -4529,7 +4977,7 @@ class CUP$ParserInsert$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 257: // parametro_unidad_onclick ::= CORCH_INI ONCLICK IGUAL PROCESS_VAL CORCH_FIN 
             {
-              Object RESULT =null;
+              ParametroEtiquetaInterno RESULT =null;
 		int posicionleft = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).left;
 		int posicionright = ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).right;
 		Token posicion = (Token)((java_cup.runtime.Symbol) CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-3)).value;
@@ -4539,6 +4987,7 @@ class CUP$ParserInsert$actions {
 		
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "onclick", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							
               CUP$ParserInsert$result = parser.getSymbolFactory().newSymbol("parametro_unidad_onclick",104, ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.elementAt(CUP$ParserInsert$top-4)), ((java_cup.runtime.Symbol)CUP$ParserInsert$stack.peek()), RESULT);
             }

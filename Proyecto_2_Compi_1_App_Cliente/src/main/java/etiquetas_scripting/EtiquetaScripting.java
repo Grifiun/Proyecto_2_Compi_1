@@ -5,14 +5,14 @@
  */
 package etiquetas_scripting;
 
-import etiquetas.Etiqueta;
+import etiquetas.EtiquetaCL;
 import java.util.ArrayList;
 
 /**
  *
  * @author 50234
  */
-public class EtiquetaScripting extends Etiqueta{
+public class EtiquetaScripting extends EtiquetaCL{
     private int numeroScripting;
     private ArrayList<Proceso> listadoFunciones;
     

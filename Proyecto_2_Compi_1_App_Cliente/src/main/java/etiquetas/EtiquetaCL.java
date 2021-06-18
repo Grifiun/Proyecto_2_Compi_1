@@ -12,21 +12,21 @@ import java.util.Objects;
  *
  * @author 50234
  */
-public class Etiqueta {
+public class EtiquetaCL {
     private String tipo;//C_GCIC, C_H1, etc
     private String texto;// Texto, si tienen
     private ArrayList<ParametroEtiquetaInterno> listadoParametros;//listado de parametros, tipo nombre
-    private ArrayList<Etiqueta> listadoEtiquetas;// para contenedores, pueden tener más etiquetas dentro
+    private ArrayList<EtiquetaCL> listadoEtiquetas;// para contenedores, pueden tener más etiquetas dentro
     private CGCICAHTML conversor = new CGCICAHTML();
 
-    public Etiqueta(String tipo, String texto, ArrayList<ParametroEtiquetaInterno> listadoParametros, ArrayList<Etiqueta> listadoEtiquetas) {
+    public EtiquetaCL(String tipo, String texto, ArrayList<ParametroEtiquetaInterno> listadoParametros, ArrayList<EtiquetaCL> listadoEtiquetas) {
         this.tipo = tipo;
         this.texto = texto;
         this.listadoParametros = listadoParametros;
         this.listadoEtiquetas = listadoEtiquetas;
     }
     
-    public Etiqueta(String tipo, ArrayList<ParametroEtiquetaInterno> listadoParametros) {
+    public EtiquetaCL(String tipo, ArrayList<ParametroEtiquetaInterno> listadoParametros) {
         this.tipo = tipo;
         this.texto = "";
         this.listadoParametros = listadoParametros;
@@ -85,8 +85,12 @@ public class Etiqueta {
         
         //Etiquetas internos
         if(listadoEtiquetas != null){
-            for(Etiqueta paramEtiquetas: listadoEtiquetas){
-                etiquetasInternas += paramEtiquetas.generarCodigoHTML(nivel + 1);//Codigo html con un nivel diferente
+            for(EtiquetaCL paramEtiquetas: listadoEtiquetas){
+                try{
+                    etiquetasInternas += paramEtiquetas.generarCodigoHTML(nivel + 1);//Codigo html con un nivel diferente
+                }catch(Exception ex){
+                    System.out.println("Error etiqueta interna: " + ex.getMessage());
+                }
             }
         }
         
@@ -139,11 +143,11 @@ public class Etiqueta {
         this.listadoParametros = listadoParametros;
     }
 
-    public ArrayList<Etiqueta> getListadoEtiquetas() {
+    public ArrayList<EtiquetaCL> getListadoEtiquetas() {
         return listadoEtiquetas;
     }
 
-    public void setListadoEtiquetas(ArrayList<Etiqueta> listadoEtiquetas) {
+    public void setListadoEtiquetas(ArrayList<EtiquetaCL> listadoEtiquetas) {
         this.listadoEtiquetas = listadoEtiquetas;
     }
   

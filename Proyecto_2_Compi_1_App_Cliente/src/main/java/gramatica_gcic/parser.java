@@ -7443,7 +7443,7 @@ public class parser extends java_cup.runtime.lr_parser {
 	OperacionAritmetica operacionAritmetica = new OperacionAritmetica();
 	OperacionRelacional operacionRelacional = new OperacionRelacional();
 	OperacionLogica     operacionLogica     = new OperacionLogica    ();
-	Etiqueta etiquetaGCIC = null;
+	EtiquetaCL etiquetaGCIC = null;
 	String procedimiento = "";
 	String etiqueta = "";
 	String bloqueHTML = "C_GCIC";
@@ -7510,7 +7510,7 @@ public class parser extends java_cup.runtime.lr_parser {
 		return tablaSimbolos.getListadoErroresSemanticos();
 	}
 
-	public Etiqueta getEtiquetaGCIC(){
+	public EtiquetaCL getEtiquetaGCIC(){
 		return etiquetaGCIC;
 	}
 
@@ -7569,7 +7569,7 @@ public class parser extends java_cup.runtime.lr_parser {
 		return listadoParametros;//retornamos el listado
 	}
 
-	public ArrayList<Etiqueta> agregarEtiquetaAuxiliar(ArrayList<Etiqueta> listadoEtiqueta, Etiqueta etiqueta){
+	public ArrayList<EtiquetaCL> agregarEtiquetaAuxiliar(ArrayList<EtiquetaCL> listadoEtiqueta, EtiquetaCL etiqueta){
 		if(listadoEtiqueta == null){
 			listadoEtiqueta = new ArrayList();//si es nulo lo inicializamos
 		}
@@ -7657,7 +7657,7 @@ class CUP$parser$actions {
               Object RESULT =null;
 		int etiquetaPrincipalleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaPrincipalright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaPrincipal = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaPrincipal = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 
 			System.out.println("Se registro una etiqueta GCIC"); 
 			etiquetaGCIC = etiquetaPrincipal; 
@@ -7687,13 +7687,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 4: // etiqueta_gcic ::= etiqueta_apertura_gcic bloque_elements_gcic etiqueta_cierre_gcic 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoEtiquetas = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 
 			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
 			RESULT = etiquetaAux;
@@ -7705,13 +7705,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 5: // etiqueta_head ::= etiqueta_apertura_head bloque_elements_head etiqueta_cierre_head 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoEtiquetas = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 
 			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
 			RESULT = etiquetaAux;	 
@@ -7723,7 +7723,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 6: // etiqueta_head ::= error 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_head",2, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7732,13 +7732,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 7: // etiqueta_body ::= etiqueta_apertura_body bloque_elements_body etiqueta_cierre_body 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoEtiquetas = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 
 			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
 			RESULT = etiquetaAux;	 
@@ -7750,7 +7750,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 8: // etiqueta_body ::= error 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_body",5, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7759,13 +7759,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 9: // etiqueta_div ::= etiqueta_apertura_div bloque_elements_body etiqueta_cierre_div 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoEtiquetas = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 
 			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
 			RESULT = etiquetaAux;	 
@@ -7777,7 +7777,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 10: // etiqueta_div ::= error 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_div",11, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7786,15 +7786,15 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 11: // bloque_elements_gcic ::= etiqueta_head etiqueta_body 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 		int etiquetaAux1left = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int etiquetaAux1right = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		Etiqueta etiquetaAux1 = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		EtiquetaCL etiquetaAux1 = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int etiquetaAux2left = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAux2right = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux2 = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux2 = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
-			ArrayList<Etiqueta> listadoEtiquetaGCIC = new ArrayList();
+			ArrayList<EtiquetaCL> listadoEtiquetaGCIC = new ArrayList();
 			if(etiquetaAux1 != null){
 				listadoEtiquetaGCIC.add(etiquetaAux1);
 			}
@@ -7810,13 +7810,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 12: // bloque_elements_head ::= bloque_elements_head elements_head 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoEtiquetas = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("bloque_elements_head",22, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7825,7 +7825,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 13: // bloque_elements_head ::= 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("bloque_elements_head",22, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7834,10 +7834,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 14: // elements_head ::= etiqueta_title 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_head",23, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7846,10 +7846,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 15: // elements_head ::= etiqueta_link 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_head",23, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7858,10 +7858,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 16: // elements_head ::= etiqueta_scripting 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_head",23, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7870,7 +7870,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 17: // elements_head ::= error 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		 System.out.println("Error etiqueta del head"); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_head",23, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7879,13 +7879,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 18: // bloque_elements_body ::= bloque_elements_body elements_body 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 		int listadoEtiquetasleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoEtiquetasright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoEtiquetas = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoEtiquetas = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("bloque_elements_body",24, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7894,7 +7894,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 19: // bloque_elements_body ::= 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("bloque_elements_body",24, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7903,10 +7903,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 20: // elements_body ::= etiqueta_spam 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7915,10 +7915,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 21: // elements_body ::= etiqueta_input 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7927,10 +7927,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 22: // elements_body ::= etiqueta_textarea 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7939,10 +7939,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 23: // elements_body ::= etiqueta_select 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7951,10 +7951,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 24: // elements_body ::= etiqueta_div 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7963,10 +7963,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 25: // elements_body ::= etiqueta_img 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7975,10 +7975,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 26: // elements_body ::= etiqueta_br 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7987,10 +7987,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 27: // elements_body ::= etiqueta_button 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -7999,10 +7999,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 28: // elements_body ::= etiqueta_h1 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -8011,10 +8011,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 29: // elements_body ::= etiqueta_p 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -8023,10 +8023,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 30: // elements_body ::= etiqueta_scripting 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("elements_body",25, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -8035,13 +8035,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 31: // etiqueta_select ::= etiqueta_apertura_select bloque_options etiqueta_cierre_select 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaSelectleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaSelectright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaSelect = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaSelect = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoOpcionesleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoOpcionesright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoOpciones = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoOpciones = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		
 					  	//agregamos las etiquetas al select
 						  etiquetaSelect.setListadoEtiquetas(listadoOpciones);
@@ -8054,13 +8054,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 32: // bloque_options ::= bloque_options etiqueta_option 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 		int listadoOpcionesleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int listadoOpcionesright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		ArrayList<Etiqueta> listadoOpciones = (ArrayList<Etiqueta>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		ArrayList<EtiquetaCL> listadoOpciones = (ArrayList<EtiquetaCL>)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int opcionleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int opcionright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta opcion = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL opcion = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		
 			RESULT = agregarEtiquetaAuxiliar(listadoOpciones, opcion);
 		
@@ -8071,7 +8071,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 33: // bloque_options ::= 
             {
-              ArrayList<Etiqueta> RESULT =null;
+              ArrayList<EtiquetaCL> RESULT =null;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("bloque_options",21, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -8080,10 +8080,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 34: // etiqueta_br ::= etiqueta_apertura_br 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_br",13, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -8092,10 +8092,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 35: // etiqueta_img ::= etiqueta_apertura_img etiqueta_cierre_img 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		 RESULT = etiquetaAux; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_img",12, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -8104,10 +8104,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 36: // etiqueta_title ::= etiqueta_apertura_title contenido_texto etiqueta_cierre_title 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8119,10 +8119,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 37: // etiqueta_link ::= etiqueta_apertura_link contenido_texto etiqueta_cierre_link 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8134,10 +8134,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 38: // etiqueta_spam ::= etiqueta_apertura_spam contenido_texto etiqueta_cierre_spam 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8149,10 +8149,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 39: // etiqueta_input ::= etiqueta_apertura_input contenido_texto etiqueta_cierre_input 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8164,10 +8164,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 40: // etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto etiqueta_cierre_textarea 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8179,10 +8179,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 41: // etiqueta_option ::= etiqueta_apertura_option contenido_texto etiqueta_cierre_option 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8194,10 +8194,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 42: // etiqueta_button ::= etiqueta_apertura_button contenido_texto etiqueta_cierre_button 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8209,10 +8209,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 43: // etiqueta_h1 ::= etiqueta_apertura_h1 contenido_texto etiqueta_cierre_h1 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -8224,10 +8224,10 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 44: // etiqueta_p ::= etiqueta_apertura_p contenido_texto etiqueta_cierre_p 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int etiquetaAuxleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int etiquetaAuxright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
-		Etiqueta etiquetaAux = (Etiqueta)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+		EtiquetaCL etiquetaAux = (EtiquetaCL)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int aleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int aright = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		String a = (String)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
@@ -9313,7 +9313,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 132: // NT$0 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
  scripting += 1; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$0",155, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -9322,9 +9322,9 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 133: // etiqueta_scripting ::= etiqueta_apertura_sripting NT$0 bloque_funciones etiqueta_cierre_sripting 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$0
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_scripting",17, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -9333,7 +9333,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 134: // NT$1 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9345,16 +9345,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 135: // etiqueta_apertura_gcic ::= MENOR C_GCIC NT$1 bloque_parametros_gcic 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$1
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_gcic",26, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9362,7 +9362,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 136: // NT$2 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9374,13 +9374,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 137: // etiqueta_apertura_head ::= MENOR C_HEAD NT$2 etiqueta_cierre_general 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$2
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), null); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_head",27, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9388,7 +9388,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 138: // NT$3 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9400,13 +9400,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 139: // etiqueta_apertura_title ::= MENOR C_TITLE NT$3 etiqueta_cierre_general 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$3
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), null); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_title",28, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9414,7 +9414,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 140: // NT$4 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9426,16 +9426,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 141: // etiqueta_apertura_link ::= MENOR C_LINK NT$4 bloque_parametros_link 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$4
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_link",29, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9443,7 +9443,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 142: // NT$5 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9455,16 +9455,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 143: // etiqueta_apertura_body ::= MENOR C_BODY NT$5 bloque_parametros_body 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$5
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_body",30, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9472,7 +9472,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 144: // NT$6 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9484,16 +9484,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 145: // etiqueta_apertura_spam ::= MENOR C_SPAM NT$6 bloque_parametros_label 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$6
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_spam",31, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9501,7 +9501,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 146: // NT$7 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9513,16 +9513,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 147: // etiqueta_apertura_input ::= MENOR C_INPUT NT$7 bloque_parametros_input 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$7
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_input",32, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9530,7 +9530,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 148: // NT$8 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9542,16 +9542,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 149: // etiqueta_apertura_textarea ::= MENOR C_TEXTAREA NT$8 bloque_parametros_textarea 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$8
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_textarea",33, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9559,7 +9559,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 150: // NT$9 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9571,16 +9571,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 151: // etiqueta_apertura_select ::= MENOR C_SELECT NT$9 bloque_parametros_label 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$9
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_select",34, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9588,7 +9588,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 152: // NT$10 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9600,13 +9600,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 153: // etiqueta_apertura_option ::= MENOR C_OPTION NT$10 etiqueta_cierre_general 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$10
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), null); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_option",35, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9614,7 +9614,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 154: // NT$11 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9626,16 +9626,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 155: // etiqueta_apertura_div ::= MENOR C_DIV NT$11 bloque_parametros_div 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$11
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_div",36, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9643,7 +9643,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 156: // NT$12 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9655,16 +9655,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 157: // etiqueta_apertura_img ::= MENOR C_IMG NT$12 bloque_parametros_img 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$12
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_img",37, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9672,7 +9672,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 158: // NT$13 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9684,13 +9684,13 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 159: // etiqueta_apertura_br ::= MENOR C_BR NT$13 etiqueta_cierre_general 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$13
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), null); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_br",38, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9698,7 +9698,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 160: // NT$14 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9710,16 +9710,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 161: // etiqueta_apertura_button ::= MENOR C_BUTTON NT$14 bloque_parametros_button 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$14
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_button",39, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9727,7 +9727,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 162: // NT$15 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9739,16 +9739,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 163: // etiqueta_apertura_h1 ::= MENOR C_H1 NT$15 bloque_parametros_label 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$15
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_h1",40, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9756,7 +9756,7 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 164: // NT$16 ::= 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
@@ -9768,16 +9768,16 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 165: // etiqueta_apertura_p ::= MENOR C_P NT$16 bloque_parametros_label 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
               // propagate RESULT from NT$16
-                RESULT = (Etiqueta) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
+                RESULT = (EtiquetaCL) ((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-2)).value;
 		int listadoParametrosleft = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).left;
 		int listadoParametrosright = ((java_cup.runtime.Symbol)CUP$parser$stack.peek()).right;
 		ArrayList<ParametroEtiquetaInterno> listadoParametros = (ArrayList<ParametroEtiquetaInterno>)((java_cup.runtime.Symbol) CUP$parser$stack.peek()).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), listadoParametros); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_p",41, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -9785,11 +9785,11 @@ class CUP$parser$actions {
           /*. . . . . . . . . . . . . . . . . . . .*/
           case 166: // etiqueta_apertura_sripting ::= MENOR C_SCRIPTING etiqueta_cierre_general 
             {
-              Etiqueta RESULT =null;
+              EtiquetaCL RESULT =null;
 		int tipoleft = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).left;
 		int tiporight = ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-1)).right;
 		Token tipo = (Token)((java_cup.runtime.Symbol) CUP$parser$stack.elementAt(CUP$parser$top-1)).value;
-			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+			RESULT = new EtiquetaCL(tipo.getTipoToken(), null); 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("etiqueta_apertura_sripting",42, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

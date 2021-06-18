@@ -9,6 +9,7 @@ import clasesDAO.TokenError;
 import java.util.ArrayList;
 import java.util.List;
 import tabla_simbolos.*;
+import etiquetas.*;
 import tabla_simbolos_etiquetas.*;
 
 class ParserInsert;
@@ -22,6 +23,8 @@ parser code{:
 	int numeroEtiqueta = 0;
 	String etiqueta = "";
 	String bloqueHTML = "";
+
+	ArrayList<Etiqueta> listadoEtiquetas;
 	
 	@Override
 	public void syntax_error(Symbol a){
@@ -105,7 +108,31 @@ parser code{:
 
 	}
 
-    public ParserInsert(LexerGCICInsert lex, ArrayList<TokenError> listadoErroresSintacticos, TablaSimbolos tablaSimbolos, TablaSimbolosEtiquetas tablaSimbolosEtiquetas, int filaInicial, int columnaInicial, String bloqueHTML, int numeroEtiqueta){
+	public ArrayList<ParametroEtiquetaInterno> agregarParametroEtiqueta(ArrayList<ParametroEtiquetaInterno> listadoParametros, ParametroEtiquetaInterno parametro){
+		if(listadoParametros == null){
+			listadoParametros = new ArrayList();//si es nulo lo inicializamos
+		}
+		//agregamos el parametro si existe
+		if(parametro != null){//hay un param
+			listadoParametros.add(parametro);
+		}
+
+		return listadoParametros;//retornamos el listado
+	}
+
+	public ArrayList<Etiqueta> agregarEtiquetaAuxiliar(ArrayList<Etiqueta> listadoEtiqueta, Etiqueta etiqueta){
+		if(listadoEtiqueta == null){
+			listadoEtiqueta = new ArrayList();//si es nulo lo inicializamos
+		}
+		//agregamos el parametro si existe
+		if(etiqueta != null){//hay un param
+			listadoEtiqueta.add(etiqueta);
+		}
+
+		return listadoEtiqueta;//retornamos el listado
+	}
+
+    public ParserInsert(LexerGCICInsert lex, ArrayList<TokenError> listadoErroresSintacticos, TablaSimbolos tablaSimbolos, TablaSimbolosEtiquetas tablaSimbolosEtiquetas, int filaInicial, int columnaInicial, String bloqueHTML, int numeroEtiqueta, ArrayList<Etiqueta> listadoEtiquetas){
         super(lex);
 		this.listadoErroresSintacticos = listadoErroresSintacticos;
 		this.tablaSimbolos = tablaSimbolos;
@@ -114,6 +141,7 @@ parser code{:
 		this.columnaInicial = columnaInicial;
 		this.bloqueHTML = bloqueHTML;//C_GCIC, C_BODY, C_HEAD
 		this.numeroEtiqueta = numeroEtiqueta;
+		this.listadoEtiquetas = listadoEtiquetas;
     }
 :}
 
@@ -232,51 +260,51 @@ non terminal s;
 
 //////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
 /////////////////////////CONTENIDO
-non terminal bloque_etiquetas;
-non terminal etiquetas_gen;
-non terminal etiqueta_gcic;
-non terminal etiqueta_head;
-non terminal etiqueta_title;
-non terminal etiqueta_link;
-non terminal etiqueta_body;
-non terminal etiqueta_spam;
-non terminal etiqueta_input;
-non terminal etiqueta_textarea;
-non terminal etiqueta_select;
-non terminal etiqueta_option;
-non terminal etiqueta_div;
-non terminal etiqueta_img;
-non terminal etiqueta_br;
-non terminal etiqueta_button;
-non terminal etiqueta_h1;
-non terminal etiqueta_p;
+non terminal ArrayList<Etiqueta> bloque_etiquetas;
+non terminal Etiqueta etiquetas_gen;
+non terminal Etiqueta etiqueta_gcic;
+non terminal Etiqueta etiqueta_head;
+non terminal Etiqueta etiqueta_title;
+non terminal Etiqueta etiqueta_link;
+non terminal Etiqueta etiqueta_body;
+non terminal Etiqueta etiqueta_spam;
+non terminal Etiqueta etiqueta_input;
+non terminal Etiqueta etiqueta_textarea;
+non terminal Etiqueta etiqueta_select;
+non terminal Etiqueta etiqueta_option;
+non terminal Etiqueta etiqueta_div;
+non terminal Etiqueta etiqueta_img;
+non terminal Etiqueta etiqueta_br;
+non terminal Etiqueta etiqueta_button;
+non terminal Etiqueta etiqueta_h1;
+non terminal Etiqueta etiqueta_p;
 
 non terminal String contenido_texto;
 non terminal String contenido_texto_unidad;
-non terminal bloque_elements_gcic;
-non terminal bloque_options;
-non terminal bloque_elements_head;
-non terminal elements_head;
-non terminal bloque_elements_body;
-non terminal elements_body;
+non terminal ArrayList<Etiqueta> bloque_elements_gcic;
+non terminal ArrayList<Etiqueta> bloque_options;
+non terminal ArrayList<Etiqueta> bloque_elements_head;
+non terminal Etiqueta elements_head;
+non terminal ArrayList<Etiqueta> bloque_elements_body;
+non terminal Etiqueta elements_body;
 /////////////////////////APERTURA
-non terminal etiqueta_apertura_gcic;
-non terminal etiqueta_apertura_head;
-non terminal etiqueta_apertura_title;
-non terminal etiqueta_apertura_link;
-non terminal etiqueta_apertura_body;
-non terminal etiqueta_apertura_spam;
-non terminal etiqueta_apertura_input;
-non terminal etiqueta_apertura_textarea;
-non terminal etiqueta_apertura_select;
-non terminal etiqueta_apertura_option;
-non terminal etiqueta_apertura_div;
-non terminal etiqueta_apertura_img;
-non terminal etiqueta_apertura_br;
-non terminal etiqueta_apertura_button;
-non terminal etiqueta_apertura_h1;
-non terminal etiqueta_apertura_p;
-non terminal etiqueta_apertura_sripting;
+non terminal Etiqueta etiqueta_apertura_gcic;
+non terminal Etiqueta etiqueta_apertura_head;
+non terminal Etiqueta etiqueta_apertura_title;
+non terminal Etiqueta etiqueta_apertura_link;
+non terminal Etiqueta etiqueta_apertura_body;
+non terminal Etiqueta etiqueta_apertura_spam;
+non terminal Etiqueta etiqueta_apertura_input;
+non terminal Etiqueta etiqueta_apertura_textarea;
+non terminal Etiqueta etiqueta_apertura_select;
+non terminal Etiqueta etiqueta_apertura_option;
+non terminal Etiqueta etiqueta_apertura_div;
+non terminal Etiqueta etiqueta_apertura_img;
+non terminal Etiqueta etiqueta_apertura_br;
+non terminal Etiqueta etiqueta_apertura_button;
+non terminal Etiqueta etiqueta_apertura_h1;
+non terminal Etiqueta etiqueta_apertura_p;
+non terminal Etiqueta etiqueta_apertura_sripting;
 /////////////////////////CIERRE
 non terminal etiqueta_cierre_gcic;
 non terminal etiqueta_cierre_head;
@@ -297,54 +325,54 @@ non terminal etiqueta_cierre_sripting;
 
 non terminal etiqueta_cierre_general;
 //////////////////////////////////////////////////BLOQUE PARAMETROS
-non terminal bloque_parametros_gcic;
-non terminal bloque_parametros_link;
-non terminal bloque_parametros_body;
-non terminal bloque_parametros_input;
-non terminal bloque_parametros_textarea;
-non terminal bloque_parametros_div;
-non terminal bloque_parametros_img;
-non terminal bloque_parametros_label;
-non terminal bloque_parametros_button;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_gcic;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_link;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_body;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_input;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_textarea;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_div;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_img;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_label;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_button;
 
-non terminal bloque_parametros_contenido_gcic;
-non terminal bloque_parametros_contenido_link;
-non terminal bloque_parametros_contenido_body;
-non terminal bloque_parametros_contenido_input;
-non terminal bloque_parametros_contenido_textarea;
-non terminal bloque_parametros_contenido_div;
-non terminal bloque_parametros_contenido_img;
-non terminal bloque_parametros_contenido_label;
-non terminal bloque_parametros_contenido_button;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_gcic;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_link;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_body;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_input;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_textarea;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_div;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_img;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_label;
+non terminal ArrayList<ParametroEtiquetaInterno> bloque_parametros_contenido_button;
 //////////////////////////////////////////////////PARAMETROS 
-non terminal parametros_gcic;
-non terminal parametros_link;
-non terminal parametros_input;
-non terminal parametros_textarea;
-non terminal parametros_div;
-non terminal parametros_background;
-non terminal parametros_button;
-non terminal parametros_letras; 
-non terminal parametros_img;
+non terminal ParametroEtiquetaInterno parametros_gcic;
+non terminal ParametroEtiquetaInterno parametros_link;
+non terminal ParametroEtiquetaInterno parametros_input;
+non terminal ParametroEtiquetaInterno parametros_textarea;
+non terminal ParametroEtiquetaInterno parametros_div;
+non terminal ParametroEtiquetaInterno parametros_background;
+non terminal ParametroEtiquetaInterno parametros_button;
+non terminal ParametroEtiquetaInterno parametros_letras; 
+non terminal ParametroEtiquetaInterno parametros_img;
 
 //////////////////////////////////////////////////PARAMETRO UNIDAD
-non terminal parametro_unidad_href;
-non terminal parametro_unidad_background;
-non terminal parametro_unidad_color;
-non terminal parametro_unidad_font_size;
-non terminal parametro_unidad_font_family;
-non terminal parametro_unidad_text_align;
-non terminal parametro_unidad_type;
-non terminal parametro_unidad_id;
-non terminal parametro_unidad_name;
-non terminal parametro_unidad_cols;
-non terminal parametro_unidad_rows;
-non terminal parametro_unidad_class;
-non terminal parametro_unidad_src;
-non terminal parametro_unidad_width;
-non terminal parametro_unidad_height;
-non terminal parametro_unidad_alt;
-non terminal parametro_unidad_onclick;
+non terminal ParametroEtiquetaInterno parametro_unidad_href;
+non terminal ParametroEtiquetaInterno parametro_unidad_background;
+non terminal ParametroEtiquetaInterno parametro_unidad_color;
+non terminal ParametroEtiquetaInterno parametro_unidad_font_size;
+non terminal ParametroEtiquetaInterno parametro_unidad_font_family;
+non terminal ParametroEtiquetaInterno parametro_unidad_text_align;
+non terminal ParametroEtiquetaInterno parametro_unidad_type;
+non terminal ParametroEtiquetaInterno parametro_unidad_id;
+non terminal ParametroEtiquetaInterno parametro_unidad_name;
+non terminal ParametroEtiquetaInterno parametro_unidad_cols;
+non terminal ParametroEtiquetaInterno parametro_unidad_rows;
+non terminal ParametroEtiquetaInterno parametro_unidad_class;
+non terminal ParametroEtiquetaInterno parametro_unidad_src;
+non terminal ParametroEtiquetaInterno parametro_unidad_width;
+non terminal ParametroEtiquetaInterno parametro_unidad_height;
+non terminal ParametroEtiquetaInterno parametro_unidad_alt;
+non terminal ParametroEtiquetaInterno parametro_unidad_onclick;
 
 //non terminal parametro_unidad_option;
 //////////////////////////////////////////////////VALORES
@@ -373,75 +401,125 @@ s ::= //etiqueta_gcic {: System.out.println("Se registro una etiqueta GCIC"); :}
 
 //////////////////////////////////////////////////PRODUCCIONES ETIQUETAS
 /////////////////////////CONTENIDO
-etiqueta_gcic     ::= etiqueta_apertura_gcic bloque_elements_gcic etiqueta_cierre_gcic ;//| error;
-etiqueta_head     ::= etiqueta_apertura_head bloque_elements_head etiqueta_cierre_head ;//| error;
-etiqueta_body     ::= etiqueta_apertura_body bloque_elements_body etiqueta_cierre_body ;//| error;
-etiqueta_div      ::= etiqueta_apertura_div  bloque_elements_body etiqueta_cierre_div  ;//| error;
+etiqueta_gcic ::= etiqueta_apertura_gcic:etiquetaAux bloque_elements_gcic:listadoEtiquetas etiqueta_cierre_gcic
+		{: 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;
+		:};
+	//| error;
+etiqueta_head     ::= etiqueta_apertura_head:etiquetaAux bloque_elements_head:listadoEtiquetas etiqueta_cierre_head 
+		{: 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;	 
+		:};
+	//| error;
+etiqueta_body     ::= etiqueta_apertura_body:etiquetaAux bloque_elements_body:listadoEtiquetas etiqueta_cierre_body
+		{: 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;	 
+		:};
+	//| error;
+etiqueta_div      ::= etiqueta_apertura_div:etiquetaAux  bloque_elements_body:listadoEtiquetas etiqueta_cierre_div
+		{: 
+			etiquetaAux.setListadoEtiquetas(listadoEtiquetas);
+			RESULT = etiquetaAux;	 
+		:};
+	//| error;
 
-bloque_elements_gcic ::= etiqueta_head etiqueta_body; //Head y el Body, obligatorio la declaracion de estos 2 terminos
+bloque_elements_gcic ::= etiqueta_head:etiquetaAux1 etiqueta_body:etiquetaAux2
+		{:
+			ArrayList<Etiqueta> listadoEtiquetaGCIC = new ArrayList();
+			if(etiquetaAux1 != null){
+				listadoEtiquetaGCIC.add(etiquetaAux1);
+			}
+			if(etiquetaAux2 != null){
+				listadoEtiquetaGCIC.add(etiquetaAux2);
+			}
+			RESULT = listadoEtiquetaGCIC;
+		:}
+	; //Head y el Body, obligatorio la declaracion de estos 2 terminos
 
-bloque_etiquetas ::= bloque_etiquetas etiquetas_gen
-	| etiquetas_gen
+bloque_etiquetas ::= 
+	  bloque_etiquetas etiquetas_gen:etiquetaAux
+	  	{: RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); :} 
+	| etiquetas_gen:etiquetaAux 
+		{: RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); :} 
 	//| error
 	;
-etiquetas_gen ::= etiqueta_head //solo se permite en el C_GCIC
-	| etiqueta_body //{: verificarPermisividadEtiqueta("C_GCIC"); :} //Solo se permite en el C_GCIC
-	| elements_body //Solo se permiten en el Body
+etiquetas_gen ::= 
+	  etiqueta_head:etiquetaAux {: RESULT = etiquetaAux; :}//solo se permite en el C_GCIC
+	| etiqueta_body:etiquetaAux {: RESULT = etiquetaAux; :}//{: verificarPermisividadEtiqueta("C_GCIC"); :} //Solo se permite en el C_GCIC
+	| elements_body:etiquetaAux {: RESULT = etiquetaAux; :}//Solo se permiten en el Body
 	;
 
-bloque_elements_head ::= bloque_elements_head elements_head
+bloque_elements_head ::= bloque_elements_head:listadoEtiquetas elements_head:etiquetaAux
+		{: RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); :}
 	| /* empty */
 	;
 
 elements_head ::= 
-	  etiqueta_title
-	| etiqueta_link
+	  etiqueta_title:etiquetaAux     {: RESULT = etiquetaAux; :}
+	| etiqueta_link:etiquetaAux      {: RESULT = etiquetaAux; :}
 	| error {: System.out.println("Error etiqueta del head"); :}
 	;
 
-bloque_elements_body ::= bloque_elements_body elements_body
+bloque_elements_body ::= bloque_elements_body:listadoEtiquetas elements_body:etiquetaAux 
+		{: RESULT = agregarEtiquetaAuxiliar(listadoEtiquetas, etiquetaAux); :}
 	| /* empty */
 	;
 
 elements_body ::= 
-	  etiqueta_spam
-	| etiqueta_input
-	| etiqueta_textarea
-	| etiqueta_select
-	| etiqueta_div
-	| etiqueta_img
-	| etiqueta_br
-	| etiqueta_button
-	| etiqueta_h1
-	| etiqueta_p
+	  etiqueta_spam:etiquetaAux      {: RESULT = etiquetaAux; :}
+	| etiqueta_input:etiquetaAux	 {: RESULT = etiquetaAux; :}
+	| etiqueta_textarea:etiquetaAux	 {: RESULT = etiquetaAux; :}
+	| etiqueta_select:etiquetaAux	 {: RESULT = etiquetaAux; :}
+	| etiqueta_div:etiquetaAux		 {: RESULT = etiquetaAux; :}
+	| etiqueta_img:etiquetaAux		 {: RESULT = etiquetaAux; :}
+	| etiqueta_br:etiquetaAux		 {: RESULT = etiquetaAux; :}
+	| etiqueta_button:etiquetaAux	 {: RESULT = etiquetaAux; :}
+	| etiqueta_h1:etiquetaAux		 {: RESULT = etiquetaAux; :}
+	| etiqueta_p:etiquetaAux		 {: RESULT = etiquetaAux; :}
 	//| /* empty */
 	//| error {: System.out.println("Error etiqueta del body"); :}
 	;
 
 /////////////////////////SELECT
-etiqueta_select   ::= etiqueta_apertura_select 
-					  	bloque_options
-					  etiqueta_cierre_select;
+etiqueta_select   ::= etiqueta_apertura_select:etiquetaSelect
+					  	bloque_options:listadoOpciones
+					  etiqueta_cierre_select
+					  {:
+					  	//agregamos las etiquetas al select
+						  etiquetaSelect.setListadoEtiquetas(listadoOpciones);
+						  RESULT = etiquetaSelect;				  
+					  :}
+					  ;
 
-bloque_options    ::= bloque_options etiqueta_option
+bloque_options    ::= bloque_options:listadoOpciones etiqueta_option:opcion
+		{:
+			RESULT = agregarEtiquetaAuxiliar(listadoOpciones, opcion);
+		:}
 	| /* empty */
 	;
 
-/////////////////////////NADA
-etiqueta_br       ::= etiqueta_apertura_br;
-etiqueta_img      ::= etiqueta_apertura_img etiqueta_cierre_img;
+
+/////////////////////////NADA, etiquetas sin contenido (otras etiquetas ni texto)
+etiqueta_br       ::= etiqueta_apertura_br:etiquetaAux
+		{: RESULT = etiquetaAux; :}//No le agregamos mas etiquetas ni texto
+	;
+etiqueta_img      ::= etiqueta_apertura_img:etiquetaAux etiqueta_cierre_img
+		{: RESULT = etiquetaAux; :}//No le agregamos mas etiquetas ni texto
+	;
 
 /////////////////////////TEXTOS
-etiqueta_title    ::= etiqueta_apertura_title    contenido_texto:a etiqueta_cierre_title    {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_link     ::= etiqueta_apertura_link     contenido_texto:a etiqueta_cierre_link     {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_spam     ::= etiqueta_apertura_spam     contenido_texto:a etiqueta_cierre_spam     {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_input    ::= etiqueta_apertura_input    contenido_texto:a etiqueta_cierre_input    {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_textarea ::= etiqueta_apertura_textarea contenido_texto:a etiqueta_cierre_textarea {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_option   ::= etiqueta_apertura_option   contenido_texto:a etiqueta_cierre_option   {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_button   ::= etiqueta_apertura_button   contenido_texto:a etiqueta_cierre_button   {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_h1       ::= etiqueta_apertura_h1       contenido_texto:a etiqueta_cierre_h1       {: System.out.println(" ---> TEXTO --->: "+a); :};
-etiqueta_p        ::= etiqueta_apertura_p        contenido_texto:a etiqueta_cierre_p        {: System.out.println(" ---> TEXTO --->: "+a); :};
-
+etiqueta_title    ::= etiqueta_apertura_title:etiquetaAux    contenido_texto:a etiqueta_cierre_title    {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_link     ::= etiqueta_apertura_link:etiquetaAux     contenido_texto:a etiqueta_cierre_link     {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_spam     ::= etiqueta_apertura_spam:etiquetaAux     contenido_texto:a etiqueta_cierre_spam     {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_input    ::= etiqueta_apertura_input:etiquetaAux    contenido_texto:a etiqueta_cierre_input    {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_textarea ::= etiqueta_apertura_textarea:etiquetaAux contenido_texto:a etiqueta_cierre_textarea {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_option   ::= etiqueta_apertura_option:etiquetaAux   contenido_texto:a etiqueta_cierre_option   {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_button   ::= etiqueta_apertura_button:etiquetaAux   contenido_texto:a etiqueta_cierre_button   {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_h1       ::= etiqueta_apertura_h1:etiquetaAux       contenido_texto:a etiqueta_cierre_h1       {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
+etiqueta_p        ::= etiqueta_apertura_p:etiquetaAux        contenido_texto:a etiqueta_cierre_p        {: System.out.println(" ---> TEXTO --->: "+a); etiquetaAux.setTexto(a); RESULT = etiquetaAux; :};
 
 contenido_texto   ::= contenido_texto:bloqueTexto contenido_texto_unidad:textoAux
 		{:
@@ -504,7 +582,7 @@ contenido_texto_unidad ::=
 	//PARAMETROS
 	| HREF:a                        {: RESULT = a.getLexema(); :}
 	| BACKGROUND:a                  {: RESULT = a.getLexema(); :}
-	| COLOR:a   C_H1                    {: RESULT = a.getLexema(); :}
+	| COLOR:a                       {: RESULT = a.getLexema(); :}
 	| FONT_SIZE:a                   {: RESULT = a.getLexema(); :}
 	| FONT_FAMILY:a                 {: RESULT = a.getLexema(); :}
 	| TEXT_ALIGN:a                  {: RESULT = a.getLexema(); :}
@@ -529,23 +607,102 @@ contenido_texto_unidad ::=
 	| DIGIT_VALUE:a                 {: RESULT = a.getLexema(); :}
 	;
 
- /////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
-etiqueta_apertura_gcic     ::= MENOR C_GCIC:a     {: etiqueta = "C_GCIC"    ; numeroEtiqueta++; :} bloque_parametros_gcic                            ;// | error {: System.out.println("Error etoqueta gcic"); :}
-etiqueta_apertura_head     ::= MENOR C_HEAD:a     {: etiqueta = "C_HEAD"    ; numeroEtiqueta++; bloqueHTML = "C_HEAD"; :} /* NO PARAMETROS */        etiqueta_cierre_general {: verificarPermisividadEtiqueta("C_GCIC", a); :}; 
-etiqueta_apertura_title    ::= MENOR C_TITLE:a    {: etiqueta = "C_TITLE"   ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general {: verificarPermisividadEtiqueta("C_HEAD", a); :};
-etiqueta_apertura_link     ::= MENOR C_LINK:a     {: etiqueta = "C_LINK"    ; numeroEtiqueta++; :} bloque_parametros_link                             {: verificarPermisividadEtiqueta("C_HEAD", a); :};
-etiqueta_apertura_body     ::= MENOR C_BODY:a     {: etiqueta = "C_BODY"    ; numeroEtiqueta++; bloqueHTML = "C_BODY"; :} bloque_parametros_body                             {: verificarPermisividadEtiqueta("C_GCIC", a); :};
-etiqueta_apertura_spam     ::= MENOR C_SPAM:a     {: etiqueta = "C_SPAM"    ; numeroEtiqueta++; :} bloque_parametros_label                            {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_input    ::= MENOR C_INPUT:a    {: etiqueta = "C_INPUT"   ; numeroEtiqueta++; :} bloque_parametros_input                            {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_textarea ::= MENOR C_TEXTAREA:a {: etiqueta = "C_TEXTAREA"; numeroEtiqueta++; :} bloque_parametros_textarea                         {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_select   ::= MENOR C_SELECT:a   {: etiqueta = "C_SELECT"  ; numeroEtiqueta++; :} bloque_parametros_label                            {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_option   ::= MENOR C_OPTION:a   {: etiqueta = "C_OPTION"  ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general;//| error;
-etiqueta_apertura_div      ::= MENOR C_DIV:a      {: etiqueta = "C_DIV"     ; numeroEtiqueta++; :} bloque_parametros_div                              {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_img      ::= MENOR C_IMG:a      {: etiqueta = "C_IMG"     ; numeroEtiqueta++; :} bloque_parametros_img                              {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_br       ::= MENOR C_BR:a       {: etiqueta = "C_BR"      ; numeroEtiqueta++; :} /* NO PARAMETROS */        etiqueta_cierre_general {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_button   ::= MENOR C_BUTTON:a   {: etiqueta = "C_BUTTON"  ; numeroEtiqueta++; :} bloque_parametros_button                           {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_h1       ::= MENOR C_H1:a       {: etiqueta = "C_H1"      ; numeroEtiqueta++; :} bloque_parametros_label                            {: verificarPermisividadEtiqueta("C_BODY", a); :};
-etiqueta_apertura_p        ::= MENOR C_P:a        {: etiqueta = "C_P"       ; numeroEtiqueta++; :} bloque_parametros_label                            {: verificarPermisividadEtiqueta("C_BODY", a); :};
+/////////////////////////APERTURA, DE LA FORMA <C_NOMBRE_ETIQUETA [parametro1 = “valor”] [parametro2 = “valor”] [otro= “valor”] >
+etiqueta_apertura_gcic     ::= MENOR C_GCIC:tipo     {: etiqueta = "C_GCIC"    ; numeroEtiqueta++; :} bloque_parametros_gcic:listadoParametros                            // | error {: System.out.println("Error etoqueta gcic"); :}		
+		{:	
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros); 
+		:}
+	;
+etiqueta_apertura_head     ::= MENOR C_HEAD:tipo     {: etiqueta = "C_HEAD"    ; numeroEtiqueta++; bloqueHTML = "C_HEAD"; :} /* NO PARAMETROS */   etiqueta_cierre_general
+		{:	
+			verificarPermisividadEtiqueta("C_GCIC", tipo); 
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+		:}
+	; 
+etiqueta_apertura_title    ::= MENOR C_TITLE:tipo    {: etiqueta = "C_TITLE"   ; numeroEtiqueta++; :} /* NO PARAMETROS */        				   etiqueta_cierre_general
+		{:	
+			verificarPermisividadEtiqueta("C_HEAD", tipo); 
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+		:}
+	; 
+etiqueta_apertura_link     ::= MENOR C_LINK:tipo     {: etiqueta = "C_LINK"    ; numeroEtiqueta++; :} bloque_parametros_link:listadoParametros                            
+		{:	
+			verificarPermisividadEtiqueta("C_HEAD", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_body     ::= MENOR C_BODY:tipo     {: etiqueta = "C_BODY"    ; numeroEtiqueta++; bloqueHTML = "C_BODY"; :}      bloque_parametros_body:listadoParametros
+		{:	
+			verificarPermisividadEtiqueta("C_GCIC", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_spam     ::= MENOR C_SPAM:tipo     {: etiqueta = "C_SPAM"    ; numeroEtiqueta++; :} bloque_parametros_label:listadoParametros                           
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_input    ::= MENOR C_INPUT:tipo    {: etiqueta = "C_INPUT"   ; numeroEtiqueta++; :} bloque_parametros_input:listadoParametros                           
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_textarea ::= MENOR C_TEXTAREA:tipo {: etiqueta = "C_TEXTAREA"; numeroEtiqueta++; :} bloque_parametros_textarea:listadoParametros                        
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_select   ::= MENOR C_SELECT:tipo   {: etiqueta = "C_SELECT"  ; numeroEtiqueta++; :} bloque_parametros_label:listadoParametros                           
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_option   ::= MENOR C_OPTION:tipo   {: etiqueta = "C_OPTION"  ; numeroEtiqueta++; :} /* NO PARAMETROS */        				    etiqueta_cierre_general//| error;
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 			
+		:}
+	; 
+etiqueta_apertura_div      ::= MENOR C_DIV:tipo      {: etiqueta = "C_DIV"     ; numeroEtiqueta++; :} bloque_parametros_div:listadoParametros                             
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_img      ::= MENOR C_IMG:tipo      {: etiqueta = "C_IMG"     ; numeroEtiqueta++; :} bloque_parametros_img:listadoParametros                             
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_br       ::= MENOR C_BR:tipo       {: etiqueta = "C_BR"      ; numeroEtiqueta++; :} /* NO PARAMETROS */        				   etiqueta_cierre_general
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), null); 
+		:}
+	; 
+etiqueta_apertura_button   ::= MENOR C_BUTTON:tipo   {: etiqueta = "C_BUTTON"  ; numeroEtiqueta++; :} bloque_parametros_button:listadoParametros                          
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	; 
+etiqueta_apertura_h1       ::= MENOR C_H1:tipo       {: etiqueta = "C_H1"      ; numeroEtiqueta++; :} bloque_parametros_label:listadoParametros                           
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	;
+etiqueta_apertura_p        ::= MENOR C_P:tipo        {: etiqueta = "C_P"       ; numeroEtiqueta++; :} bloque_parametros_label:listadoParametros                           
+		{:	
+			verificarPermisividadEtiqueta("C_BODY", tipo);
+			RESULT = new Etiqueta(tipo.getTipoToken(), listadoParametros);			
+		:}
+	;
 
 etiqueta_cierre_general  ::= MAYOR	
 	| error
@@ -569,132 +726,150 @@ etiqueta_cierre_h1       ::= MENOR SIGNO_DIV C_H1        MAYOR | error;
 etiqueta_cierre_p        ::= MENOR SIGNO_DIV C_P         MAYOR | error;
 
 //////////////////////////////////////////////////BLOQUE PARAMETROS
-bloque_parametros_gcic ::= bloque_parametros_contenido_gcic MAYOR
+bloque_parametros_gcic ::= bloque_parametros_contenido_gcic:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_gcic {: System.out.println("Error parametros gcic"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_link ::= bloque_parametros_contenido_link MAYOR
+bloque_parametros_link ::= bloque_parametros_contenido_link:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_link {: System.out.println("Error parametros link"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_body ::= bloque_parametros_contenido_body MAYOR
+bloque_parametros_body ::= bloque_parametros_contenido_body:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_body {: System.out.println("Error parametros body"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_input ::= bloque_parametros_contenido_input MAYOR
+bloque_parametros_input ::= bloque_parametros_contenido_input:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_input {: System.out.println("Error parametros input"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_textarea ::= bloque_parametros_contenido_textarea MAYOR
+bloque_parametros_textarea ::= bloque_parametros_contenido_textarea:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_textarea {: System.out.println("Error parametros textarea"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_div ::= bloque_parametros_contenido_div MAYOR
+bloque_parametros_div ::= bloque_parametros_contenido_div:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_div {: System.out.println("Error parametros div"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_img ::= bloque_parametros_contenido_img MAYOR
+bloque_parametros_img ::= bloque_parametros_contenido_img:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_img {: System.out.println("Error parametros img"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_label ::= bloque_parametros_contenido_label MAYOR
+bloque_parametros_label ::= bloque_parametros_contenido_label:listadoParametros MAYOR
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_label {: System.out.println("Error parametros label"); :}
 	| error MAYOR
 	;
 
-bloque_parametros_button ::= bloque_parametros_contenido_button MAYOR
+bloque_parametros_button ::= bloque_parametros_contenido_button:listadoParametros MAYOR 
+		{: RESULT = listadoParametros; :}
 	| error bloque_parametros_button {: System.out.println("Error parametros button"); :}
 	| error MAYOR
 	;
 
 
-bloque_parametros_contenido_gcic ::= bloque_parametros_contenido_gcic parametros_gcic
-	| /* empty */	
+bloque_parametros_contenido_gcic ::= bloque_parametros_contenido_gcic:listadoParametros parametros_gcic:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-bloque_parametros_contenido_link ::= bloque_parametros_contenido_link parametros_link
-	| /* empty */	
+bloque_parametros_contenido_link ::= bloque_parametros_contenido_link:listadoParametros parametros_link:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-bloque_parametros_contenido_body ::= bloque_parametros_contenido_body parametros_background
-	| /* empty */	
+bloque_parametros_contenido_body ::= bloque_parametros_contenido_body:listadoParametros parametros_background:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-bloque_parametros_contenido_input ::= bloque_parametros_contenido_input parametros_input
-	| /* empty */	
+bloque_parametros_contenido_input ::= bloque_parametros_contenido_input:listadoParametros parametros_input:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-bloque_parametros_contenido_textarea ::= bloque_parametros_contenido_textarea parametros_textarea
-	| /* empty */	
+bloque_parametros_contenido_textarea ::= bloque_parametros_contenido_textarea:listadoParametros parametros_textarea:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;	
 
-bloque_parametros_contenido_div ::= bloque_parametros_contenido_div parametros_div
-	| /* empty */	
+bloque_parametros_contenido_div ::= bloque_parametros_contenido_div:listadoParametros parametros_div:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-bloque_parametros_contenido_img ::= bloque_parametros_contenido_img parametros_img
-	| /* empty */	
+bloque_parametros_contenido_img ::= bloque_parametros_contenido_img:listadoParametros parametros_img:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-bloque_parametros_contenido_label ::= bloque_parametros_contenido_label parametros_letras
-	| /* empty */
+bloque_parametros_contenido_label ::= bloque_parametros_contenido_label:listadoParametros parametros_letras:parametro
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;		
 
-bloque_parametros_contenido_button ::= bloque_parametros_contenido_button parametros_button
-	| /* empty */	
+bloque_parametros_contenido_button ::= bloque_parametros_contenido_button:listadoParametros parametros_button:parametro 
+		{: RESULT = agregarParametroEtiqueta(listadoParametros, parametro); :}//agregamos un parametro y retornamos el listado
+	| /* empty */	{: RESULT = agregarParametroEtiqueta(null, null); :}//inicializamos el listado, sin parametros
 	;
 
-//////////////////////////////////////////////////PARAMETROS 	
-parametros_gcic ::= parametro_unidad_id
-	| parametro_unidad_name
+//////////////////////////////////////////////////PARAMETROS 
+parametros_gcic ::= parametro_unidad_id:parametro  	 			{: RESULT = parametro; :}
+	| parametro_unidad_name:parametro 			   	 			{: RESULT = parametro; :}
 	;
 	
-parametros_link ::= parametro_unidad_href
+parametros_link ::= parametro_unidad_href:parametro  			{: RESULT = parametro; :}
 	;
 	
-parametros_input ::= parametro_unidad_type
-	| parametros_letras
+parametros_input ::= parametro_unidad_type:parametro 			{: RESULT = parametro; :}
+	| parametros_letras:parametro 								{: RESULT = parametro; :}
 	;
 	
-parametros_textarea ::= parametro_unidad_cols
-	| parametro_unidad_rows
-	| parametros_letras
+parametros_textarea ::= parametro_unidad_cols:parametro 		{: RESULT = parametro; :}
+	| parametro_unidad_rows:parametro 							{: RESULT = parametro; :}
+	| parametros_letras:parametro 								{: RESULT = parametro; :}
 	;
 	
-parametros_div ::= parametro_unidad_class
-	| parametros_letras
-	| parametros_background
+parametros_div ::= parametro_unidad_class:parametro 			{: RESULT = parametro; :}
+	| parametros_letras:parametro 								{: RESULT = parametro; :}
+	| parametros_background:parametro 							{: RESULT = parametro; :}
 	;
 		
-parametros_img ::= parametro_unidad_src
-	| parametro_unidad_width
-	| parametro_unidad_height
-	| parametro_unidad_alt
-	| parametro_unidad_id
+parametros_img ::= parametro_unidad_src:parametro 				{: RESULT = parametro; :}
+	| parametro_unidad_width:parametro 							{: RESULT = parametro; :}
+	| parametro_unidad_height:parametro 						{: RESULT = parametro; :}
+	| parametro_unidad_alt:parametro 							{: RESULT = parametro; :}
+	| parametro_unidad_id:parametro								{: RESULT = parametro; :}
 	;
 	
-parametros_letras ::= parametro_unidad_font_size
-	| parametro_unidad_font_family
-	| parametro_unidad_text_align
-	| parametro_unidad_id
-	| parametro_unidad_color
+parametros_letras ::= parametro_unidad_font_size:parametro 		{: RESULT = parametro; :}
+	| parametro_unidad_font_family:parametro 					{: RESULT = parametro; :}
+	| parametro_unidad_text_align:parametro 					{: RESULT = parametro; :}
+	| parametro_unidad_id:parametro 							{: RESULT = parametro; :}
+	| parametro_unidad_color:parametro 							{: RESULT = parametro; :}
 	;
 	
-parametros_button ::= parametro_unidad_onclick
-	| parametros_letras
-	| parametros_background
+parametros_button ::= parametro_unidad_onclick:parametro 		{: RESULT = parametro; :}
+	| parametros_letras:parametro 								{: RESULT = parametro; :}
+	| parametros_background:parametro 							{: RESULT = parametro; :}
 	;
 
-parametros_background ::= parametro_unidad_background
+parametros_background ::= parametro_unidad_background:parametro {: RESULT = parametro; :}
 	;
-	
+
 //////////////////////////////////////////////////PARAMETRO UNIDAD
 parametro_unidad_href ::= CORCH_INI 
                             HREF:posicion IGUAL TEXT_VALUE:valor
@@ -702,6 +877,8 @@ parametro_unidad_href ::= CORCH_INI
 						  	{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "href", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						  		analizarParametroEtiqueta(posicion);
+								//direccionRedirect = valor.getLexema().replaceAll("“","\"").replaceAll("”","\"").replaceAll("‘","\'").replaceAll("’","\'");
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 						 	:}
 						  	;
 
@@ -711,6 +888,7 @@ parametro_unidad_background ::= CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "background", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						   		analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 						    :}
 	;
 
@@ -720,6 +898,7 @@ parametro_unidad_color ::=  CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "color", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						   		analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 						    :}           
 	;
     
@@ -729,6 +908,7 @@ parametro_unidad_font_size ::=  CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "font-size", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						    	analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -738,6 +918,7 @@ parametro_unidad_font_family ::= CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "font-family", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						    	analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -747,6 +928,7 @@ parametro_unidad_text_align ::= CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "text-align", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 						    	analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -756,6 +938,7 @@ parametro_unidad_type ::= CORCH_INI
 						    {:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "type", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -765,6 +948,7 @@ parametro_unidad_id ::= CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "id", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -774,6 +958,7 @@ parametro_unidad_name ::= CORCH_INI
 						    {:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "name", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -783,6 +968,7 @@ parametro_unidad_cols ::= CORCH_INI
 						  	{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "cols", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -792,6 +978,7 @@ parametro_unidad_rows ::= CORCH_INI
 						    {:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "rows", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -801,6 +988,7 @@ parametro_unidad_class ::= CORCH_INI
 						    {:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "class", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -810,6 +998,7 @@ parametro_unidad_src ::=  CORCH_INI
 						    {:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "src", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -819,6 +1008,7 @@ parametro_unidad_width ::= CORCH_INI
 						    {:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "width", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -828,6 +1018,7 @@ parametro_unidad_height ::= CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "height", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -837,6 +1028,7 @@ parametro_unidad_alt ::= CORCH_INI
 						 	{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "alt", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
@@ -846,6 +1038,7 @@ parametro_unidad_onclick ::= CORCH_INI
 							{:
 						  		tablaSimbolosEtiquetas.declararNuevoElemento(etiqueta, "onclick", valor.getLexema(), numeroEtiqueta, posicion.getLinea(), posicion.getColumna());
 								analizarParametroEtiqueta(posicion);
+								RESULT = new ParametroEtiquetaInterno(posicion.getTipoToken(), valor.getLexema());
 							:}
 	;
 
