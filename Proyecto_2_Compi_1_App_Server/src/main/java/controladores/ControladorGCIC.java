@@ -103,6 +103,8 @@ public class ControladorGCIC extends HttpServlet {
                     }
                     
                     pars.getTablaSimbolos().imprimirTabla();
+                    System.out.println("///////////////TABLA DE SIMBOLOS");
+                    pars.getTablaSimbolos().generarTablaHTML();
                     System.out.println("///////////////ETIQUETAS");
                     pars.getTablaSimbolosEtiquetas().imprimirTabla();
                     
@@ -114,7 +116,7 @@ public class ControladorGCIC extends HttpServlet {
                     if(errores.equals("")){
                         errores = "Sin errores de compilacion, captcha agregado al listado";
                         GuardarEtiqueta guardarEtiqueta = new GuardarEtiqueta();
-                        guardarEtiqueta.guardarEtiqueta(pars.getEtiquetaGCIC(), pars.getContenidoScripting()/*, pars.getDireccionRedirect()*/);
+                        guardarEtiqueta.guardarEtiqueta(pars.getEtiquetaGCIC(), pars.getContenidoScripting()/*, pars.getDireccionRedirect()*/, pars.getTablaSimbolos().generarTablaHTML());
                     }
                     
                     //mostramos errores

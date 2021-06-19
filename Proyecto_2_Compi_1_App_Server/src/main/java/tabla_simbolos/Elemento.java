@@ -5,6 +5,9 @@
  */
 package tabla_simbolos;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author grifiun
@@ -69,6 +72,53 @@ public class Elemento {
         }
         
         return "identificador: "+identificador+espacio+" tipo: "+tipo+" modo: "+modo+" procedimiento: "+procedimiento+" scripting: "+scripting+" fila: "+fila+" columna: "+columna + "valor actual: "+val+" N.Ejec: "+nEjecucion;
+                
+    }
+    
+    public String elementToHTML(){
+        String espacio = "";
+        String val = "";
+        String codigoHTML = "";
+        
+        for(int i = 0; i < 25 - identificador.length(); i++ ){
+            espacio+= " ";
+        }
+        if(valor != null){
+            val = valor.getValorElemento();
+        }else{
+            val = "---";
+        }
+        //<td><%=lista.get(i).get(j)%>
+        String[] array =  { identificador + espacio, 
+                            tipo, 
+                            modo, 
+                            procedimiento, 
+                            fila+"", 
+                            columna+"", 
+                            val, 
+                            nEjecucion+""};
+        List<String> datos = Arrays.asList(array);
+        
+        String[] nombreCasillas =  { "Identificador", 
+                             "Tipo", 
+                             "Modo", 
+                             "Procedimiento", 
+                             "Fila", 
+                             "Columna", 
+                             "Valor", 
+                             "Ejecucion"};
+        
+        //Generamos titulos
+        int i = 0;
+        for(String datoAux: datos){
+            String idAux = identificador + nombreCasillas[i];            
+            codigoHTML += "\t\t\t<td id = \""+ idAux +"\">" + //asigacion de id
+                         datoAux +
+                         "</td>\n";      
+            i++;
+        }
+                
+        return codigoHTML;
                 
     }
     

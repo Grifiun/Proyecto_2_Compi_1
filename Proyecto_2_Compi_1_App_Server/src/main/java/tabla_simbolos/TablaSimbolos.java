@@ -7,6 +7,8 @@ package tabla_simbolos;
 
 import clasesDAO.TokenError;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import tablas.TablaAsignacion;
 import tablas.TablasOperacionesAritmeticas;
 
@@ -306,6 +308,42 @@ public class TablaSimbolos {
         
         }
     }
-   
+    
+    public String generarTablaHTML(){        
+        String[] array =  {"Identificador", "Tipo", "Modo", "Procedimiento", "Fila", "Columna", "Valor actual", "N. Ejecucion"};
+        List<String> titulos = Arrays.asList(array);
+        
+        String datosTabla = "\n<table class=\"table\">\n" +
+                            "  <thead class=\"thead-dark\">\n" +
+                            "    <tr>\n" +
+                            "      <th scope=\"col\">#</th>\n";
+        
+        //Generamos titulos
+        for(String tituloAux: titulos){
+            datosTabla += "<th scope=\"row\">" +
+                         tituloAux + ": " +
+                         "</th>\n";            
+        }
+        datosTabla += "</tr>\n" +
+                      "  </thead>\n" +
+                      "  <tbody>";
+        
+        //Agregamos los datos
+        try{             
+            int iterador = 1;
+            for(Elemento elementAux: elementosTS){
+                datosTabla += "<tr>\n" +
+                              "<th scope=\"row\">" + iterador + "</th>";
+                datosTabla += elementAux.elementToHTML()+ "\n";
+                datosTabla += "</tr>";
+                iterador++;
+            }
+            datosTabla += "</tbody>\n" +
+                          "</table>";
+            System.out.println("DATOS TABLA");
+            System.out.println(datosTabla);
+        }catch(Exception ex){ }        
+        return datosTabla;
+    }    
     
 }

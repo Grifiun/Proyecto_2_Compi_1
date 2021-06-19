@@ -14,7 +14,7 @@ import etiquetas.Etiqueta;
  */
 public class GuardarEtiqueta {
     
-    public void guardarEtiqueta(Etiqueta etiquetaGCIC, String codigoScripting/*, String direccionRedirect*/){
+    public void guardarEtiqueta(Etiqueta etiquetaGCIC, String codigoScripting/*, String direccionRedirect*/, String tabla){
         if(etiquetaGCIC == null){
             return;//terminamos la funcion si es nulo
         }
@@ -57,7 +57,7 @@ public class GuardarEtiqueta {
             
             //Agregamos el codigo scripting
             if(codigoScripting != null){
-                codigoHTMLEtiqueta += "<script>\n";
+                codigoHTMLEtiqueta += "\n<script>\n";
                 codigoHTMLEtiqueta += codigoScripting.replaceAll("“","\"").replaceAll("”","\"").replaceAll("‘","\'").replaceAll("’","\'");
                 codigoHTMLEtiqueta += "</script>\n";
             }
@@ -67,7 +67,7 @@ public class GuardarEtiqueta {
             System.out.println("----------------------------------------------------------------------------\n");
             //Guardamos la etiqueta
             Guardar guardar = new Guardar();
-            guardar.guardarDatos(codigoHTMLEtiqueta, id);
+            guardar.guardarDatos(codigoHTMLEtiqueta + tabla, id);
             
         }catch(Exception ex){
             System.out.println("Error bloque guardar archivo html");
