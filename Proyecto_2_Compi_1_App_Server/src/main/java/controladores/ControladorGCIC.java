@@ -116,7 +116,7 @@ public class ControladorGCIC extends HttpServlet {
                     if(errores.equals("")){
                         errores = "Sin errores de compilacion, captcha agregado al listado";
                         GuardarEtiqueta guardarEtiqueta = new GuardarEtiqueta();
-                        guardarEtiqueta.guardarEtiqueta(pars.getEtiquetaGCIC(), pars.getContenidoScripting()/*, pars.getDireccionRedirect()*/, pars.getTablaSimbolos().generarTablaHTML());
+                        guardarEtiqueta.guardarEtiqueta(pars.getEtiquetaGCIC(), pars.getContenidoScripting()/*, pars.getDireccionRedirect()*/,  pars.getTablaSimbolos().generarHTML());
                     }
                     
                     //mostramos errores

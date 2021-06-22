@@ -51,6 +51,8 @@ public class GuardarEtiqueta {
                 codigoHTMLEtiqueta = "";           
             }
             
+            codigoHTMLEtiqueta += tabla;//Agregamos la tabla y su respectivo Script
+            
             //REDIRECT
             //String inputRedirect = "<input id=\"direccion\"  type=\"text\" style = \"  visibility: hidden;\" > " + direccionRedirect.replaceAll("\"", "") + " </input>\n";
             //codigoHTMLEtiqueta += inputRedirect;
@@ -67,7 +69,7 @@ public class GuardarEtiqueta {
             System.out.println("----------------------------------------------------------------------------\n");
             //Guardamos la etiqueta
             Guardar guardar = new Guardar();
-            guardar.guardarDatos(codigoHTMLEtiqueta + tabla, id);
+            guardar.guardarDatos(codigoHTMLEtiqueta, id);
             
         }catch(Exception ex){
             System.out.println("Error bloque guardar archivo html");
