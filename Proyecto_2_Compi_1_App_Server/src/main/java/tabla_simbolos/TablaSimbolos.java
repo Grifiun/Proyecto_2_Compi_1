@@ -313,29 +313,30 @@ public class TablaSimbolos {
         String[] array =  {"Identificador", "Tipo", "Modo", "Procedimiento", "Fila", "Columna", "Valor actual", "N. Ejecucion"};
         List<String> titulos = Arrays.asList(array);
         
-        String datosTabla = "\n<table class=\"table\">\n" +
+        String datosTabla = "\n<br><H3>TABLA DE SIMBOLOS</H3>\n" +
+                            "\n<table class=\"table\">\n" +
                             "  <thead class=\"thead-dark\">\n" +
                             "    <tr>\n" +
                             "      <th scope=\"col\">#</th>\n";
         
         //Generamos titulos
         for(String tituloAux: titulos){
-            datosTabla += "<th scope=\"row\">" +
+            datosTabla += "\t<th scope=\"row\">" +
                          tituloAux + ": " +
                          "</th>\n";            
         }
-        datosTabla += "</tr>\n" +
+        datosTabla += "      </tr>\n" +
                       "  </thead>\n" +
-                      "  <tbody>";
+                      "  <tbody>\n";
         
         //Agregamos los datos
         try{             
             int iterador = 1;
             for(Elemento elementAux: elementosTS){
-                datosTabla += "<tr>\n" +
-                              "<th scope=\"row\">" + iterador + "</th>";
+                datosTabla += "\t<tr>\n" +
+                              "\t\t<th scope=\"row\">" + iterador + "</th>\n";
                 datosTabla += elementAux.elementToHTML()+ "\n";
-                datosTabla += "</tr>";
+                datosTabla += "\t</tr>\n";
                 iterador++;
             }
             datosTabla += "</tbody>\n" +
@@ -345,5 +346,22 @@ public class TablaSimbolos {
         }catch(Exception ex){ }        
         return datosTabla;
     }    
+    
+    public String generarTablaScript(){   
+        String codigoHTML = "\n<script>\n";
+        
+        //Agregamos los datos
+        try{             
+            for(Elemento elementAux: elementosTS){
+                codigoHTML += elementAux.elementToSript()+ "\n";
+            }
+            codigoHTML += "</script>\n";
+        }catch(Exception ex){ }        
+        return codigoHTML;
+    }
+    
+    public String generarHTML (){
+        return generarTablaHTML() + generarTablaScript();
+    }
     
 }

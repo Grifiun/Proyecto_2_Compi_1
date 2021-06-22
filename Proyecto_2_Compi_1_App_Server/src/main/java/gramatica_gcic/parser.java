@@ -10982,6 +10982,8 @@ public class parser extends java_cup.runtime.lr_parser {
 	//VARIABLES GLOBALES
 	ArrayList<String> nombresGlobales = new ArrayList();
 	String global = "";
+	String funcionEjecucion = "";
+	String funcionNombre = "";
 
 	//TABS
 	String tabSimple = "\t";//para funciones
@@ -15181,10 +15183,11 @@ class CUP$parser$actions {
 		 
 						//el tab serÃ¡ uno simple, porque finalizo una funcion
 						tab = tabSimple;
-						System.out.println ("Se ejecuto FUNCION  "); 
+						System.out.println ("Se ejecuto FUNCION  "); 	
+						contenidoScript += tab + funcionNombre + "Ejecucion.innerHTML = " + funcionEjecucion + ";\n";					
 						contenidoScript += tab + "}\n"; 
 						//analizamos el insert
-						analizarTextoInsert(); 						
+						analizarTextoInsert(); 												
 					
               CUP$parser$result = parser.getSymbolFactory().newSymbol("funcion_unitaria",112, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-3)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -15221,6 +15224,13 @@ class CUP$parser$actions {
 			contenidoScript += tab + "function " + a.getLexema().trim() + "(){\n";
 			tab = tabDoble;//es un tab doble porque ya estÃ¡ dentro de una funtion
 			contenidoScript += tab + "try { ON_LOAD" + scripting + "(); } catch (error) {}\n";//agregamos el onload
+			
+
+			funcionEjecucion = a.getLexema().trim() + "NEjecucion";
+			funcionNombre = a.getLexema().trim();
+			global += tabSimple + "var " + funcionEjecucion + " = 1;\n";
+			contenidoScript += tab + funcionEjecucion + "++;\n";
+
 		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("nombre_funciones",114, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -15238,6 +15248,11 @@ class CUP$parser$actions {
 			tablaSimbolos.declararNuevoElemento(a.getLexema(), "Procedimiento/Funcion", scripting, a.getLinea(), a.getColumna()); 	
 			contenidoScript += tab + "function ON_LOAD" + scripting + "(){\n";
 			tab = tabDoble;//es un tab doble porque ya estÃ¡ dentro de una funtion
+
+			funcionEjecucion = "ON_LOAD" + scripting + "NEjecucion";
+			funcionNombre = "ON_LOAD";
+			global += tabSimple + "var " + funcionEjecucion + " = 1;\n";
+			contenidoScript += tab + funcionEjecucion + "++;\n";
 		
               CUP$parser$result = parser.getSymbolFactory().newSymbol("nombre_funciones",114, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
@@ -15522,7 +15537,9 @@ class CUP$parser$actions {
 
 			for(int i = 0; i < nombresVariables.length; i++){
 				tablaSimbolos.asignarValorElemento(nombresVariables[i], procedimiento, scripting, valor, a.getLinea(), a.getColumna());
-				contenidoScript += tab + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";	
+				contenidoScript += tab + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";
+				contenidoScript += tab + nombresVariables[i] + "Valor.innerHTML = " + nombresVariables[i] + ";\n";
+				contenidoScript += tab + nombresVariables[i] + "Ejecucion.innerHTML = " + funcionEjecucion + ";\n";
 				varCicloAux = nombresVariables[i];
 				variablesAux2 = nombresVariables[i] + " = " + variablesAux.trim();
 
@@ -15565,6 +15582,8 @@ class CUP$parser$actions {
                     global += tabSimple + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";
 				}else{//una variable normal
                     contenidoScript += tab + nombresVariables[i] + " = " + variablesAux.trim() + ";\n";
+					contenidoScript += tab + nombresVariables[i] + "Valor.innerHTML = " + nombresVariables[i] + ";\n";
+					contenidoScript += tab + nombresVariables[i] + "Ejecucion.innerHTML = " + funcionEjecucion + ";\n";
                 }
 
 				//Asignacion si es un repeat

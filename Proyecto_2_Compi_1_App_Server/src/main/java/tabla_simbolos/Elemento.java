@@ -76,20 +76,16 @@ public class Elemento {
     }
     
     public String elementToHTML(){
-        String espacio = "";
         String val = "";
         String codigoHTML = "";
         
-        for(int i = 0; i < 25 - identificador.length(); i++ ){
-            espacio+= " ";
-        }
         if(valor != null){
             val = valor.getValorElemento();
         }else{
             val = "---";
         }
         //<td><%=lista.get(i).get(j)%>
-        String[] array =  { identificador + espacio, 
+        String[] array =  { identificador, 
                             tipo, 
                             modo, 
                             procedimiento, 
@@ -112,9 +108,38 @@ public class Elemento {
         int i = 0;
         for(String datoAux: datos){
             String idAux = identificador + nombreCasillas[i];            
-            codigoHTML += "\t\t\t<td id = \""+ idAux +"\">" + //asigacion de id
+            codigoHTML += "\t\t<td id = \""+ idAux +"\">" + //asigacion de id
                          datoAux +
                          "</td>\n";      
+            i++;
+        }
+                
+        return codigoHTML;
+                
+    }
+    
+    public String elementToSript(){
+        String val = "";
+        String codigoHTML = "";
+        
+        if(valor != null){
+            val = valor.getValorElemento();
+        }else{
+            val = "---";
+        }
+        //<td><%=lista.get(i).get(j)%>
+        String[] array =  { val, 
+                            nEjecucion+""};
+        List<String> datos = Arrays.asList(array);
+        
+        String[] nombreCasillas =  { "Valor", 
+                             "Ejecucion"};
+        
+        //Generamos titulos
+        int i = 0;
+        for(String datoAux: datos){
+            String idAux = identificador + nombreCasillas[i];            
+            codigoHTML += "\tvar " + idAux + " = document.getElementById(\"" + idAux + "\");\n";      
             i++;
         }
                 
