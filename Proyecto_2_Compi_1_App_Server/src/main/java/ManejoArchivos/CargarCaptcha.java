@@ -134,4 +134,59 @@ public class CargarCaptcha {
         return datosTabla;
     }
     
+    public void actualizarCargaCaptcha(String idCaptcha){
+        idCaptcha.trim();
+                
+        ArrayList<Captcha> listadoCaptcha = leerDatos();
+                
+        try{
+            for(Captcha captchaAux: listadoCaptcha){
+                //Cuando el id del captcha es el mismo
+                if(captchaAux.getId().equals(idCaptcha)){
+                    //Aumenta el numero de veces
+                    captchaAux.aumentarUso();
+                    
+                    //Actualizamos fecha
+                    captchaAux.actualizarFecha();
+                    
+                    //Actualizamos acierto
+                    //captchaAux.aumentarAcierto();
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("Error al modificar el captcha: " + idCaptcha + ex.getMessage());
+        }
+        
+        //guardamos
+        GuardarCaptcha guardar = new GuardarCaptcha();
+        guardar.GuardarCaptcha(listadoCaptcha);
+    }
+    
+    public void actualizarAciertoCaptcha(String idCaptcha){
+        idCaptcha.trim();
+                
+        ArrayList<Captcha> listadoCaptcha = leerDatos();
+                
+        try{
+            for(Captcha captchaAux: listadoCaptcha){
+                //Cuando el id del captcha es el mismo
+                if(captchaAux.getId().equals(idCaptcha)){
+                    //Aumenta el numero de veces
+                    //captchaAux.aumentarUso();
+                    
+                    //Actualizamos fecha
+                    //captchaAux.actualizarFecha();
+                    
+                    //Actualizamos acierto
+                    captchaAux.aumentarAcierto();
+                }
+            }
+        }catch(Exception ex){
+            System.out.println("Error al modificar el captcha: " + idCaptcha + ex.getMessage());
+        }
+        
+        //guardamos
+        GuardarCaptcha guardar = new GuardarCaptcha();
+        guardar.GuardarCaptcha(listadoCaptcha);
+    }
 }
