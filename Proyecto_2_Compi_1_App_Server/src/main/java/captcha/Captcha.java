@@ -5,6 +5,9 @@
  */
 package captcha;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author 50234
@@ -72,6 +75,51 @@ public class Captcha {
         return codigoGuardado;
     }
     
+    /**
+     * Aumentamos el veces abierto una vez
+     */    
+    public void aumentarUso(){
+        int numero = 0;
+        try{
+            numero = Integer.parseInt(vecesAbierto);
+            numero++;//aumentamos el numero
+            
+            vecesAbierto = "" + numero;
+        }catch(Exception ex){
+            System.out.println("Error al aumentar el numero de vecesa abierto");
+        }
+    }
+    
+    /**
+     * Aumentamos el veces acertados
+     */    
+    public void aumentarAcierto(){
+        int numero = 0;
+        try{
+            numero = Integer.parseInt(aciertos);
+            numero++;//aumentamos el numero
+            
+            aciertos = "" + numero;
+        }catch(Exception ex){
+            System.out.println("Error al aumentar el numero de aciertos");
+        }
+    }
+    
+    /**
+     * Aumentamos el veces acertados
+     */    
+    public void actualizarFecha(){
+        String fechaAux;
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");  
+        Date date = new Date();  
+        fechaAux = formatter.format(date);
+        try{
+            ultimoRegistro = fechaAux;
+        }catch(Exception ex){
+            System.out.println("Error al actualizar la fecha");
+        }
+    }
+    
     public String getId() {
         return id;
     }
@@ -111,9 +159,7 @@ public class Captcha {
     public void setFallos(String fallos) {
         this.fallos = fallos;
     }
-
     
-
     public String getUltimoRegistro() {
         return ultimoRegistro;
     }

@@ -4,6 +4,7 @@
     Author     : 50234
 --%>
 
+<%@page import="ManejoArchivos.GuardarCaptcha"%>
 <%@page import="ManejoArchivos.CargarCaptcha"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -16,6 +17,8 @@
             CargarCaptcha cargarCaptcha = new CargarCaptcha();            
             String codigoHTMLFormulario = cargarCaptcha.cargarHTMLCaptcha(idCaptcha);
             
+            //Actualizamos el uso en la base de datos
+            cargarCaptcha.actualizarCargaCaptcha(idCaptcha);
         %>
         
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
