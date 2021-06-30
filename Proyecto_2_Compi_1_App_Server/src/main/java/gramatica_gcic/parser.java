@@ -11063,7 +11063,8 @@ public class parser extends java_cup.runtime.lr_parser {
 	}
 
 	public String getContenidoScripting(){
-		return "/* Variables globales */\n" + global + "\n/* Funciones */\n" + contenidoScript;
+		String direccion = direccionRedirect;
+		return direccion + "\n/* Variables globales */\n" + global + "\n/* Funciones */\n" + contenidoScript;
 	}
 
 	public String getDireccionRedirect(){
@@ -17901,7 +17902,7 @@ class CUP$parser$actions {
           case 518: // funciones_instruccion ::= FUNCTION_EXIT PAREN_INI PAREN_FIN 
             {
               Object RESULT =null;
-		 System.out.println ("Se ejecuto FUN EXIT "); contenidoScript += tab + "window.location.replace(" + direccionRedirect + ");\n"; 
+		 System.out.println ("Se ejecuto FUN EXIT "); contenidoScript += tab + "window.location.replace(\"http://localhost:8080/Proyecto_2_Compi_1_App_Server/ControladorRedirect\");\n"; /* contenidoScript += tab + "window.location.replace(" + direccionRedirect + ");\n"; */
               CUP$parser$result = parser.getSymbolFactory().newSymbol("funciones_instruccion",154, ((java_cup.runtime.Symbol)CUP$parser$stack.elementAt(CUP$parser$top-2)), ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

@@ -14,9 +14,22 @@
             String index = request.getParameter("index");
             String idCaptcha = session.getAttribute("id_captcha" + index).toString();
             
+            //Agregamos el id del captcha en la session
+            session.setAttribute("idCaptchaRedirect", idCaptcha);
+            
             CargarCaptcha cargarCaptcha = new CargarCaptcha();            
             String codigoHTMLFormulario = cargarCaptcha.cargarHTMLCaptcha(idCaptcha);
             
+            //obtenemos la direccion a redirigir
+            String direccion = "";
+            direccion = codigoHTMLFormulario.substring(0, codigoHTMLFormulario.indexOf("<html"));
+            codigoHTMLFormulario = codigoHTMLFormulario.replaceFirst(direccion, "");
+            
+            direccion = direccion.replaceAll("“", "").replaceAll("”", "").replaceAll("\"", "").trim();
+            
+            //seteamos la session
+            session.setAttribute("direccionRedirect", direccion);
+            System.out.println("Direccion 1: " + direccion);
             //Actualizamos el uso en la base de datos
             cargarCaptcha.actualizarCargaCaptcha(idCaptcha);
         %>

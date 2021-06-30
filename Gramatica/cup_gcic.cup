@@ -133,7 +133,8 @@ parser code{:
 	}
 
 	public String getContenidoScripting(){
-		return "/* Variables globales */\n" + global + "\n/* Funciones */\n" + contenidoScript;
+		String direccion = direccionRedirect;
+		return direccion + "\n/* Variables globales */\n" + global + "\n/* Funciones */\n" + contenidoScript;
 	}
 
 	public String getDireccionRedirect(){
@@ -2025,5 +2026,5 @@ funciones_con_valor_parametros ::= PAREN_INI {: variablesAux += "("; :} operacio
 	;
 
 funciones_instruccion ::= FUNCTION_ALERT_INFO {: variablesAux = ""; :} funciones_con_valor_parametros {: System.out.println ("Se ejecuto FUN ALERT "); contenidoScript += tab + "alert" + variablesAux + ";\n"; :}
-	| FUNCTION_EXIT PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto FUN EXIT "); contenidoScript += tab + "window.location.replace(" + direccionRedirect + ");\n"; :} 
+	| FUNCTION_EXIT PAREN_INI PAREN_FIN {: System.out.println ("Se ejecuto FUN EXIT "); contenidoScript += tab + "window.location.replace(\"http://localhost:8080/Proyecto_2_Compi_1_App_Server/ControladorRedirect\");\n"; /* contenidoScript += tab + "window.location.replace(" + direccionRedirect + ");\n"; */:} 
 	;
