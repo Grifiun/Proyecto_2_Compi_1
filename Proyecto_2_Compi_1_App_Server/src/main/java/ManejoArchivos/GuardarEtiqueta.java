@@ -19,6 +19,14 @@ public class GuardarEtiqueta {
             return;//terminamos la funcion si es nulo
         }
         
+        String direccion = "";
+        try{
+            direccion = codigoScripting.substring(0, codigoScripting.indexOf("/*") - 1);
+            codigoScripting = codigoScripting.replaceFirst(direccion, "");            
+        }catch(Exception ex){
+            System.out.println("error al obtener el enlace");
+        }
+        
         //OBTENEMOS LOS DATOS
         //generamos numero aleatorio por si no existe algun parametro
         int max = 50000, min = 10000;
@@ -69,7 +77,7 @@ public class GuardarEtiqueta {
             System.out.println("----------------------------------------------------------------------------\n");
             //Guardamos la etiqueta
             Guardar guardar = new Guardar();
-            guardar.guardarDatos(codigoHTMLEtiqueta, id);
+            guardar.guardarDatos(direccion + "\n" + codigoHTMLEtiqueta, id);
             
         }catch(Exception ex){
             System.out.println("Error bloque guardar archivo html");
