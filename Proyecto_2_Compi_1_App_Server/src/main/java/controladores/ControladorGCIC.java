@@ -134,6 +134,9 @@ public class ControladorGCIC extends HttpServlet {
                 System.out.println(" Parser Ejecutado");
                 request.getSession().setAttribute("entrada", normalized_string);
                 request.getSession().setAttribute("salida", salida);
+                
+                String contador = request.getParameter("contador");
+                request.getSession().setAttribute("contador", contador);
                                
             }catch(Exception ex){
                 System.out.println("Error al ejecutar el parser: "+ex.getLocalizedMessage());
