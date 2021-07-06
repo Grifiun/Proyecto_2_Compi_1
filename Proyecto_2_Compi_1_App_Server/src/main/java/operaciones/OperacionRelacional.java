@@ -14,6 +14,7 @@ import tablas.*;
  * @author 50234
  */
 public class OperacionRelacional {
+    private GetValues getVal = new GetValues();
     private TokenError tokenError;
     
     public ValorElemento realizarOperacionRelacional(ValorElemento valor1, ValorElemento valor2, String tipoOperacion){
@@ -45,48 +46,59 @@ public class OperacionRelacional {
     }
     
     public String realizarOperacionRelacional(ValorElemento valor1, ValorElemento valor2, String tipoNuevoValorAux, String tipoOperacion){
-        String nuevoValorAux = "valorTemporal";
+        String nuevoValorAux = "";
+        double auxDecimal = 0, auxDecima2 = 0;
+        String cadena1 = "", cadena2 = "";
+        //valor 1
+        if(valor1.getTipoValor().equals("string") == false){
+            auxDecimal = getVal.getDecimalFromValue(valor1);
+        }
+        //valor 2
+        if(valor2.getTipoValor().equals("string") == false){
+            auxDecima2 = getVal.getDecimalFromValue(valor2);
+        }
+        
+        //retornamos        
         switch(tipoOperacion){
             case "MENOR":
                     //nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);
+                    nuevoValorAux = "" + (auxDecimal < auxDecima2);
                 break;
             case "MAYOR":
                     //nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    nuevoValorAux = "" + (auxDecimal > auxDecima2);
                 break;
             case "MENOR_IGUAL":
                     //nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    nuevoValorAux = "" + (auxDecimal <= auxDecima2);
                 break;
             case "MAYOR_IGUAL":
                     //nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    nuevoValorAux = "" + (auxDecimal >= auxDecima2);
                 break;
             case "IGUAL_IGUAL":
+                //Revisamos valores si son cadenas
+                if(valor1.getTipoValor().equals("string") == true && valor2.getTipoValor().equals("string") == true){
+                    //Si ambas son cadenas, entonces realizamos una comparacion de cadenas
+                    nuevoValorAux = "" + (valor1.getValorElemento().trim().equals(valor2.getValorElemento().trim()));
+                }else{
+                    nuevoValorAux = "" + (auxDecimal == auxDecima2);
+                }
                 break;
             case "NO_IGUAL":
+                //Revisamos valores si son cadenas
+                if(valor1.getTipoValor().equals("string") == true && valor2.getTipoValor().equals("string") == true){
+                    //Si ambas son cadenas, entonces realizamos una comparacion de cadenas
+                    nuevoValorAux = "" + (valor1.getValorElemento().trim().equals(valor2.getValorElemento().trim()) == false);
+                }else{
+                    nuevoValorAux = "" + (auxDecimal != auxDecima2);
+                }                
                 break;
         }
         
         return nuevoValorAux;
-    }
-    
-    /**
-     * Realizamos la operacion entre los 2 valores
-     * @param valor1
-     * @param valor2
-     * @return 
-     */
-    public boolean realizarOperacionMenor(ValorElemento valor1, ValorElemento valor2, String tipoNuevoValorAux){
-        
-        if(tipoNuevoValorAux.equalsIgnoreCase("boolean")){//da un boolean
-            //return valor1.getValorElemento() < valor2.getValorElemento();
-            return true;//temporal
-        }else{//temporal
-            //return valor1.getValorElemento() + valor2.getValorElemento();
-            return false;//temporal
-        }
-        
-        //return "";
-    }
-    
+    }    
+       
     /**
      * Retornamos el nuevo tipo, dependiendo del tipo de operacion aritmetica a realizar
      * @param x

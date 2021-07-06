@@ -53,6 +53,13 @@ public class ControladorGCIC extends HttpServlet {
                 //Entrada sin marcas diacriticas
                 String normalized_string = Normalizer.normalize(palabraOriginal, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
+                //REMOVEMOS REDIRECT(); y ¿
+                normalized_string = normalized_string.replaceAll("¿", "");
+                normalized_string = normalized_string.replaceAll("REDIRECT", "EXIT");
+                
+                System.out.println("ANALIZAR: \n");
+                System.out.println(normalized_string);
+                
                 StringReader sr = new StringReader(normalized_string);
                 LexerGCIC lexer = new LexerGCIC(sr);
                 parser pars = new parser(lexer);
