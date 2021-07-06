@@ -13,7 +13,8 @@ import tablas.TablasOperacionesAritmeticas;
  * clase para realizar operaciones aritmeticas
  * @author grifiun
  */
-public class OperacionAritmetica {   
+public class OperacionAritmetica{   
+    private GetValues getVal = new GetValues();
     private TokenError tokenError;
     
     public ValorElemento realizarOperacionAritmetica(ValorElemento valor1, ValorElemento valor2, String tipoOperacion){
@@ -34,7 +35,7 @@ public class OperacionAritmetica {
                 return null;//retornamos null que significa que encontro un error
             }else{
                 //realizamos la operacion
-                String nuevoElementoValor = realizarOperacionAritmetica(valor1, valor2, tipoNuevoValorAux, "suma");
+                String nuevoElementoValor = realizarOperacionAritmetica(valor1, valor2, tipoNuevoValorAux, tipoOperacion);
                 if(valor2.getTipoValor().equals("integer") && valor2.getValorElemento().equals("0".trim())){
                     //error, num/0
                     String msgError = "La operacion aritmetica <"+tipoOperacion+"> entre <"+valor1.getValorElemento()+"> y <"+valor2.getValorElemento()+"> produce un error de ejecucion, NO DIVIDE ENTRE 0";
@@ -60,16 +61,16 @@ public class OperacionAritmetica {
                     nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);
                 break;
             case "resta":
-                    nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    nuevoValorAux = realizarOperacionResta(valor1, valor2, tipoNuevoValorAux);//temp
                 break;
             case "division":
-                    nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    nuevoValorAux = realizarOperacionDivision(valor1, valor2, tipoNuevoValorAux);//temp
                 break;
             case "multiplicacion":
-                    nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    nuevoValorAux = realizarOperacionMultiplicacion(valor1, valor2, tipoNuevoValorAux);//temp
                 break;
         }
-        
+        System.out.println("RESULTADO: "+ nuevoValorAux);
         return nuevoValorAux;
     }
     
@@ -89,16 +90,199 @@ public class OperacionAritmetica {
         char    integer string  decimal integer integer
         boolean integer error   decimal integer boolean
         
+        Produce: integer, string, decimal, boolean
         */
-        if(tipoNuevoValorAux.equalsIgnoreCase("string")){//da un string
-            return valor1.getValorElemento() + valor2.getValorElemento();
-        }else{//temporal
-            return valor1.getValorElemento() + valor2.getValorElemento();
+        String resultadoAux = "";
+        
+        switch(tipoNuevoValorAux){
+            case "string":
+                resultadoAux = valor1.getValorElemento() + valor2.getValorElemento();  
+                break;
+            case "integer":
+                int a = 0;
+                //valor 1
+                a += getVal.getIntegerFromValue(valor1);
+                //valor 2
+                a += getVal.getIntegerFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + a;
+                break;
+            case "decimal":
+                double auxDecimal = 0;
+                //valor 1
+                auxDecimal += getVal.getDecimalFromValue(valor1);
+                //valor 2
+                auxDecimal += getVal.getDecimalFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + auxDecimal;
+                break;
+            case "boolean":
+                //valor 1
+                boolean auxBoolean1 = getVal.getBooleanFromValue(valor1);
+                //valor 2
+                boolean auxBoolean2 = getVal.getBooleanFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + (auxBoolean1 || auxBoolean2);
+                break;
+            default:
+                //error, nada
+                break;
+        
         }
         
-        //return "";
+        return resultadoAux;
     }
     
+    /**
+     * Realizamos la operacion entre los 2 valores
+     * @param valor1
+     * @param valor2
+     * @return 
+     */
+    public String realizarOperacionResta(ValorElemento valor1, ValorElemento valor2, String tipoNuevoValorAux){
+        /*
+        TABLA DE OPERACIONES RESTA        
+        -       integer string  decimal char    boolean
+        integer integer error   decimal integer integer
+        string  error   error   error   error   error
+        decimal decimal error   decimal decimal decimal
+        char    integer error   decimal integer error
+        boolean integer error   decimal error   error
+        */
+        String resultadoAux = "";
+        
+        switch(tipoNuevoValorAux){            
+            case "integer":
+                int a = 0;
+                //valor 1
+                a += getVal.getIntegerFromValue(valor1);
+                //valor 2
+                a -= getVal.getIntegerFromValue(valor2);//restamos
+                //retornamos
+                resultadoAux = "" + a;
+                break;
+            case "decimal":
+                double auxDecimal = 0;
+                //valor 1
+                auxDecimal += getVal.getDecimalFromValue(valor1);
+                //valor 2
+                auxDecimal -= getVal.getDecimalFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + auxDecimal;
+                break;
+            default:
+                //error, nada
+                break;
+        
+        }
+        
+        return resultadoAux;
+    }
+    
+    /**
+     * Realizamos la operacion entre los 2 valores
+     * @param valor1
+     * @param valor2
+     * @return 
+     */
+    public String realizarOperacionMultiplicacion(ValorElemento valor1, ValorElemento valor2, String tipoNuevoValorAux){
+        /*
+        TABLA DE OPERACIONES MULTIPLICACION
+        *       integer string  decimal char    boolean
+        integer integer error   decimal integer integer
+        string  error   error   error   error   error
+        decimal decimal error   decimal decimal decimal
+        char    integer error   decimal integer integer
+        boolean integer error   decimal integer boolean
+        
+        Produce: integer, decimal, boolean
+        */
+        String resultadoAux = "";
+        
+        switch(tipoNuevoValorAux){
+            case "integer":
+                int a = 0;
+                //valor 1
+                a += getVal.getIntegerFromValue(valor1);
+                //valor 2
+                a *= getVal.getIntegerFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + a;
+                break;
+            case "decimal":
+                double auxDecimal = 0;
+                //valor 1
+                auxDecimal += getVal.getDecimalFromValue(valor1);
+                //valor 2
+                auxDecimal *= getVal.getDecimalFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + auxDecimal;
+                break;
+            case "boolean":
+                //valor 1
+                boolean auxBoolean1 = getVal.getBooleanFromValue(valor1);
+                //valor 2
+                boolean auxBoolean2 = getVal.getBooleanFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + (auxBoolean1 && auxBoolean2);
+                break;
+            default:
+                //error, nada
+                break;
+        
+        }
+        
+        return resultadoAux;
+    }
+    
+    /**
+     * Realizamos la operacion entre los 2 valores
+     * @param valor1
+     * @param valor2
+     * @return 
+     */
+    public String realizarOperacionDivision(ValorElemento valor1, ValorElemento valor2, String tipoNuevoValorAux){
+        /*
+        TABLA DE OPERACIONES DIVISION
+        /       integer string  decimal char    boolean
+        integer decimal error   decimal decimal integer
+        string  error   error   error   error   error
+        decimal decimal error   decimal decimal decimal
+        char    decimal error   decimal decimal integer
+        boolean decimal error   decimal decimal error
+        
+        Produce: integer, decimal
+        */
+        String resultadoAux = "";
+        
+        switch(tipoNuevoValorAux){
+            case "integer":
+                int a = 0;
+                //valor 1
+                a += getVal.getIntegerFromValue(valor1);
+                //valor 2
+                a /= getVal.getIntegerFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + a;
+                break;
+            case "decimal":
+                double auxDecimal = 0;
+                //valor 1
+                auxDecimal += getVal.getDecimalFromValue(valor1);
+                //valor 2
+                auxDecimal /= getVal.getDecimalFromValue(valor2);
+                //retornamos
+                resultadoAux = "" + auxDecimal;
+                break;
+            default:
+                //error, nada
+                break;
+        
+        }
+        
+        return resultadoAux;
+    }
+        
     /**
      * Retornamos el nuevo tipo, dependiendo del tipo de operacion aritmetica a realizar
      * @param x
@@ -159,7 +343,7 @@ public class OperacionAritmetica {
         
         return indice;
     }
-
+      
     public TokenError getTokenError() {
         return tokenError;
     }

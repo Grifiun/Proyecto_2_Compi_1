@@ -14,16 +14,16 @@ public class ValorElemento {
     private String tipoValor;
     
     public ValorElemento(String valorElemento, String tipoValor) {
-        this.valorElemento = valorElemento;
+        this.valorElemento = valorElemento.replaceAll("“","").replaceAll("”","").replaceAll("\"","").trim();
         this.tipoValor = tipoValor;
     }      
 
     public String getValorElemento() {
-        return valorElemento;
+        return valorElemento.trim();
     }
 
     public void setValorElemento(String valorElemento) {
-        this.valorElemento = valorElemento;
+        this.valorElemento = valorElemento.replaceAll("“","").replaceAll("”","").replaceAll("\"","").trim();
     }
 
     public String getTipoValor() {

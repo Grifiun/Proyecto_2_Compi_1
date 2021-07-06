@@ -14,6 +14,7 @@ import tablas.TablasOperacionesLogicos;
  * @author 50234
  */
 public class OperacionLogica {
+    private GetValues getVal = new GetValues();
     private TokenError tokenError;
     
     /**
@@ -79,14 +80,21 @@ public class OperacionLogica {
     }
     
     public String realizarOperacionLogica(ValorElemento valor1, ValorElemento valor2, String tipoNuevoValorAux, String tipoOperacion){
-        String nuevoValorAux = "valorTemporal";
+        String nuevoValorAux = "";
         boolean auxiliar;
+        //valor 1
+        boolean auxBoolean1 = getVal.getBooleanFromValue(valor1);
+        //valor 2
+        boolean auxBoolean2 = getVal.getBooleanFromValue(valor2);
+        
         switch(tipoOperacion){
             case "AND":
-                    //nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);
+                    //retornamos
+                    nuevoValorAux = "" + (auxBoolean1 && auxBoolean2);
                 break;
             case "OR":
-                    //nuevoValorAux = realizarOperacionSuma(valor1, valor2, tipoNuevoValorAux);//temp
+                    //retornamos
+                    nuevoValorAux = "" + (auxBoolean1 || auxBoolean2);
                 break;
             case "NOT":
                     auxiliar = !(Boolean.parseBoolean(valor1.getValorElemento()));//negamos

@@ -158,7 +158,7 @@ TEXT_VALUE          = (\" | \“ |  \”)   ([\0-\41] | [\43-\134] | [\136-\176]
 
 //////////////////////////////////IDS , ignoramos los 
 ID_VALUE        = ([a-zA-Z] | "_"  ) ([a-zA-Z0-9] | "_" )* //una letra o simbolo seguido de letras, numeros o simbolos _, -, $ sin contener espacios
-ALL_CHARACTERS  = ([\43-\44] | [\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\172] | [\176])+ //ACEPTAMOS cualquer cadena de caracter, sin espacios y que no contenga los simbolos especiales
+ALL_CHARACTERS  = ([\43-\44] | [\52-\53] | [\55-\56] | [\60-\71] | [\77-\132] | [\134] | [\136-\172] | [\176])+ //ACEPTAMOS cualquer cadena de caracter, sin espacios y que no contenga los simbolos especiales             
 //ALL_CHARACTERS  = ([a-zA-Z0-9])+ ([\41-\176])* ([\41-\73] | [\75-\176]) //ACEPTAMOS cualquer cadena de caracter, sin espacios y que nunca termine en < (74 OCTAL)
 %%
 

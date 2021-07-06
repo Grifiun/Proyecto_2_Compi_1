@@ -630,10 +630,13 @@ non terminal String get_element_value_id;
 //CONDICION Retorna true or false
 non terminal condicion;
 //OPERACIONES
+/*
 non terminal ValorElemento operacion_logica;
 non terminal ValorElemento operacion_relacional;
 non terminal ValorElemento operacion_aritmetica;
-non terminal ValorElemento operacion_aritmetica_con_parentesis;
+non terminal ValorElemento operacion_aritmetica_con_parentesis;*/
+non terminal ValorElemento operacion_general;
+
 //FUNCIONES ESPECIALES
 non terminal ValorElemento funciones_con_valor;
 non terminal Token funciones_con_valor_tipo;
@@ -1495,7 +1498,7 @@ intruccion_asignacion ::= nombres_variables:nombres IGUAL:a asignacion:valor //p
 				variablesAux2 = nombresVariables[i] + " = " + variablesAux.trim();
 
 				//Asignacion si es un repeat
-				if(isRepeat == true){
+				if(isRepeat == true && nombreIteradorRepeat.equals("")){//esta inicializado 
 					//esta en un ciclo repeat, agregamos inicio
 					inicioRepeat = valor;
 					nombreIteradorRepeat = nombresVariables[i];
@@ -1522,7 +1525,7 @@ intruccion_asignacion ::= nombres_variables:nombres IGUAL:a asignacion:valor //p
                 }
 
 				//Asignacion si es un repeat
-				if(isRepeat == true){
+				if(isRepeat == true  && nombreIteradorRepeat.equals("")){
 					//esta en un ciclo repeat, agregamos inicio
 					inicioRepeat = valor;
 					nombreIteradorRepeat = nombresVariables[i];
@@ -1533,7 +1536,7 @@ intruccion_asignacion ::= nombres_variables:nombres IGUAL:a asignacion:valor //p
 	;
 asignacion ::= 
 	  //VALORES
-      operacion_logica:valor {: RESULT = valor; :} //operacion aritmetica, entre variables, o valores primitivos
+      operacion_general:valor {: RESULT = valor; :} //operacion aritmetica, entre variables, o valores primitivos
 	;///////////////////PRIMER PARCHE: Las variables aceptan operaciones logicas y relacionales aparte de las aritmeticas
 	
 valores_datos_primarios ::= INTEGER_VALUE:a //tipo: integer, valor: "" + a.getLexema()
@@ -1765,7 +1768,7 @@ condicion_repeat_inicio ::= PAREN_INI intruccion_asignacion PAREN_FIN {: System.
 	;
 condicion_repeat_fin ::= //INTEGER_VALUE
 	//| nombres_variables_unidad
-	/*|*/ operacion_aritmetica_con_parentesis:finRepeatAuxiliar {: finRepeat = finRepeatAuxiliar; :} //el fin, da un numero final
+	/*|*/ operacion_general:finRepeatAuxiliar {: finRepeat = finRepeatAuxiliar; :} //el fin, da un numero final
 	;
 //INSERT
 instruccion_insert ::= INSERT PAREN_INI:a {: filaInsert = a.getLinea(); columnaInsert = a.getColumna(); :} valores_insert_token PAREN_FIN {: System.out.println ("Se INSERT  "); :}
@@ -1782,7 +1785,22 @@ valores_insert_token_unidad ::=
 	  INSERT_TOKEN_VALUE:a       {: RESULT = a.getLexema(); tipoInsert = "texto"; :}//cualquier otra cadena encerrada entre ''
 	| ID_VALUE_CHAR:a	         {: RESULT = a.getLexema(); tipoInsert = "texto"; :}//id encerrado entre ''
 	| CHARACT_VALUE:a	         {: RESULT = a.getLexema(); tipoInsert = "texto"; :}//caracter
-	| nombres_variables_unidad:a {: RESULT = a; tipoInsert = "variable"; :}//variables aceptadas
+	| nombres_variables_unidad:a 
+		{: 
+			String respuestaAux = "";
+			if(nombreIteradorRepeat.equals(a) == false){//no es la variable del repeat
+				try{
+				ValorElemento valorElementoAux = tablaSimbolos.buscarValorElementoPorId(a, procedimiento, scripting);
+				
+				respuestaAux = valorElementoAux.getValorElemento();
+				}catch(Exception ex){
+
+				}
+			}
+			 
+			RESULT = respuestaAux; tipoInsert = "variable"; 
+		
+		:}//variables aceptadas
 	//| error // error tipo dato
 	;
 
@@ -1806,12 +1824,13 @@ get_element_value_id ::= ID_VALUE_CHAR:a {: RESULT = a.getLexema(); :}
 
 //CONDICION Retorna true or false
 condicion ::=// operacion_logica
-	/*|*/ PAREN_INI operacion_logica PAREN_FIN
-	| error operacion_logica PAREN_FIN
-	| PAREN_INI operacion_logica error
+	/*|*/ PAREN_INI operacion_general PAREN_FIN
+	| error operacion_general PAREN_FIN
+	| PAREN_INI operacion_general error
 	//| error; //se verifica en nombre variable unidad
 	;
 //OPERACIONES
+/*
 operacion_logica ::= 
 	  operacion_logica:valor1 SIMBOL_AND:a {: variablesAux += " && "; :} operacion_logica:valor2 
 	  	{: 
@@ -1845,9 +1864,9 @@ operacion_logica ::=
 			RESULT = valor1;
 		:}	
 	PAREN_FIN {: variablesAux += ") "; :}
-    ;
+    ;*/
 //El valor que envian las operaciones racionales deben ser verdadero/falso
-operacion_relacional::= 
+/*operacion_relacional::= 
 	  operacion_relacional:valor1 MAYOR:a  {: variablesAux += " > "; :}     operacion_relacional:valor2 
 	  	{: 
 			System.out.println ("Se ejecuto >  "); 
@@ -1892,12 +1911,12 @@ operacion_relacional::=
 			
 			RESULT = valorElementoAux;
 		:} 
-	| operacion_aritmetica:valor1                                  
+	| operacion_aritmetica_con_parentesis:valor1                                  
 		{: 
 			System.out.println ("Valor/variable"); 
 			RESULT = valor1;
 		:} 
-  //| error                                                 {: System.out.println ("Error op. rel."); :}
+  
     ;
 operacion_aritmetica ::= operacion_aritmetica:valor1 SIGNO_MAS:a {: variablesAux += " + "; :} operacion_aritmetica:valor2 
 	{: 
@@ -1938,30 +1957,100 @@ operacion_aritmetica ::= operacion_aritmetica:valor1 SIGNO_MAS:a {: variablesAux
 		//temporal
 		RESULT = valorElementoAux;
 	:}	
-    ;  
+    ;  */
 
-operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:valor1 SIGNO_MAS:a {: variablesAux += " + "; :} operacion_aritmetica_con_parentesis:valor2
+operacion_general ::= 
+	/////////////OPERACIONES LOGICAS
+	    operacion_general:valor1 SIMBOL_AND:a {: variablesAux += " && "; :} operacion_general:valor2 
+	  	{: 
+		  	System.out.println ("Se ejecuto AND"); 
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1, valor2, "AND");	
+			analizarResultadoOperacionLogico(a);				
+			RESULT = valorElementoAux;
+		:}
+    | operacion_general:valor1 SIMBOL_OR:a {: variablesAux += " || "; :} operacion_general:valor2 
+		{: 
+			System.out.println ("Se ejecuto OR"); 
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1, valor2, "OR");	
+			analizarResultadoOperacionLogico(a);
+			RESULT = valorElementoAux;
+		:}
+    | SIMBOL_NOT:a {: variablesAux += " ! "; :} operacion_general:valor1 
+		{: 
+			System.out.println ("Se ejecuto NOT");	
+			ValorElemento valorElementoAux = operacionLogica.realizarOperacionLogica(valor1);//mandamos un solo param	
+			analizarResultadoOperacionLogico(a);				
+			RESULT = valorElementoAux;
+		:}
+    /////////////OPERACIONES RELACIONALES
+    | operacion_general:valor1 MAYOR:a  {: variablesAux += " > "; :}     operacion_general:valor2 
+	  	{: 
+			System.out.println ("Se ejecuto >  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MAYOR");	
+			analizarResultadoOperacionRelacional(a);				
+			RESULT = valorElementoAux;
+		:}
+    | operacion_general:valor1 MENOR:a  {: variablesAux += " < "; :}     operacion_general:valor2
+		{: 
+			System.out.println ("Se ejecuto <  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MENOR");	
+			analizarResultadoOperacionRelacional(a);				
+			RESULT = valorElementoAux;
+		:}
+    | operacion_general:valor1 MAYOR_IGUAL:a {: variablesAux += " >= "; :} operacion_general:valor2 
+		{: 
+			System.out.println ("Se ejecuto >= "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MAYOR_IGUAL");	
+			analizarResultadoOperacionRelacional(a);			
+			RESULT = valorElementoAux;
+		:}
+    | operacion_general:valor1 MENOR_IGUAL:a {: variablesAux += " <= "; :} operacion_general:valor2 
+		{: 
+			System.out.println ("Se ejecuto <= "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "MENOR_IGUAL");	
+			analizarResultadoOperacionRelacional(a);
+			
+			RESULT = valorElementoAux;
+		:}
+    | operacion_general:valor1 NO_IGUAL:a  {: variablesAux += " != "; :}  operacion_general:valor2 
+		{: 
+			System.out.println ("Se ejecuto != "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "NO_IGUAL");	
+			analizarResultadoOperacionRelacional(a);				
+			RESULT = valorElementoAux;
+		:} 
+    | operacion_general:valor1 IGUAL_IGUAL:a {: variablesAux += " == "; :} operacion_general:valor2 
+		{: 
+			System.out.println ("Se ejecuto =  "); 
+			ValorElemento valorElementoAux = operacionRelacional.realizarOperacionRelacional(valor1, valor2, "IGUAL_IGUAL");	
+			analizarResultadoOperacionRelacional(a);
+			
+			RESULT = valorElementoAux;
+		:} 
+	
+	/////////////OPERACIONES ARITMETICAS
+	| operacion_general:valor1 SIGNO_MAS:a {: variablesAux += " + "; :} operacion_general:valor2
 	{: 
 		System.out.println(" + "); 	
 		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "suma");	
 		analizarResultadoOperacionAritmetica(a);	
 		RESULT = valorElementoAux;
 	:}	
-    | operacion_aritmetica_con_parentesis:valor1 SIGNO_MIN:a {: variablesAux += " - "; :} operacion_aritmetica_con_parentesis:valor2
+    | operacion_general:valor1 SIGNO_MIN:a {: variablesAux += " - "; :} operacion_general:valor2
     {: 
 		System.out.println(" - "); 	
 		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "resta");	
 		analizarResultadoOperacionAritmetica(a);		
 		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica_con_parentesis:valor1 SIGNO_POR:a {: variablesAux += " * "; :} operacion_aritmetica_con_parentesis:valor2
+    | operacion_general:valor1 SIGNO_POR:a {: variablesAux += " * "; :} operacion_general:valor2
     {: 
 		System.out.println(" * "); 	
 		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "multiplicacion");	
 		analizarResultadoOperacionAritmetica(a);
 		RESULT = valorElementoAux;
 	:}
-    | operacion_aritmetica_con_parentesis:valor1 SIGNO_DIV:a {: variablesAux += " / "; :} operacion_aritmetica_con_parentesis:valor2
+    | operacion_general:valor1 SIGNO_DIV:a {: variablesAux += " / "; :} operacion_general:valor2
     {: 
 		System.out.println(" / "); 	
 		ValorElemento valorElementoAux = operacionAritmetica.realizarOperacionAritmetica(valor1, valor2, "division");	
@@ -1973,12 +2062,12 @@ operacion_aritmetica_con_parentesis ::= operacion_aritmetica_con_parentesis:valo
 		System.out.println ("Valor/variable");	
 		RESULT = valorElementoAux;
 	:}
-    | SIGNO_MIN {: variablesAux += " - "; :} operacion_aritmetica_con_parentesis:valorElementoAux
+	| SIGNO_MIN {: variablesAux += " - "; :} operacion_general:valorElementoAux
     {: 
 		System.out.println(" Entero negativo "); 
 		RESULT = valorElementoAux;
 	:}	
-	| PAREN_INI {: variablesAux += "("; :} operacion_aritmetica_con_parentesis:valorElementoAux
+	| PAREN_INI {: variablesAux += "("; :} operacion_general:valorElementoAux
     {: 
 		System.out.println(" ( )"); 	
 		RESULT = valorElementoAux;
@@ -1997,20 +2086,25 @@ funciones_con_valor ::= funciones_con_valor_tipo:funcion funciones_con_valor_par
 				tablaSimbolos.addErrorSemantico(tokenErrorAux);
 			}
 
-			RESULT = valor;
+			FuncionesEspeciales funcionesEspeciales = new FuncionesEspeciales();			
+			RESULT = funcionesEspeciales.ejecutarFuncionEspecial(funcion.getLexema() , valor);
 			
 		:}
 	| FUNCTION_CARACTER_ALEATORIO PAREN_INI PAREN_FIN 
 		{: 
-			System.out.println ("Se ejecuto CHAR ALEATORIO "); 
-			ValorElemento valorElementoAux = new ValorElemento("0", "char");
-			RESULT = valorElementoAux;
+			System.out.println ("Se ejecuto CHAR ALEATORIO "); 				
+			variablesAux += " CARACTER_ALEATORIO()";
+
+			FuncionesEspeciales funcionesEspeciales = new FuncionesEspeciales();
+			RESULT = funcionesEspeciales.ejecutarFuncionEspecial("CARACTER_ALEATORIO" , null);
 		:}
 	| FUNCTION_NUM_ALEATORIO PAREN_INI PAREN_FIN 
 		{: 
 			System.out.println ("Se ejecuto NUM ALEATORIO ");
-			ValorElemento valorElementoAux = new ValorElemento("'x'", "integer");
-			RESULT = valorElementoAux;
+			variablesAux += " NUM_ALEATORIO()";
+			
+			FuncionesEspeciales funcionesEspeciales = new FuncionesEspeciales();
+			RESULT = funcionesEspeciales.ejecutarFuncionEspecial("NUM_ALEATORIO" , null);
 		:}
 	//| error
 	;
@@ -2021,7 +2115,7 @@ funciones_con_valor_tipo ::= FUNCTION_ASC:a {: RESULT = a; System.out.println ("
 	| FUNCTION_REVERSE:a	 {: RESULT = a; System.out.println ("Se ejecuto FUN REVERSE "); variablesAux += " REVERSE"; :}
 	//| error
 	;
-funciones_con_valor_parametros ::= PAREN_INI {: variablesAux += "("; :} operacion_aritmetica_con_parentesis:valor PAREN_FIN {: RESULT = valor; variablesAux += ")"; :}
+funciones_con_valor_parametros ::= PAREN_INI {: variablesAux += "("; :} operacion_general:valor PAREN_FIN {: RESULT = valor; variablesAux += ")"; :}
 	| error
 	;
 

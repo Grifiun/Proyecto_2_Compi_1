@@ -9,8 +9,12 @@
 <html>
     <head>
         <%
+            String contador = "1";
             String entrada = "";
             String salida = "";
+            if(session.getAttribute("contador") != null){
+                contador = session.getAttribute("contador").toString();
+            }
             if(session.getAttribute("entrada") != null){
                 entrada = session.getAttribute("entrada").toString();
             }

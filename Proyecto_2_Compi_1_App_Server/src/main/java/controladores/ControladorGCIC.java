@@ -53,6 +53,13 @@ public class ControladorGCIC extends HttpServlet {
                 //Entrada sin marcas diacriticas
                 String normalized_string = Normalizer.normalize(palabraOriginal, Normalizer.Form.NFD).replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
 
+                //REMOVEMOS REDIRECT(); y ¿
+                normalized_string = normalized_string.replaceAll("¿", "");
+                normalized_string = normalized_string.replaceAll("REDIRECT", "EXIT");
+                
+                System.out.println("ANALIZAR: \n");
+                System.out.println(normalized_string);
+                
                 StringReader sr = new StringReader(normalized_string);
                 LexerGCIC lexer = new LexerGCIC(sr);
                 parser pars = new parser(lexer);
@@ -134,6 +141,9 @@ public class ControladorGCIC extends HttpServlet {
                 System.out.println(" Parser Ejecutado");
                 request.getSession().setAttribute("entrada", normalized_string);
                 request.getSession().setAttribute("salida", salida);
+                
+                String contador = request.getParameter("contador");
+                request.getSession().setAttribute("contador", contador);
                                
             }catch(Exception ex){
                 System.out.println("Error al ejecutar el parser: "+ex.getLocalizedMessage());
