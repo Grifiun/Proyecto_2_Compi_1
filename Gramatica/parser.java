@@ -15183,7 +15183,7 @@ class CUP$parser$actions {
           case 407: // NT$19 ::= 
             {
               Object RESULT =null;
- contenidoScript += tab + "if (" + variablesAux + " ) " + "\n"; 
+ contenidoScript += tab + "if (" + variablesAux + " ) " + "\n"; variablesAux = ""; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$19",171, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;
@@ -15230,7 +15230,7 @@ class CUP$parser$actions {
           case 412: // NT$20 ::= 
             {
               Object RESULT =null;
- contenidoScript += tab + "else if (" + variablesAux + ") \n"; 
+ contenidoScript += tab + "else if (" + variablesAux + ") \n"; variablesAux = ""; 
               CUP$parser$result = parser.getSymbolFactory().newSymbol("NT$20",172, ((java_cup.runtime.Symbol)CUP$parser$stack.peek()), RESULT);
             }
           return CUP$parser$result;

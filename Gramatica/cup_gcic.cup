@@ -1719,14 +1719,14 @@ bloque_if ::= comparacion_if bloque_if_elses comparacion_else//bloque sin else
 bloque_if_elses ::= bloque_if_elses comparacion_else_if //bloques de else if
 	| /* empty */
 	;
-comparacion_if ::= IF condicion {: contenidoScript += tab + "if (" + variablesAux + " ) " + "\n"; :} THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
+comparacion_if ::= IF condicion {: contenidoScript += tab + "if (" + variablesAux + " ) " + "\n"; variablesAux = ""; :} THEN bloque_instrucciones_sentencias  //IF (condicion) .... 
 		{: System.out.println ("-------------------Se ejecuto IF  "); :}
 	//| error
 	| IF condicion error bloque_instrucciones_sentencias
 	| IF error     THEN bloque_instrucciones_sentencias
 	| IF error 	bloque_instrucciones_sentencias
 	;
-comparacion_else_if ::= ELSE_IF condicion {: contenidoScript += tab + "else if (" + variablesAux + ") \n"; :} THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
+comparacion_else_if ::= ELSE_IF condicion {: contenidoScript += tab + "else if (" + variablesAux + ") \n"; variablesAux = ""; :} THEN bloque_instrucciones_sentencias //comparacion_if  //ELSE IF ......
 		{: System.out.println ("-------------------Se ejecuto ELSE IF  "); :}
 	//| error
 	| ELSE_IF condicion error bloque_instrucciones_sentencias
