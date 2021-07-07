@@ -71,7 +71,11 @@ public class ControladorGCIC extends HttpServlet {
                     ArrayList<TokenError> listadoErroresSemanticos = pars.getListadoErroresSemanticos();
                     
                     RevisarRepitenciaID rrid = new RevisarRepitenciaID();
-                    String idAux = pars.getEtiquetaGCIC().getParametroEtiqueta("id").replaceAll("\"", "").trim();
+                    String idAux = "abc";
+                    try{
+                        idAux = pars.getEtiquetaGCIC().getParametroEtiqueta("id").replaceAll("\"", "").trim();
+                    }catch(Exception ex){}
+                    
                     if(rrid.revisarExistenciaCaptchaConId(idAux) != null){//tiene error
                         listadoErroresSemanticos.add(rrid.revisarExistenciaCaptchaConId(idAux));
                     }
@@ -117,7 +121,10 @@ public class ControladorGCIC extends HttpServlet {
                     
                     
                     System.out.println("//////////////////////CODIGO HTML: ");
-                    System.out.println(pars.getEtiquetaGCIC().generarCodigoHTML(0));//nivel 0
+                    try{
+                        System.out.println(pars.getEtiquetaGCIC().generarCodigoHTML(0));//nivel 0
+                    }catch(Exception ex){}
+                    
                     
                     //Guardamos si no hay errires}
                     if(errores.equals("")){

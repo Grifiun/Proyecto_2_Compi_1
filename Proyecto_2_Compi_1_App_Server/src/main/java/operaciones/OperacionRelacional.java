@@ -52,10 +52,12 @@ public class OperacionRelacional {
         //valor 1
         if(valor1.getTipoValor().equals("string") == false){
             auxDecimal = getVal.getDecimalFromValue(valor1);
+            System.out.println("VALOR 1: " + auxDecimal);
         }
         //valor 2
         if(valor2.getTipoValor().equals("string") == false){
             auxDecima2 = getVal.getDecimalFromValue(valor2);
+            System.out.println("VALOR 2: " + auxDecima2);
         }
         
         //retornamos        
@@ -95,6 +97,9 @@ public class OperacionRelacional {
                 }                
                 break;
         }
+        
+        System.out.println("OPERACION: " + tipoOperacion);
+        System.out.println("RESPUSTA: " + nuevoValorAux);
         
         return nuevoValorAux;
     }    
