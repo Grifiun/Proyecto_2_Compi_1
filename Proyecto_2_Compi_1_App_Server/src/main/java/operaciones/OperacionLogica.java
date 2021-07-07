@@ -85,7 +85,14 @@ public class OperacionLogica {
         //valor 1
         boolean auxBoolean1 = getVal.getBooleanFromValue(valor1);
         //valor 2
-        boolean auxBoolean2 = getVal.getBooleanFromValue(valor2);
+        boolean auxBoolean2 = false;
+        
+        try{
+            auxBoolean2 = getVal.getBooleanFromValue(valor2);
+        }catch(Exception ex){}
+        
+        System.out.println("VALOR 1: " + auxBoolean1);
+        System.out.println("VALOR 2: " + auxBoolean2);
         
         switch(tipoOperacion){
             case "AND":
@@ -101,6 +108,9 @@ public class OperacionLogica {
                     nuevoValorAux = "" + auxiliar;
                 break;
         }
+        
+        System.out.println("OPERACION: " + tipoOperacion);
+        System.out.println("RESULTADO: " + auxBoolean1);
         
         return nuevoValorAux;
     }

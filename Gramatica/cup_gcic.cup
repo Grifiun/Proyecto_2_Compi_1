@@ -646,6 +646,17 @@ non terminal funciones_instruccion;
 ////////////////////////////////////////////////////////////////PRECEDENCIA
 precedence left ELSE;
 precedence left ELSE_IF;
+/* 1 */ precedence left SIMBOL_OR;
+/* 2 */ precedence left SIMBOL_AND;
+/* 3 */ precedence nonassoc IGUAL_IGUAL, NO_IGUAL;
+/* 4 */ precedence nonassoc MAYOR_IGUAL, MENOR_IGUAL, MENOR, MAYOR;
+/* 5 */ precedence left SIGNO_MAS, SIGNO_MIN;
+/* 6 */ precedence left SIGNO_POR, SIGNO_DIV;
+/* 7 */ precedence right SIMBOL_NOT;
+
+/*
+precedence left ELSE;
+precedence left ELSE_IF;
 //precedencia aritmetica
 precedence left SIGNO_MAS, SIGNO_MIN;
 precedence left SIGNO_POR, SIGNO_DIV;
@@ -656,6 +667,7 @@ precedence nonassoc IGUAL_IGUAL, NO_IGUAL;
 precedence right SIMBOL_NOT;
 precedence left SIMBOL_AND;
 precedence left SIMBOL_OR;
+*/
 
 ////////////////////////////////////////////////////////////////PRODUCCIONES
 start with s;

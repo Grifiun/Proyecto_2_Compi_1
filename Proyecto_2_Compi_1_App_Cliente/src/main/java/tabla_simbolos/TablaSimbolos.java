@@ -154,14 +154,18 @@ public class TablaSimbolos {
      * @return 
      */
     public Elemento buscarElementoId(String identificador, String procedimiento, int scripting){
-        for(Elemento elementAux: elementosTS){//recorremos el listado
-            if(elementAux.getIdentificador().equalsIgnoreCase(identificador)){//mismo id
-                if(elementAux.getModo().equalsIgnoreCase("@global")//declaradaa en el ambito global
-                    || ((elementAux.getProcedimiento().equalsIgnoreCase(procedimiento)) && elementAux.getScripting() == scripting)){//mismo procedimiento y scripting
-                        return elementAux;
+        try{
+            for(Elemento elementAux: elementosTS){//recorremos el listado
+                if(elementAux.getIdentificador().equalsIgnoreCase(identificador)){//mismo id
+                    try{
+                        if(elementAux.getModo().equalsIgnoreCase("@global")//declaradaa en el ambito global
+                            || ((elementAux.getProcedimiento().equalsIgnoreCase(procedimiento)) && elementAux.getScripting() == scripting)){//mismo procedimiento y scripting
+                                return elementAux;
+                        }
+                    }catch(Exception ex){}
                 }
             }
-        }
+        }catch(Exception ex){}
         
         //return null si no encuentra nada
         return null;            
